@@ -134,5 +134,4 @@ public class Login extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 }
-//asd
-//aaaaaaaaaaaaa
+
