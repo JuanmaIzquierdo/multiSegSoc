@@ -71,11 +71,6 @@ public class Login extends JFrame {
 		lblLoginSeguridadSocial.setForeground(utilities.getWhite());
 		panel.add(lblLoginSeguridadSocial);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(277, 5, 97, 25);
-		
-		panel.add(btnNewButton);
-		
 		
 		
 		JPanel panel_1 = new JPanel();
