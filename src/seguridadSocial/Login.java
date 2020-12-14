@@ -11,11 +11,14 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Window.Type;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Frame;
 import javax.swing.JPasswordField;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class Login extends JFrame {	
 	private Utilities utilities= new Utilities();
@@ -50,7 +53,7 @@ public class Login extends JFrame {
 		setFont(new Font("Arial", Font.PLAIN, 14));
 		setTitle("Seguridad Social");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 386, 418);
+		setBounds(100, 100, 389, 439);
 		contentPane = new JPanel();
 		contentPane.setBackground(utilities.getGrey());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,14 +62,15 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 358, 47);
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(15, 31, 358, 60);
 		panel.setBackground(utilities.getGreen());
 		panel.setForeground(utilities.getWhite());
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblLoginSeguridadSocial = new JLabel("Acceso");
-		lblLoginSeguridadSocial.setBounds(133, 5, 91, 37);
+		lblLoginSeguridadSocial.setBounds(133, 11, 91, 37);
 		lblLoginSeguridadSocial.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblLoginSeguridadSocial.setForeground(utilities.getWhite());
 		panel.add(lblLoginSeguridadSocial);
@@ -74,7 +78,8 @@ public class Login extends JFrame {
 		
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 52, 358, 314);
+		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_1.setBounds(15, 104, 358, 310);
 		panel_1.setBackground(utilities.getGrey());
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -86,7 +91,7 @@ public class Login extends JFrame {
 		panel_1.add(lblIntroduceCorreo);
 		
 		textField = new JTextField();
-		textField.setBounds(59, 72, 241, 34);
+		textField.setBounds(58, 72, 241, 34);
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
@@ -110,6 +115,13 @@ public class Login extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(66, 174, 234, 27);
 		panel_1.add(passwordField);
+		
+		JButton btnNewButton = new JButton("New button");
+		ImageIcon icono =new ImageIcon("pngwing.ico2");
+		btnNewButton.setIcon(icono);
+		btnNewButton.setBackground(new Color(240, 240, 240));
+		btnNewButton.setBounds(355, 0, 34, 25);
+		contentPane.add(btnNewButton);
 	}
 }
 
