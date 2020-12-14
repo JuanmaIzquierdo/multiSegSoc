@@ -1,4 +1,4 @@
-package seguridadSocial;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JDesktopPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SingUp extends JFrame {
 
@@ -46,6 +49,11 @@ public class SingUp extends JFrame {
 		contentPane.add(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Archivos");
+		mnNewMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		menuBar.add(mnNewMenu);
 		
 		JMenu mnEmail = new JMenu("E-mail");
@@ -59,5 +67,12 @@ public class SingUp extends JFrame {
 		
 		JMenu menu = new JMenu("");
 		mnAcercaDe.add(menu);
+		
+		JMenu menu_1 = new JMenu("");
+		menuBar.add(menu_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 23, 677, 311);
+		contentPane.add(panel);
 	}
 }

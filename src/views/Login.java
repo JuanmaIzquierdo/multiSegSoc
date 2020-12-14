@@ -1,4 +1,4 @@
-package seguridadSocial;
+package views;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -110,6 +110,11 @@ public class Login extends JFrame {
 		panel_1.add(lblNuevoUsuario);
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnEntrar.setForeground(utilities.getWhite());
 		btnEntrar.setBackground(utilities.getGreen());
 		btnEntrar.setBounds(112, 228, 134, 43);
