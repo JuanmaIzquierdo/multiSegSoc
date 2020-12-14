@@ -56,5 +56,8 @@ public class SingUp extends JFrame {
 		
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		menuBar.add(mnAcercaDe);
+		
+		JMenu menu = new JMenu("");
+		mnAcercaDe.add(menu);
 	}
 }
