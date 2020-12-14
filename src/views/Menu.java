@@ -13,7 +13,7 @@ import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SingUp extends JFrame {
+public class Menu extends JFrame {
 
 	private JPanel contentPane;
 
@@ -24,7 +24,7 @@ public class SingUp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SingUp frame = new SingUp();
+					Menu frame = new Menu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class SingUp extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SingUp() {
+	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 695, 381);
 		contentPane = new JPanel();
