@@ -19,8 +19,11 @@ import java.awt.Frame;
 import javax.swing.JPasswordField;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {	
+	static Login frame;
 	private Utilities utilities= new Utilities();
 	private JPanel contentPane;
 	private JTextField textField;
@@ -33,7 +36,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -116,11 +119,18 @@ public class Login extends JFrame {
 		passwordField.setBounds(66, 174, 234, 27);
 		panel_1.add(passwordField);
 		
-		JButton btnNewButton = new JButton("New button");
-		ImageIcon icono =new ImageIcon("pngwing.ico2");
-		btnNewButton.setIcon(icono);
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setOpaque(false);
+		ImageIcon icono =new ImageIcon("src/Descargas/pngwing.ico");
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\jmizq\\Downloads\\pngwing.com(1).png"));
 		btnNewButton.setBackground(new Color(240, 240, 240));
-		btnNewButton.setBounds(355, 0, 34, 25);
+		btnNewButton.setBounds(340, 0, 37, 33);
 		contentPane.add(btnNewButton);
 	}
 }
