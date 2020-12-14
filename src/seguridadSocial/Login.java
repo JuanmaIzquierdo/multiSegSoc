@@ -134,8 +134,4 @@ public class Login extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 }
-//qwdvnjsfv
- //hola
-//Aaaaaaaaaaaaa
-//eeeeeeee
-//comentario
+//asd
