@@ -30,6 +30,7 @@ public class Menu extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	//constructor que pida por parametro un menuController*****************+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,6 +48,7 @@ public class Menu extends JFrame {
 	 * Create the frame.
 	 */
 	public Menu() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 450);
 		contentPane = new JPanel();
