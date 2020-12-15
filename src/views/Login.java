@@ -72,9 +72,9 @@ public class Login extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblLoginSeguridadSocial = new JLabel("Acceso");
-		lblLoginSeguridadSocial.setBounds(133, 11, 91, 37);
-		lblLoginSeguridadSocial.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		JLabel lblLoginSeguridadSocial = new JLabel("Acceso de usuarios");
+		lblLoginSeguridadSocial.setBounds(66, 11, 226, 37);
+		lblLoginSeguridadSocial.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		lblLoginSeguridadSocial.setForeground(utilities.getWhite());
 		panel.add(lblLoginSeguridadSocial);
 		
@@ -87,10 +87,10 @@ public class Login extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblIntroduceCorreo = new JLabel("Introduce Correo");
+		JLabel lblIntroduceCorreo = new JLabel("Correo");
 		lblIntroduceCorreo.setForeground(utilities.getWhite());
 		lblIntroduceCorreo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblIntroduceCorreo.setBounds(101, 26, 156, 34);
+		lblIntroduceCorreo.setBounds(144, 26, 70, 34);
 		panel_1.add(lblIntroduceCorreo);
 		
 		textField = new JTextField();
@@ -98,13 +98,14 @@ public class Login extends JFrame {
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblIntroduceContrasea = new JLabel("Introduce Contrase\u00F1a");
+		JLabel lblIntroduceContrasea = new JLabel("Contrase\u00F1a");
 		lblIntroduceContrasea.setForeground(utilities.getWhite());
 		lblIntroduceContrasea.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblIntroduceContrasea.setBounds(81, 118, 197, 43);
+		lblIntroduceContrasea.setBounds(125, 118, 107, 43);
 		panel_1.add(lblIntroduceContrasea);
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.login(textField.getText(), passwordField.getPassword());
@@ -116,7 +117,7 @@ public class Login extends JFrame {
 		panel_1.add(btnEntrar);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(66, 174, 234, 27);
+		passwordField.setBounds(58, 167, 242, 34);
 		panel_1.add(passwordField);
 		
 		JButton btnNewButton = new JButton("");
@@ -128,9 +129,15 @@ public class Login extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setOpaque(false);
 		ImageIcon icono =new ImageIcon("src/Descargas/pngwing.ico");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\jmizq\\Downloads\\pngwing.com(1).png"));
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\jmizq\\Downloads\\pngwing.com(1)(1).png"));
 		btnNewButton.setBackground(new Color(240, 240, 240));
-		btnNewButton.setBounds(340, 0, 37, 33);
+		btnNewButton.setBounds(365, 0, 24, 23);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblSeguridadSocial = new JLabel("Seguridad Social");
+		lblSeguridadSocial.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		lblSeguridadSocial.setForeground(Color.WHITE);
+		lblSeguridadSocial.setBounds(66, 0, 131, 33);
+		contentPane.add(lblSeguridadSocial);
 	}
 }
