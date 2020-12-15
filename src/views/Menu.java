@@ -1,23 +1,16 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JFileChooser;
-
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class Menu extends JFrame {
 
@@ -63,33 +56,38 @@ public class Menu extends JFrame {
 		
 		JMenu mnNuevoFichero = new JMenu("Nuevo Archivos");
 		mnNuevoFichero.addActionListener(new ActionListener() {
-			//JFileChooser fc = new JFileChooser();
+			public void actionPerformed(ActionEvent arg0) {
+			
+			JFileChooser fc = new JFileChooser();
 
 			// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
-			//int seleccion = fc.showOpenDialog(contentPane);
-
+			int seleccion = fc.showOpenDialog(contentPane);
+			
 			// Si el usuario, pincha en aceptar
 			if (seleccion == JFileChooser.APPROVE_OPTION) {
-
 				// Seleccionamos el fichero
-				File fichero = fc.getSelectedFile();
-
+				File fichero = fc.getSelectedFile();}
+			}
+			});
 				// Ecribe la ruta del fichero seleccionado en el campo de texto
-				 ruta=fichero.getAbsolutePath();
-				 ruta=ruta.replace("\\","\\\\");
-				textField.setText(ruta);
+//				 ruta=fichero.getAbsolutePath();
+//				 ruta=ruta.replace("\\","\\\\");
+//				textField.setText(ruta);
 
-				try (FileReader fr = new FileReader(fichero)) {
-					String cadena = "";
-					int valor = fr.read();
-					while (valor != -1) {
-						cadena = cadena + (char) valor;
-						valor = fr.read();
-					}
-					textArea.setText(cadena);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+//				try (FileReader fr = new FileReader(fichero)) {
+//					String cadena = "";
+//					int valor = fr.read();
+//					while (valor != -1) {
+//						cadena = cadena + (char) valor;
+//						valor = fr.read();
+//					}
+//					textArea.setText(cadena);
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		}
+//		}
 			
 		
 		
