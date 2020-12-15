@@ -22,7 +22,7 @@ public class UserCreate extends Conexion {
 			ps.setInt(1, user.getId());
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getSurname());
-			ps.setString(4, user.getRole());
+			ps.setString(4, "Funcionario");
 			ps.setString(5, user.getEmail());
 			ps.setString(6, user.getPassword());
 			ps.execute();
