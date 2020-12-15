@@ -1,33 +1,33 @@
-package seguridadSocial;
+package views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Frame;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import controller.loginController;
 
 public class Login extends JFrame {	
 	static Login frame;
 	private Utilities utilities= new Utilities();
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtCorreo;
 	private JPasswordField passwordField;
+	static loginController controller;
 
 	/**
 	 * Launch the application.
@@ -36,6 +36,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					controller = new loginController("localhost", 5000);
 					frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -93,10 +94,10 @@ public class Login extends JFrame {
 		lblIntroduceCorreo.setBounds(101, 26, 156, 34);
 		panel_1.add(lblIntroduceCorreo);
 		
-		textField = new JTextField();
-		textField.setBounds(58, 72, 241, 34);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtCorreo = new JTextField();
+		txtCorreo.setBounds(58, 72, 241, 34);
+		panel_1.add(txtCorreo);
+		txtCorreo.setColumns(10);
 		
 		JLabel lblIntroduceContrasea = new JLabel("Introduce Contrase\u00F1a");
 		lblIntroduceContrasea.setForeground(utilities.getWhite());
@@ -104,12 +105,12 @@ public class Login extends JFrame {
 		lblIntroduceContrasea.setBounds(81, 118, 197, 43);
 		panel_1.add(lblIntroduceContrasea);
 		
-		JLabel lblNuevoUsuario = new JLabel("Registrarse");
-		lblNuevoUsuario.setForeground(utilities.getBlue());
-		lblNuevoUsuario.setBounds(144, 284, 70, 16);
-		panel_1.add(lblNuevoUsuario);
-		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.login(txtCorreo.getText(), passwordField.getPassword());
+			}
+		});
 		btnEntrar.setForeground(utilities.getWhite());
 		btnEntrar.setBackground(utilities.getGreen());
 		btnEntrar.setBounds(112, 228, 134, 43);
@@ -132,5 +133,16 @@ public class Login extends JFrame {
 		btnNewButton.setBackground(new Color(240, 240, 240));
 		btnNewButton.setBounds(340, 0, 37, 33);
 		contentPane.add(btnNewButton);
+	}
+	
+	public static void mostrarMensaje(String txt, boolean error) {
+		if(error) {
+			JOptionPane optionPane = new JOptionPane(txt, JOptionPane.ERROR_MESSAGE);    
+			JDialog dialog = optionPane.createDialog("Error");
+			dialog.setAlwaysOnTop(true);
+			dialog.setVisible(true);
+		}else {
+			JOptionPane.showMessageDialog(null,txt);
+		}
 	}
 }

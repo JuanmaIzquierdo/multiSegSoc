@@ -1,4 +1,4 @@
-package seguridadSocial;
+package views;
 
 import java.awt.Color;
 
