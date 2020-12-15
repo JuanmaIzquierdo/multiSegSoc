@@ -42,6 +42,7 @@ public class FtpController {
                 // Obtener respuesta del servidor y acceder.
                 int respuesta = client.getReplyCode();
                 if (FTPReply.isPositiveCompletion(respuesta) == true) {
+                	System.out.println("Sesion ftp iniciada");
                     return true;
                 }else{
                     return false;

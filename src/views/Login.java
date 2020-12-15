@@ -1,26 +1,23 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import controller.loginController;
 
 public class Login extends JFrame {	
 	static Login frame;
@@ -28,6 +25,8 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	static loginController controller;
+
 
 	/**
 	 * Launch the application.
@@ -36,6 +35,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					controller = new loginController("localhost", 5000);
 					frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -107,7 +107,7 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				controller.login(textField.getText(), passwordField.getPassword());
 			}
 		});
 		btnEntrar.setForeground(utilities.getWhite());

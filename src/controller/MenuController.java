@@ -28,6 +28,8 @@ public class MenuController {
 		}
 		getUserData();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
+		connectFTP();
+		loginFTP();
 	}
 	
 	public void getUserData() {
