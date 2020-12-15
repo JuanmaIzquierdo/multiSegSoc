@@ -26,8 +26,8 @@ public class Login extends JFrame {
 	static Login frame;
 	private Utilities utilities= new Utilities();
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField txtCorreo;
+	private JPasswordField txtContraseña;
 
 	/**
 	 * Launch the application.
@@ -93,10 +93,10 @@ public class Login extends JFrame {
 		lblIntroduceCorreo.setBounds(101, 26, 156, 34);
 		panel_1.add(lblIntroduceCorreo);
 		
-		textField = new JTextField();
-		textField.setBounds(58, 72, 241, 34);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtCorreo = new JTextField();
+		txtCorreo.setBounds(58, 72, 241, 34);
+		panel_1.add(txtCorreo);
+		txtCorreo.setColumns(10);
 		
 		JLabel lblIntroduceContrasea = new JLabel("Introduce Contrase\u00F1a");
 		lblIntroduceContrasea.setForeground(utilities.getWhite());
@@ -115,9 +115,9 @@ public class Login extends JFrame {
 		btnEntrar.setBounds(112, 228, 134, 43);
 		panel_1.add(btnEntrar);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(66, 174, 234, 27);
-		panel_1.add(passwordField);
+		txtContraseña = new JPasswordField();
+		txtContraseña.setBounds(66, 174, 234, 27);
+		panel_1.add(txtContraseña);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {

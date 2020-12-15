@@ -55,6 +55,10 @@ public class Menu extends JFrame {
 		contentPane.add(panelMenu);
 		
 		JMenu mnNuevoFichero = new JMenu("Nuevo Archivos");
+		mnNuevoFichero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 	
 		
