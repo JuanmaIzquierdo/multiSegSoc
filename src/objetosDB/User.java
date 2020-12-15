@@ -6,12 +6,16 @@ public class User {
 	String name;
 	String surname;
 	Role role;
+	String email;
+	String password;
 	
 	public User(int id, String name, String surname, Role role) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.role = role;
+		this.email = email;
+		this.password = password;
 	}
 
 	public int getId() {
