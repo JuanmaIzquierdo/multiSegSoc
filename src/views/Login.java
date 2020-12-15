@@ -1,33 +1,33 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Frame;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.SoftBevelBorder;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import controller.loginController;
 
 public class Login extends JFrame {	
 	static Login frame;
 	private Utilities utilities= new Utilities();
 	private JPanel contentPane;
 	private JTextField txtCorreo;
-	private JPasswordField txtContraseña;
+	private JPasswordField passwordField;
+	static loginController controller;
 
 	/**
 	 * Launch the application.
@@ -36,6 +36,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					controller = new loginController("localhost", 5000);
 					frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -107,7 +108,7 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				controller.login(txtCorreo.getText(), passwordField.getPassword());
 			}
 		});
 		btnEntrar.setForeground(utilities.getWhite());
@@ -115,9 +116,9 @@ public class Login extends JFrame {
 		btnEntrar.setBounds(112, 228, 134, 43);
 		panel_1.add(btnEntrar);
 		
-		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(66, 174, 234, 27);
-		panel_1.add(txtContraseña);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(66, 174, 234, 27);
+		panel_1.add(passwordField);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -133,5 +134,15 @@ public class Login extends JFrame {
 		btnNewButton.setBounds(340, 0, 37, 33);
 		contentPane.add(btnNewButton);
 	}
+	
+	public static void mostrarMensaje(String txt, boolean error) {
+		if(error) {
+			JOptionPane optionPane = new JOptionPane(txt, JOptionPane.ERROR_MESSAGE);    
+			JDialog dialog = optionPane.createDialog("Error");
+			dialog.setAlwaysOnTop(true);
+			dialog.setVisible(true);
+		}else {
+			JOptionPane.showMessageDialog(null,txt);
+		}
+	}
 }
-
