@@ -161,8 +161,7 @@ public class Menu extends JFrame {
 		mnRegistro.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.setVisible(true);
+				
 				JPanel panelMenu = new JPanel();
 				panelMenu.setBackground(new Color(192, 192, 192));
 				panelMenu.setBounds(0, 23, 677, 380);
@@ -218,7 +217,7 @@ public class Menu extends JFrame {
 				panelMenu.add(textField_2);
 				textField_2.setColumns(10);
 				
-				textField_3 = new JTextField();
+				textField_3 = new JTextField();				
 				textField_3.setBounds(275, 199, 273, 22);
 				panelMenu.add(textField_3);
 				textField_3.setColumns(10);
@@ -231,6 +230,9 @@ public class Menu extends JFrame {
 				JButton btnRegistrar = new JButton("Registrar");
 				btnRegistrar.setBounds(290, 314, 97, 25);
 				panelMenu.add(btnRegistrar);
+				panelMenu.setVisible(true);
+				frame.setVisible(false);
+				frame.setVisible(true);
 			}
 		});
 		mnRegistro.setForeground(new Color(255, 255, 255));
