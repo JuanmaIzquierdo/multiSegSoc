@@ -104,11 +104,6 @@ public class Login extends JFrame {
 		lblIntroduceContrasea.setBounds(81, 118, 197, 43);
 		panel_1.add(lblIntroduceContrasea);
 		
-		JLabel lblNuevoUsuario = new JLabel("Registrarse");
-		lblNuevoUsuario.setForeground(utilities.getBlue());
-		lblNuevoUsuario.setBounds(144, 284, 70, 16);
-		panel_1.add(lblNuevoUsuario);
-		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
