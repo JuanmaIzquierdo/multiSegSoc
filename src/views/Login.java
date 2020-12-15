@@ -124,6 +124,7 @@ public class Login extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
+				//e
 			}
 		});
 		btnNewButton.setBorderPainted(false);
