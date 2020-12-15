@@ -17,7 +17,6 @@ public class FtpController {
 		this.username = username;
 		this.password = password;
 		this.client  = new FTPClient();
-
 	}
 	
 	public boolean connect() {
@@ -56,4 +55,6 @@ public class FtpController {
 			return false;
 		}
 	}
+
+
 }

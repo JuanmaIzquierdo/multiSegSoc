@@ -46,6 +46,11 @@ public class loginController {
 			case 0: 
 				Utilities.showMessage("Sesión iniciada", false);
 				//siguiente ventana
+				//login.hacerInvisible
+				//crear un constructor para menu que pida menuController
+				MenuController menuController = new MenuController(this.socket, this.dataOS,
+						this.dataIS);
+				//Menu menu = new Menu(menuController);
 				break;
 			case 1: 
 				Utilities.showMessage("Contraseña incorrecta", true);
@@ -55,8 +60,6 @@ public class loginController {
 				break;
 			case 3: 
 				Utilities.showMessage("Error de comunicación con el servidor", true);
-			
 		}
 	}
-
 }
