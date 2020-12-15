@@ -2,38 +2,38 @@ package objetosDB;
 
 public class Movements {
 	
-	int user_id;
-	String operation;
-	String date;
+	int User_id;
+	String Operation;
+	String Date;
 	
-	public Movements(int user_id, String operation, String date){
-		this.user_id = user_id;
-		this.operation = operation;
-		this.date = date;
+	public Movements(int User_id, String Operation, String Date){
+		this.User_id = User_id;
+		this.Operation = Operation;
+		this.Date = Date;
 	}
 
 	public int getUser_id() {
-		return user_id;
+		return User_id;
 	}
 
 	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+		this.User_id = user_id;
 	}
 
 	public String getOperation() {
-		return operation;
+		return Operation;
 	}
 
 	public void setOperation(String operation) {
-		this.operation = operation;
+		this.Operation = operation;
 	}
 
 	public String getDate() {
-		return date;
+		return Date;
 	}
 
 	public void setDate(String date) {
-		this.date = date;
+		this.Date = date;
 	}
 
 }
