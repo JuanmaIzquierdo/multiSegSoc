@@ -2,6 +2,9 @@ package views;
 
 import java.awt.Color;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 public class Utilities {
 	private Color white,grey,green,blue;
 public Utilities() {
@@ -33,6 +36,17 @@ public Color getBlue() {
 }
 public void setBlue(Color blue) {
 	this.blue = blue;
+}
+
+public static void showMessage(String txt, boolean error) {
+	if(error) {
+		JOptionPane optionPane = new JOptionPane(txt, JOptionPane.ERROR_MESSAGE);    
+		JDialog dialog = optionPane.createDialog("Error");
+		dialog.setAlwaysOnTop(true);
+		dialog.setVisible(true);
+	}else {
+		JOptionPane.showMessageDialog(null,txt);
+	}
 }
 
 }

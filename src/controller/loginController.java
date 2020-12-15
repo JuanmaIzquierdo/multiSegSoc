@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import views.Login;
+import views.Utilities;
 
 public class loginController {
 	
@@ -43,17 +44,17 @@ public class loginController {
 		
 		switch(result) {
 			case 0: 
-				Login.mostrarMensaje("Sesión iniciada", false);
+				Utilities.showMessage("Sesión iniciada", false);
 				//siguiente ventana
 				break;
 			case 1: 
-				Login.mostrarMensaje("Contraseña incorrecta", true);
+				Utilities.showMessage("Contraseña incorrecta", true);
 				break;
 			case 2: 
-				Login.mostrarMensaje("Usuario incorrecto", true);
+				Utilities.showMessage("Usuario incorrecto", true);
 				break;
 			case 3: 
-				Login.mostrarMensaje("Error de comunicación con el servidor", true);
+				Utilities.showMessage("Error de comunicación con el servidor", true);
 			
 		}
 	}
