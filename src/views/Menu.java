@@ -63,10 +63,10 @@ public class Menu extends JFrame {
 		
 		JMenu mnNuevoFichero = new JMenu("Nuevo Archivos");
 		mnNuevoFichero.addActionListener(new ActionListener() {
-			JFileChooser fc = new JFileChooser();
+			//JFileChooser fc = new JFileChooser();
 
 			// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
-			int seleccion = fc.showOpenDialog(contentPane);
+			//int seleccion = fc.showOpenDialog(contentPane);
 
 			// Si el usuario, pincha en aceptar
 			if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -90,8 +90,7 @@ public class Menu extends JFrame {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-			}
-		
+			
 		
 		
 		mnNewMenu.add(mnNuevoFichero);
