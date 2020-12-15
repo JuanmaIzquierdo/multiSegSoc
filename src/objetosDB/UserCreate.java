@@ -19,7 +19,6 @@ public class UserCreate extends Conexion {
 
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, user.getId());
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getSurname());
 			ps.setString(4, "Funcionario");
