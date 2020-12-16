@@ -28,6 +28,8 @@ public class Menu extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	static Menu frame;
+	JPanel panelFile;
+	JPanel panelMenu;
 
 	/**
 	 * Launch the application.
@@ -131,8 +133,9 @@ public class Menu extends JFrame {
 		menuBar.add(menu_1);
 	}
 
-	public void menuFilechooser(String boton) {		
-		JPanel panelFile = new JPanel();
+	public void menuFilechooser(String boton) {	
+		vaciarVentana();
+		panelFile = new JPanel();
 		contentPane.updateUI();
 		panelFile.setBounds(0, 27, 677, 376);
 		contentPane.add(panelFile);
@@ -149,7 +152,8 @@ public class Menu extends JFrame {
 	}
 
 	public void menuRegistro() {
-		JPanel panelMenu = new JPanel();
+		vaciarVentana();
+		panelMenu = new JPanel();
 		panelMenu.revalidate();
 		panelMenu.setBackground(new Color(192, 192, 192));
 		panelMenu.setBounds(0, 23, 677, 380);
@@ -218,6 +222,18 @@ public class Menu extends JFrame {
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setBounds(290, 314, 97, 25);
 		panelMenu.add(btnRegistrar);
+		contentPane.setVisible(false);
+		contentPane.setVisible(true);
+	}
+	
+	public void vaciarVentana() {
+		try{
+			contentPane.remove(panelFile);
+		}catch(java.lang.NullPointerException e) {}
+		
+		try{
+			contentPane.remove(panelMenu);
+		}catch(java.lang.NullPointerException e) {}
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
 	}
