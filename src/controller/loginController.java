@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import views.Login;
+import views.Menu;
 import views.Utilities;
 
 public class loginController {
@@ -46,11 +47,12 @@ public class loginController {
 			case 0: 
 				Utilities.showMessage("Sesión iniciada", false);
 				//siguiente ventana
-				//login.hacerInvisible
+				Login.hacerInvisible();
 				//crear un constructor para menu que pida menuController
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS);
-				//Menu menu = new Menu(menuController);
+				Menu menu = new Menu(menuController);
+				menu.setVisible(true);
 				break;
 			case 1: 
 				Utilities.showMessage("Contraseña incorrecta", true);

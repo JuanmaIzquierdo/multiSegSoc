@@ -1,23 +1,25 @@
 package views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+
+import controller.MenuController;
 
 public class Menu extends JFrame {
 
@@ -30,28 +32,30 @@ public class Menu extends JFrame {
 	static Menu frame;
 	JPanel panelFile;
 	JPanel panelMenu;
+	MenuController controller;
 
 	/**
 	 * Launch the application.
 	 */
 	// constructor que pida por parametro un menuController*****************+
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new Menu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					frame = new Menu();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public Menu(MenuController controller) {
+		this.controller = controller;
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,8 +147,13 @@ public class Menu extends JFrame {
 		JFileChooser fc = new JFileChooser();
 		// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
 		panelFile.add(fc);
-		File fichero = fc.getSelectedFile();
 		JButton btnNewButton = new JButton(boton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File fichero = fc.getSelectedFile();
+				controller.uploadFile(fichero);
+			}
+		});
 		btnNewButton.setBounds(123, 327, 97, 25);
 		panelFile.add(btnNewButton);
 		panelFile.setVisible(false);

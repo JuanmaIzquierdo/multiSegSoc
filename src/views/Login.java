@@ -140,4 +140,8 @@ public class Login extends JFrame {
 		lblSeguridadSocial.setBounds(66, 0, 131, 33);
 		contentPane.add(lblSeguridadSocial);
 	}
+	
+	public static void hacerInvisible() {
+		frame.setVisible(false);
+	}
 }

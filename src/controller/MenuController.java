@@ -2,8 +2,8 @@ package controller;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import objetosDB.User;
@@ -56,4 +56,11 @@ public class MenuController {
 		}
 	}
 	
+	public void uploadFile(File file) {
+		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {
+			System.out.println("subido");
+		}else {
+			System.out.println("no");
+		}
+	}
 }

@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketException;
 
@@ -57,5 +60,15 @@ public class FtpController {
 		}
 	}
 
+	public boolean uploadFile(String path, String name) {
+		try {
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(path));
+			client.storeFile(name, in);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }
