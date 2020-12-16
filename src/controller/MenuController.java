@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Date;
 
 import objetosDB.User;
 
@@ -58,9 +59,22 @@ public class MenuController {
 	
 	public void uploadFile(File file) {
 		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {
+			java.util.Date date = new Date();			
+			Message msg = new Message("0005");
+			msg.addValue("subida de fichero");
+			msg.addValue(date.toString());
+			System.out.println(msg.getMessage());
+			try {
+				dataOS.writeUTF(msg.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			System.out.println("subido");
 		}else {
 			System.out.println("no");
 		}
 	}
+	
+	
+	 
 }

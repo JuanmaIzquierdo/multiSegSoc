@@ -39,28 +39,28 @@ public class Menu extends JFrame {
 	 * Launch the application.
 	 */
 	// constructor que pida por parametro un menuController*****************+
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new Menu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					frame = new Menu();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	 public Menu() {
-		// TODO Auto-generated constructor stub
-	//}
-	//public Menu(MenuController controller) {
-		//this.controller = controller;
-		 fc= new JFileChooser();
+//	 public Menu() {
+//		// TODO Auto-generated constructor stub
+//	//}
+	public Menu(MenuController controller) {
+		this.controller = controller;
+		fc= new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

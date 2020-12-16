@@ -2,12 +2,12 @@ package controller;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 public class FtpController {
@@ -71,4 +71,15 @@ public class FtpController {
 		}
 	}
 
+	public FTPFile[] getCurrentDirectory() {
+		try {
+			FTPFile[] files = client.listFiles();
+			return files;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 }
