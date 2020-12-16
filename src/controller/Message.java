@@ -21,7 +21,6 @@ public class Message {
 		for(int i = 0;i < this.values.size(); i++) {
 			msg += "*" + this.values.get(i);
 		}
-		System.out.println(msg);
 		return msg;
 	}
 
