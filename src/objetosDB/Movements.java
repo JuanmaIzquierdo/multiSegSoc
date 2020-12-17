@@ -1,5 +1,7 @@
 package objetosDB;
 
+//Clase objeto para los movimientos
+
 public class Movements {
 	
 	int User_id;

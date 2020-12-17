@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+//Clase para la consulta de si un email esta repetido en la bd
+
 public class UserQuery extends Conexion{
 	
 	private PreparedStatement ps = null;
