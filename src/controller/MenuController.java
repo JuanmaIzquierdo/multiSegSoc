@@ -78,7 +78,7 @@ public class MenuController {
 		FTPFile[] files = ftp.getCurrentDirectoryFiles();
 		String[] filesNames = new String [files.length];
 		for(int i = 0; i < files.length; i++) {
-			if(!files[i].getName().equals(".") && !!files[i].getName().equals("..")) {
+			if(!files[i].getName().equals(".") && !files[i].getName().equals("..")) {
 				String name = files[i].getName();
 				if(files[i].isDirectory()) {
 					name = "(DIR) " + name;

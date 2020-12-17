@@ -1,8 +1,6 @@
 package views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,7 +8,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -32,8 +30,10 @@ public class Menu extends JFrame {
 	static Menu frame;
 	JPanel panelFile;
 	JPanel panelMenu;
+	JPanel panelFicherosFtp;
 	JFileChooser fc ;
 	MenuController controller;
+	FtpDirectoryView directoryView;
 
 	/**
 	 * Launch the application.
@@ -60,6 +60,7 @@ public class Menu extends JFrame {
 //	//}
 	public Menu(MenuController controller) {
 		this.controller = controller;
+		directoryView = new FtpDirectoryView();
 		fc= new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
@@ -83,7 +84,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {								
 				String boton = "subir";
 				fc.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Documentos"));
-				menuFilechooser(boton);			
+				menuFilechooserSubirFichero(boton);			
 			}
 		});
 		mntmNuevoArchivo.setBackground(new Color(60, 179, 113));
@@ -94,9 +95,15 @@ public class Menu extends JFrame {
 		JMenuItem mntmBorrarArchivo = new JMenuItem("Borrar Archivo");
 		mntmBorrarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JList filesList = directoryView.getList(controller.getFilesNames());
 				
-				String boton = "borrar";				
-				menuFilechooser(boton);
+				menuListaFicherosFtp(filesList);
+				
+				//vaciarVentana();
+				//panelFile.add(filesList);
+				//String boton = "borrar";
+				//contentPane.updateUI();
+				//menuFilechooser(boton);
 			}
 		});
 		mntmBorrarArchivo.setBackground(new Color(60, 179, 113));
@@ -108,7 +115,7 @@ public class Menu extends JFrame {
 		mntmModificarArchvo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String boton = "modificar";
-				menuFilechooser(boton);
+				menuFilechooserSubirFichero(boton);
 			}
 		});
 		mntmModificarArchvo.setBackground(new Color(60, 179, 113));
@@ -131,9 +138,8 @@ public class Menu extends JFrame {
 		menuBar.add(menu_1);
 	}
 
-	public void menuFilechooser(String boton) {	
+	public void menuFilechooserSubirFichero(String boton) {	
 		vaciarVentana();
-		
 		panelFile = new JPanel();
 		contentPane.updateUI();
 		panelFile.setBounds(0, 27, 677, 376);
@@ -155,6 +161,16 @@ public class Menu extends JFrame {
 		panelFile.setVisible(true);
 	}
 	
+	public void menuListaFicherosFtp(JList list) {
+		vaciarVentana();
+		panelFicherosFtp = new JPanel();
+		contentPane.updateUI();
+		panelFicherosFtp.setBounds(0, 27, 677, 376);
+		contentPane.add(panelFicherosFtp);
+		panelFicherosFtp.add(list);
+		panelFicherosFtp.setVisible(true);
+	}
+	
 	public void vaciarVentana() {
 		try{
 			contentPane.remove(panelFile);
@@ -163,6 +179,11 @@ public class Menu extends JFrame {
 		try{
 			contentPane.remove(panelMenu);
 		}catch(java.lang.NullPointerException e) {}
+		
+		try{
+			contentPane.remove(panelFicherosFtp);
+		}catch(java.lang.NullPointerException e) {}
+		
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
 	}
