@@ -45,10 +45,8 @@ public class loginController {
 		
 		switch(result) {
 			case 0: 
-				Utilities.showMessage("Sesión iniciada", false);
 				//siguiente ventana
 				Login.hacerInvisible();
-				//crear un constructor para menu que pida menuController
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS);
 				Menu menu = new Menu(menuController);

@@ -71,8 +71,49 @@ public class MenuController {
 			Utilities.showMessage("Fichero subido", false);
 		}else {
 			System.out.println("no");
+			Utilities.showMessage("Error al subir fichero", true);
 		}
 	} 
+	
+	public void deleteFile(String path) {
+		if(ftp.deleteFile(path)) {
+			java.util.Date date = new Date();			
+			Message msg = new Message("0005");
+			msg.addValue("borrado de fichero");
+			msg.addValue(date.toString());
+			System.out.println(msg.getMessage());
+			try {
+				dataOS.writeUTF(msg.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("borrado");
+			Utilities.showMessage("Fichero eliminado", false);
+		}else {
+			System.out.println("no");
+			Utilities.showMessage("Error al eliminar fichero", true);
+		}
+	}
+	
+	public void renameFile(String path, String newName) {
+		if(ftp.renameFile(path, newName)) {
+			java.util.Date date = new Date();			
+			Message msg = new Message("0005");
+			msg.addValue("renombrado de fichero");
+			msg.addValue(date.toString());
+			System.out.println(msg.getMessage());
+			try {
+				dataOS.writeUTF(msg.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("renombrado");
+			Utilities.showMessage("Fichero renombrado", false);
+		}else {
+			System.out.println("no");
+			Utilities.showMessage("Error al renombrar fichero", true);
+		}
+	}
 
 	public String[] getFilesNames() {
 		FTPFile[] files = ftp.getCurrentDirectoryFiles();
@@ -88,6 +129,5 @@ public class MenuController {
 		}
 		return filesNames;
 	}
-	
 	
 }

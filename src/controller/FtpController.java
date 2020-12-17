@@ -71,6 +71,26 @@ public class FtpController {
 		}
 	}
 
+	public boolean deleteFile(String path) {
+		try {
+			client.deleteFile(path);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean renameFile(String path, String newName) {
+		try {
+			client.rename(path, newName);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public FTPFile[] getCurrentDirectoryFiles() {
 		try {
 			FTPFile[] files = client.listFiles();
@@ -80,6 +100,5 @@ public class FtpController {
 			return null;
 		}
 	}
-	
 	
 }
