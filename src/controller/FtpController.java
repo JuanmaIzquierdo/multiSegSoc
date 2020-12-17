@@ -41,7 +41,6 @@ public class FtpController {
                 client.enterLocalPassiveMode();
                 // Activar recibir/enviar cualquier tipo de archivo
                 client.setFileType(FTP.BINARY_FILE_TYPE);
-
                 // Obtener respuesta del servidor y acceder.
                 int respuesta = client.getReplyCode();
                 if (FTPReply.isPositiveCompletion(respuesta) == true) {
