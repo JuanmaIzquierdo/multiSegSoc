@@ -1,5 +1,7 @@
 package objetosDB;
 
+//Clase objeto para los usuarios
+
 public class User {
 	
 	int Id;

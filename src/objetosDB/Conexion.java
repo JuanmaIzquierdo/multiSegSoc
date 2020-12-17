@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//Clase para establecer la conexion con la base de datos
+
 public class Conexion {
 	
 	private final String bd = "multipresencial";
@@ -29,5 +31,6 @@ public class Conexion {
 		return con;
 		
 	}
+	//aa
 
 }
