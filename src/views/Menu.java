@@ -145,7 +145,7 @@ public class Menu extends JFrame {
 		panelFile.setBounds(0, 27, 677, 376);
 		contentPane.add(panelFile);
 		// Creamos el objeto JFileChooser
-		
+		//a
 		// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
 		panelFile.add(fc);
 		JButton btnNewButton = new JButton(boton);
