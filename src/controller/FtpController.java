@@ -38,6 +38,7 @@ public class FtpController {
 		 try {
 			if(client.login(username, password)){
                 // Entrando a modo pasivo
+				
                 client.enterLocalPassiveMode();
                 // Activar recibir/enviar cualquier tipo de archivo
                 client.setFileType(FTP.BINARY_FILE_TYPE);
