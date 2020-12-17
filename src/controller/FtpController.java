@@ -71,7 +71,7 @@ public class FtpController {
 		}
 	}
 
-	public FTPFile[] getCurrentDirectory() {
+	public FTPFile[] getCurrentDirectoryFiles() {
 		try {
 			FTPFile[] files = client.listFiles();
 			return files;

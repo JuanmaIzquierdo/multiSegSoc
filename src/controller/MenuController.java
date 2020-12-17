@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
 
+import org.apache.commons.net.ftp.FTPFile;
+
 import objetosDB.User;
+import views.Utilities;
 
 public class MenuController {
 	
@@ -18,13 +21,10 @@ public class MenuController {
 	User user;
 	
 	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS) {
-		System.out.println("a");
 		this.socket = socket;
 		this.dataOS = dataOS;
 		this.dataIS = dataIS;
-		System.out.println("e");
 		getUserData();
-		System.out.println("i");
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
 		loginFTP();
@@ -33,8 +33,6 @@ public class MenuController {
 	public void getUserData() {
 		Message msg = new Message("0004");
 		try {
-			System.out.println("ee");
-			System.out.println("u");
 			dataOS.writeUTF(msg.getMessage());
 			String txt;
 			txt = dataIS.readUTF();
@@ -70,11 +68,26 @@ public class MenuController {
 				e.printStackTrace();
 			}
 			System.out.println("subido");
+			Utilities.showMessage("Fichero subido", false);
 		}else {
 			System.out.println("no");
 		}
+	} 
+
+	public String[] getFilesNames() {
+		FTPFile[] files = ftp.getCurrentDirectoryFiles();
+		String[] filesNames = new String [files.length];
+		for(int i = 0; i < files.length; i++) {
+			if(!files[i].getName().equals(".") && !!files[i].getName().equals("..")) {
+				String name = files[i].getName();
+				if(files[i].isDirectory()) {
+					name = "(DIR) " + name;
+				}
+				filesNames[i] = name;
+			}
+		}
+		return filesNames;
 	}
 	
 	
-	 
 }
