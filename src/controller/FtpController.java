@@ -15,6 +15,7 @@ public class FtpController {
 	String username;
 	String password;
 	FTPClient client;
+	String homeDirectory;
 	
 	public FtpController(String username, String password) {
 		this.username = username;
@@ -46,6 +47,8 @@ public class FtpController {
                 int respuesta = client.getReplyCode();
                 if (FTPReply.isPositiveCompletion(respuesta) == true) {
                 	System.out.println("Sesion ftp iniciada");
+                	this.homeDirectory = client.printWorkingDirectory();
+                	System.out.println(homeDirectory);
                     return true;
                 }else{
                     return false;
@@ -91,8 +94,14 @@ public class FtpController {
 		}
 	}
 	
-	public FTPFile[] getCurrentDirectoryFiles() {
+	public String getHomeDirectory() {
+		return this.homeDirectory;
+	}
+	
+	public FTPFile[] getDirectoryFiles(String folder) {
 		try {
+			String directory = this.homeDirectory+folder;
+			client.changeWorkingDirectory(directory);
 			FTPFile[] files = client.listFiles();
 			return files;
 		} catch (IOException e) {

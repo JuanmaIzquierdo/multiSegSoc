@@ -4,17 +4,21 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import controller.MenuController;
 
@@ -91,18 +95,10 @@ public class Menu extends JFrame {
 		mntmNuevoArchivo.setForeground(new Color(255, 255, 255));
 		mnNewMenu.add(mntmNuevoArchivo);
 
-		JMenuItem mntmBorrarArchivo = new JMenuItem("Borrar Archivo");
+		JMenuItem mntmBorrarArchivo = new JMenuItem("Archivos FTP");
 		mntmBorrarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JList filesList = directoryView.getList(controller.getFilesNames());
-				
-				menuListaFicherosFtp(filesList);
-				
-				//vaciarVentana();
-				//panelFile.add(filesList);
-				//String boton = "borrar";
-				//contentPane.updateUI();
-				//menuFilechooser(boton);
+				menuListaFicherosFtp(controller.getHomeDirectory());
 			}
 		});
 		mntmBorrarArchivo.setBackground(new Color(60, 179, 113));
@@ -110,17 +106,17 @@ public class Menu extends JFrame {
 		mntmBorrarArchivo.setForeground(new Color(255, 255, 255));
 		mnNewMenu.add(mntmBorrarArchivo);
 
-		JMenuItem mntmModificarArchvo = new JMenuItem("Modificar archvo");
-		mntmModificarArchvo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String boton = "modificar";
-				menuFilechooserSubirFichero(boton);
-			}
-		});
-		mntmModificarArchvo.setBackground(new Color(60, 179, 113));
-		mntmModificarArchvo.setOpaque(true);
-		mntmModificarArchvo.setForeground(new Color(255, 255, 255));
-		mnNewMenu.add(mntmModificarArchvo);
+//		JMenuItem mntmModificarArchvo = new JMenuItem("Modificar archvo");
+//		mntmModificarArchvo.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				String boton = "modificar";
+//				menuFilechooserSubirFichero(boton);
+//			}
+//		});
+//		mntmModificarArchvo.setBackground(new Color(60, 179, 113));
+//		mntmModificarArchvo.setOpaque(true);
+//		mntmModificarArchvo.setForeground(new Color(255, 255, 255));
+//		mnNewMenu.add(mntmModificarArchvo);
 
 		JMenu mnEmail = new JMenu("E-mail");
 		mnEmail.setForeground(new Color(255, 255, 255));
@@ -144,7 +140,6 @@ public class Menu extends JFrame {
 		panelFile.setBounds(0, 27, 677, 376);
 		contentPane.add(panelFile);
 		// Creamos el objeto JFileChooser
-		//a
 		// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
 		panelFile.add(fc);
 		JButton btnNewButton = new JButton(boton);
@@ -160,13 +155,44 @@ public class Menu extends JFrame {
 		panelFile.setVisible(true);
 	}
 	
-	public void menuListaFicherosFtp(JList list) {
+	public void menuListaFicherosFtp(String homeDirectory) {
 		vaciarVentana();
+
 		panelFicherosFtp = new JPanel();
+		panelFicherosFtp.setLayout(null);
 		contentPane.updateUI();
-		panelFicherosFtp.setBounds(0, 27, 677, 376);
+		panelFicherosFtp.setBounds(25, 27, 677, 376);
 		contentPane.add(panelFicherosFtp);
-		panelFicherosFtp.add(list);
+		
+		DefaultMutableTreeNode home = new DefaultMutableTreeNode(homeDirectory);
+		DefaultTreeModel model = new DefaultTreeModel(home);
+		controller.createDirectoryTree(model, "", home);
+		JTree tree = new JTree(model);
+		tree.setBounds(25, 25, 400, 325);
+		
+		JButton btnRemove = new JButton("Eliminar");
+		btnRemove.setBounds(475, 25, 110, 35);
+		btnRemove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.deleteFile(controller.getTreePath(tree.getSelectionPath(), 0));
+				menuListaFicherosFtp(homeDirectory);
+			}
+		});
+		
+		JButton btnRename = new JButton("Renombrar");
+		btnRename.setBounds(475, 85, 110, 35);
+		btnRename.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String newName = JOptionPane.showInputDialog("Nuevo nombre");
+				newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
+				controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
+				menuListaFicherosFtp(homeDirectory);
+			}
+		});
+		
+		panelFicherosFtp.add(tree);
+		panelFicherosFtp.add(btnRemove);
+		panelFicherosFtp.add(btnRename);
 		panelFicherosFtp.setVisible(true);
 	}
 	

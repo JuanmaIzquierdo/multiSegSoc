@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
 import org.apache.commons.net.ftp.FTPFile;
 
 import objetosDB.User;
@@ -61,7 +65,6 @@ public class MenuController {
 			Message msg = new Message("0005");
 			msg.addValue("subida de fichero");
 			msg.addValue(date.toString());
-			System.out.println(msg.getMessage());
 			try {
 				dataOS.writeUTF(msg.getMessage());
 			} catch (IOException e) {
@@ -81,7 +84,6 @@ public class MenuController {
 			Message msg = new Message("0005");
 			msg.addValue("borrado de fichero");
 			msg.addValue(date.toString());
-			System.out.println(msg.getMessage());
 			try {
 				dataOS.writeUTF(msg.getMessage());
 			} catch (IOException e) {
@@ -101,7 +103,6 @@ public class MenuController {
 			Message msg = new Message("0005");
 			msg.addValue("renombrado de fichero");
 			msg.addValue(date.toString());
-			System.out.println(msg.getMessage());
 			try {
 				dataOS.writeUTF(msg.getMessage());
 			} catch (IOException e) {
@@ -114,20 +115,33 @@ public class MenuController {
 			Utilities.showMessage("Error al renombrar fichero", true);
 		}
 	}
-
-	public String[] getFilesNames() {
-		FTPFile[] files = ftp.getCurrentDirectoryFiles();
-		String[] filesNames = new String [files.length];
+	
+	public void createDirectoryTree(DefaultTreeModel model, String path, DefaultMutableTreeNode parent) {
+		FTPFile[] files = ftp.getDirectoryFiles(path);
+		
 		for(int i = 0; i < files.length; i++) {
 			if(!files[i].getName().equals(".") && !files[i].getName().equals("..")) {
-				String name = files[i].getName();
-				if(files[i].isDirectory()) {
-					name = "(DIR) " + name;
+				DefaultMutableTreeNode node = new DefaultMutableTreeNode(files[i].getName());
+				if(!files[i].isDirectory()) {
+					model.insertNodeInto(node, parent, i);
+				}else {
+					model.insertNodeInto(node, parent, i);
+					createDirectoryTree(model, path + files[i].getName()+"/", node);
 				}
-				filesNames[i] = name;
-			}
+				}
 		}
-		return filesNames;
+	}
+	
+	public String getHomeDirectory() {
+		return ftp.getHomeDirectory();
+	}
+
+	public String getTreePath(TreePath selectionPath, int ignoreComponents) {
+		String path = "/";
+		for(int i = 1;i < selectionPath.getPath().length -  ignoreComponents; i++) {
+			path +=  selectionPath.getPathComponent(i)+"/";
+		}
+		return path;
 	}
 	
 }
