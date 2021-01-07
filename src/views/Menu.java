@@ -184,9 +184,11 @@ public class Menu extends JFrame {
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
-				newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
-				controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
-				menuListaFicherosFtp(homeDirectory);
+				if(newName != null || !newName.equalsIgnoreCase("")) {
+					newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
+					controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
+					menuListaFicherosFtp(homeDirectory);
+				}
 			}
 		});
 		
