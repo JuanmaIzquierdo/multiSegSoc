@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
+import javax.swing.JButton;
 
 public class Splash extends JFrame {
 
@@ -47,5 +48,8 @@ public class Splash extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(0, 0, 455, 595);
 		contentPane.add(panel);
+		
+		JButton btnNewButton = new JButton("New button");
+		panel.add(btnNewButton);
 	}
 }
