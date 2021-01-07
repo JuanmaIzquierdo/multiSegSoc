@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/Descargas/commons-net-3.7.2-bin/commons-net-3.7.2/commons-net-3.7.2.jar"/>
-	<classpathentry kind="lib" path="D:/Descargas/commons-vfs-2.7.0-bin/commons-vfs-2.7.0/commons-vfs2-2.7.0.jar"/>
-	<classpathentry kind="lib" path="D:/Descargas/commons-logging-1.2-bin/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jmizq/Desktop/enrique/librerias/commons-net-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

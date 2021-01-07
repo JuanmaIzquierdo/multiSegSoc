@@ -25,7 +25,7 @@ public class FtpController {
 	
 	public boolean connect() {
 		try {
-			client.connect("127.0.0.1");
+			client.connect("192.168.16.119");
 			return true;
 		} catch (SocketException e) {
 			e.printStackTrace();
