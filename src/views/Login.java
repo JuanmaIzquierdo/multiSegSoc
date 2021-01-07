@@ -129,7 +129,7 @@ public class Login extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setOpaque(false);
 		ImageIcon icono =new ImageIcon("src/Descargas/pngwing.ico");
-		btnNewButton.setIcon(new ImageIcon("C:\\Users\\jmizq\\Downloads\\pngwing.com(1)(1).png"));
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\jmizq\\git\\multiSegSoc1\\src\\images\\pngwing.com(1)(1).png"));
 		btnNewButton.setBackground(new Color(240, 240, 240));
 		btnNewButton.setBounds(365, 0, 24, 23);
 		contentPane.add(btnNewButton);
