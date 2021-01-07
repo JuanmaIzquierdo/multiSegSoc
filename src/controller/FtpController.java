@@ -98,6 +98,16 @@ public class FtpController {
 		return this.homeDirectory;
 	}
 	
+	public String getParentDirectory() {
+		try {
+			client.changeToParentDirectory();
+			return client.printWorkingDirectory();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public FTPFile[] getDirectoryFiles(String folder) {
 		try {
 			String directory = this.homeDirectory+folder;
