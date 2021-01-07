@@ -25,7 +25,7 @@ public class FtpController {
 	
 	public boolean connect() {
 		try {
-			client.connect("127.0.0.1");
+			client.connect("192.168.16.119");
 			return true;
 		} catch (SocketException e) {
 			e.printStackTrace();
@@ -96,6 +96,16 @@ public class FtpController {
 	
 	public String getHomeDirectory() {
 		return this.homeDirectory;
+	}
+	
+	public String getParentDirectory() {
+		try {
+			client.changeToParentDirectory();
+			return client.printWorkingDirectory();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public FTPFile[] getDirectoryFiles(String folder) {
