@@ -36,7 +36,6 @@ public class Menu extends JFrame {
 	JPanel panelFicherosFtp;
 	JFileChooser fc ;
 	MenuController controller;
-	FtpDirectoryView directoryView;
 
 	/**
 	 * Launch the application.
@@ -63,7 +62,6 @@ public class Menu extends JFrame {
 //	//}
 	public Menu(MenuController controller) {
 		this.controller = controller;
-		directoryView = new FtpDirectoryView();
 		fc= new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
@@ -192,9 +190,22 @@ public class Menu extends JFrame {
 			}
 		});
 		
+		JButton btnDownload = new JButton("Descargar");
+		btnDownload.setBounds(475, 145, 110, 35);
+		btnDownload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String path = controller.getTreePath(tree.getSelectionPath(), 0);
+				String[] pathComponents = path.split("/");
+				controller.downloadFile(path, System.getProperty("user.home") 
+						+ System.getProperty("file.separator")+ "Documents"
+						,pathComponents [pathComponents.length - 1]);
+			}
+		});
+			
 		panelFicherosFtp.add(tree);
 		panelFicherosFtp.add(btnRemove);
 		panelFicherosFtp.add(btnRename);
+		panelFicherosFtp.add(btnDownload);
 		panelFicherosFtp.setVisible(true);
 	}
 	

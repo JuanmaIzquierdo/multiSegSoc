@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.SocketException;
 
@@ -25,7 +28,7 @@ public class FtpController {
 	
 	public boolean connect() {
 		try {
-			client.connect("192.168.16.119");
+			client.connect("localhost");
 			return true;
 		} catch (SocketException e) {
 			e.printStackTrace();
@@ -74,6 +77,18 @@ public class FtpController {
 		}
 	}
 
+	public boolean downloadFile(String path, String localDirectory, String fileName) {
+		BufferedOutputStream out;
+		try {
+			out = new BufferedOutputStream(new FileOutputStream(
+					localDirectory + "\\" + fileName));
+			return client.retrieveFile(path, out);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean deleteFile(String path) {
 		try {
 			client.deleteFile(path);
@@ -96,16 +111,6 @@ public class FtpController {
 	
 	public String getHomeDirectory() {
 		return this.homeDirectory;
-	}
-	
-	public String getParentDirectory() {
-		try {
-			client.changeToParentDirectory();
-			return client.printWorkingDirectory();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 	
 	public FTPFile[] getDirectoryFiles(String folder) {

@@ -78,6 +78,25 @@ public class MenuController {
 		}
 	} 
 	
+	public void downloadFile(String path, String localPath, String FileName) {
+		if(ftp.downloadFile(path, localPath, FileName)) {
+			java.util.Date date = new Date();			
+			Message msg = new Message("0005");
+			msg.addValue("bajada de fichero");
+			msg.addValue(date.toString());
+			try {
+				dataOS.writeUTF(msg.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("descargado");
+			Utilities.showMessage("Fichero descargado", false);
+		}else {
+			System.out.println("no");
+			Utilities.showMessage("Error al descargar fichero", true);
+		}
+	}
+	
 	public void deleteFile(String path) {
 		if(ftp.deleteFile(path)) {
 			java.util.Date date = new Date();			

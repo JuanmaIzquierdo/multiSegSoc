@@ -35,7 +35,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					controller = new loginController("192.168.16.119", 5000);
+					controller = new loginController("localhost", 5000);
 					frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
