@@ -52,6 +52,9 @@ public class loginController {
 				Menu menu = new Menu(menuController);
 				menu.setVisible(true);
 				break;
+			case 1: 
+				Utilities.showMessage("Ya existe una sesión iniciada con esta cuenta", true);
+				break;
 			case 2: 
 				Utilities.showMessage("Usuario o contraseña incorrecto", true);
 				break;
