@@ -3,8 +3,10 @@ package controller;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import Models.UserLogin;
 import views.Login;
 import views.Menu;
 import views.Utilities;
@@ -12,6 +14,7 @@ import views.Utilities;
 public class loginController {
 	
 	Socket socket;
+	ObjectOutputStream objectOS;
 	DataOutputStream dataOS;
 	DataInputStream dataIS;
 	
@@ -20,6 +23,7 @@ public class loginController {
 			this.socket = new Socket(serverIP, port);
 			 dataOS = new DataOutputStream(socket.getOutputStream());
 			 dataIS = new DataInputStream(socket.getInputStream());
+			 objectOS = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -33,9 +37,12 @@ public class loginController {
 			password += cs[i];
 		}
 		Message msg = new Message("0001");
+		//UserLogin userData = new UserLogin(username, password);
+		//msg.addData(userData);
 		msg.addValue(username);
 		msg.addValue(password);
 		try {
+			//objectOS.writeObject(msg);
 			dataOS.writeUTF(msg.getMessage());
 			result = dataIS.readInt();
 		} catch (IOException e) {
@@ -48,7 +55,7 @@ public class loginController {
 				//siguiente ventana
 				Login.hacerInvisible();
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
-						this.dataIS);
+						this.dataIS, this.objectOS);
 				Menu menu = new Menu(menuController);
 				menu.setVisible(true);
 				break;

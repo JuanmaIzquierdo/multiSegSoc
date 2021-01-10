@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import javax.swing.tree.TreePath;
 
 import org.apache.commons.net.ftp.FTPFile;
 
+import Models.Movement;
 import objetosDB.User;
 import views.Utilities;
 
@@ -21,13 +23,15 @@ public class MenuController {
 	Socket socket;
 	DataOutputStream dataOS;
 	DataInputStream dataIS;
+	ObjectOutputStream objectOS;
 	FtpController ftp;
 	User user;
 	
-	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS) {
+	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS, 	ObjectOutputStream objectOS) {
 		this.socket = socket;
 		this.dataOS = dataOS;
 		this.dataIS = dataIS;
+		this.objectOS = objectOS;
 		getUserData();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
@@ -61,15 +65,8 @@ public class MenuController {
 	
 	public void uploadFile(File file) {
 		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {
-			java.util.Date date = new Date();			
-			Message msg = new Message("0005");
-			msg.addValue("subida de fichero");
-			msg.addValue(date.toString());
-			try {
-				dataOS.writeUTF(msg.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			java.util.Date date = new Date();	
+			registerMovement("subida de fichero", date.toString());
 			System.out.println("subido");
 			Utilities.showMessage("Fichero subido", false);
 		}else {
@@ -80,15 +77,8 @@ public class MenuController {
 	
 	public void downloadFile(String path, String localPath, String FileName) {
 		if(ftp.downloadFile(path, localPath, FileName)) {
-			java.util.Date date = new Date();			
-			Message msg = new Message("0005");
-			msg.addValue("bajada de fichero");
-			msg.addValue(date.toString());
-			try {
-				dataOS.writeUTF(msg.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			java.util.Date date = new Date();		
+			registerMovement("bajada de fichero", date.toString());
 			System.out.println("descargado");
 			Utilities.showMessage("Fichero descargado", false);
 		}else {
@@ -100,14 +90,7 @@ public class MenuController {
 	public void deleteFile(String path) {
 		if(ftp.deleteFile(path)) {
 			java.util.Date date = new Date();			
-			Message msg = new Message("0005");
-			msg.addValue("borrado de fichero");
-			msg.addValue(date.toString());
-			try {
-				dataOS.writeUTF(msg.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			registerMovement("borrado de fichero", date.toString());
 			System.out.println("borrado");
 			Utilities.showMessage("Fichero eliminado", false);
 		}else {
@@ -118,20 +101,27 @@ public class MenuController {
 	
 	public void renameFile(String path, String newName) {
 		if(ftp.renameFile(path, newName)) {
-			java.util.Date date = new Date();			
-			Message msg = new Message("0005");
-			msg.addValue("renombrado de fichero");
-			msg.addValue(date.toString());
-			try {
-				dataOS.writeUTF(msg.getMessage());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			java.util.Date date = new Date();		
+			registerMovement("renombrado de fichero", date.toString());
 			System.out.println("renombrado");
 			Utilities.showMessage("Fichero renombrado", false);
 		}else {
 			System.out.println("no");
 			Utilities.showMessage("Error al renombrar fichero", true);
+		}
+	}
+	
+	public void registerMovement(String movement, String date) {
+		Message msg = new Message("0005");
+		Movement mvmt = new Movement(movement, date);
+//		msg.addData(mvmt);
+		msg.addValue(movement);
+		msg.addValue(date);	
+		try {
+			dataOS.writeUTF(msg.getMessage());
+//			objectOS.writeObject(msg);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

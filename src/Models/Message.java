@@ -42,7 +42,7 @@ public class Message {
 		return data;
 	}
 
-	public void setData(ArrayList<Object> data) {
-		this.data = data;
+	public void addData(Object data) {
+		this.data.add(data);
 	}
 }
