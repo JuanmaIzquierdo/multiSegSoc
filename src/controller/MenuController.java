@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -17,6 +18,7 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import Database.User;
 import Models.DataRequestResponse;
+import Models.Message;
 import Models.MovementRequest;
 import views.Utilities;
 
@@ -29,6 +31,7 @@ public class MenuController {
 	ObjectInputStream objectIS;
 	FtpController ftp;
 	User user;
+	private ArrayList<Message> email = new ArrayList<Message>();
 	
 	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS, 
 			ObjectOutputStream objectOS, ObjectInputStream objectIS) {
@@ -38,6 +41,8 @@ public class MenuController {
 		this.objectOS = objectOS;
 		this.objectIS = objectIS;
 		getUserData();
+		ReadMessagesThread thread = new ReadMessagesThread(objectIS);
+		thread.start();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
 		loginFTP();
