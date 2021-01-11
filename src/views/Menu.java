@@ -202,7 +202,20 @@ public class Menu extends JFrame {
 			}
 		});
 		//evento boton
-		
+		JButton btnDirectory = new JButton("Nuevo Directorio");
+		btnDownload.setBounds(475, 145, 110, 35);
+		btnDownload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//String path = controller.getTreePath(tree.getSelectionPath(), 0);
+				//String[] pathComponents = path.split("/");
+				String path = JOptionPane.showInputDialog("Nuevo nombre");
+				if(path != null || !path.equalsIgnoreCase("")) {
+					path = controller.getTreePath(tree.getSelectionPath(), 1) + path;
+					controller.createDirectory(path);
+				}
+				
+			}
+		});
 		
 		
 		
