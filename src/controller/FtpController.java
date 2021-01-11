@@ -91,7 +91,9 @@ public class FtpController {
 	
 	public boolean deleteFile(String path) {
 		try {
-			client.deleteFile(path);
+			if(!client.deleteFile(path)) {
+				client.removeDirectory(path);
+			}
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -108,6 +110,16 @@ public class FtpController {
 			return false;
 		}
 	}
+	
+	public boolean createDirectory(String path) {
+        try {
+            client.makeDirectory(path);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 	
 	public String getHomeDirectory() {
 		return this.homeDirectory;

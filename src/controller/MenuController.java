@@ -114,17 +114,17 @@ public class MenuController {
 		}
 	}
 	
-//	public void createDirectory(String path) {
-//        if(ftp.createDirectory(path)) {
-//            java.util.Date date = new Date();   
-//            registerMovement("Creacion de Directorio", date.toString());
-//            System.out.println("Creado");
-//            Utilities.showMessage("Directorio Creado", false);
-//        }else {
-//            System.out.println("no");
-//            Utilities.showMessage("Error al Crear Directorio", true);
-//        }
-//    }
+	public void createDirectory(String path) {
+        if(ftp.createDirectory(path)) {
+            java.util.Date date = new Date();   
+            registerMovement("Creacion de Directorio", date.toString());
+            System.out.println("Creado");
+            Utilities.showMessage("Directorio Creado", false);
+        }else {
+            System.out.println("no");
+            Utilities.showMessage("Error al Crear Directorio", true);
+        }
+    }
 	
 	public void registerMovement(String movement, String date) {
 		DataRequestResponse message = new DataRequestResponse();
