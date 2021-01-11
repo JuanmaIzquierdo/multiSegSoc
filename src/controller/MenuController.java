@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Date;
@@ -14,8 +15,9 @@ import javax.swing.tree.TreePath;
 
 import org.apache.commons.net.ftp.FTPFile;
 
-import Models.Movement;
-import objetosDB.User;
+import Database.User;
+import Models.DataRequestResponse;
+import Models.MovementRequest;
 import views.Utilities;
 
 public class MenuController {
@@ -24,14 +26,17 @@ public class MenuController {
 	DataOutputStream dataOS;
 	DataInputStream dataIS;
 	ObjectOutputStream objectOS;
+	ObjectInputStream objectIS;
 	FtpController ftp;
 	User user;
 	
-	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS, 	ObjectOutputStream objectOS) {
+	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS, 
+			ObjectOutputStream objectOS, ObjectInputStream objectIS) {
 		this.socket = socket;
 		this.dataOS = dataOS;
 		this.dataIS = dataIS;
 		this.objectOS = objectOS;
+		this.objectIS = objectIS;
 		getUserData();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
@@ -39,14 +44,12 @@ public class MenuController {
 	}
 	
 	public void getUserData() {
-		Message msg = new Message("0004");
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0004");
 		try {
-			dataOS.writeUTF(msg.getMessage());
-			String txt;
-			txt = dataIS.readUTF();
-			String[] data = txt.split("\\*");
-			this.user = new User(Integer.valueOf(data[0]),data[1], data[2],data[3],data[4],data[5]);
-		} catch (IOException e) {
+			objectOS.writeObject(message);
+			this.user = (User)((DataRequestResponse) objectIS.readObject()).getData().get(0);
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}	
 	}
@@ -111,15 +114,25 @@ public class MenuController {
 		}
 	}
 	
+//	public void createDirectory(String path) {
+//        if(ftp.createDirectory(path)) {
+//            java.util.Date date = new Date();   
+//            registerMovement("Creacion de Directorio", date.toString());
+//            System.out.println("Creado");
+//            Utilities.showMessage("Directorio Creado", false);
+//        }else {
+//            System.out.println("no");
+//            Utilities.showMessage("Error al Crear Directorio", true);
+//        }
+//    }
+	
 	public void registerMovement(String movement, String date) {
-		Message msg = new Message("0005");
-		Movement mvmt = new Movement(movement, date);
-//		msg.addData(mvmt);
-		msg.addValue(movement);
-		msg.addValue(date);	
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0005");
+		MovementRequest movementData = new MovementRequest(movement, date);
+		message.addData(movementData);
 		try {
-			dataOS.writeUTF(msg.getMessage());
-//			objectOS.writeObject(msg);
+			objectOS.writeObject(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

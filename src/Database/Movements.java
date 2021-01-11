@@ -1,4 +1,4 @@
-package objetosDB;
+package Database;
 
 //Clase objeto para los movimientos
 

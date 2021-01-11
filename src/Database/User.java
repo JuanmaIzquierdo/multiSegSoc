@@ -1,24 +1,28 @@
-package objetosDB;
+package Database;
 
-//Clase objeto para los usuarios
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable{
 	
-	int Id;
-	String Name;
-	String Surname;
-	String Role;
-	String Email;
-	String Password;
+	private int Id = -1;
+	private String Name;
+	private String Surname;
+	private String Role;
+	private String Email;
+	private String Password;
+	private Boolean OnlineStatus;
 	
-	public User(int Id, String Name, String Surname, String Role, String Email, String Password) {
+	public User(int Id, String Name, String Surname, String Role, String Email, String Password, Boolean Online) {
 		this.Id = Id;
 		this.Name = Name;
 		this.Surname = Surname;
 		this.Role = Role;
 		this.Email = Email;
 		this.Password = Password;
+		this.OnlineStatus = Online;
 	}
+	
+	public User() {}
 
 	public int getId() {
 		return Id;
@@ -66,6 +70,14 @@ public class User {
 
 	public void setPassword(String password) {
 		Password = password;
+	}
+	
+	public Boolean getOnline() {
+		return OnlineStatus;
+	}
+
+	public void setOnline(Boolean online) {
+		OnlineStatus = online;
 	}
 
 }
