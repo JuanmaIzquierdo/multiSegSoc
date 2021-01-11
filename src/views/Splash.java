@@ -12,6 +12,17 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 public class Splash extends JFrame {
+	
+	public static void showSplash(int seconds) {
+		Splash splash = new Splash();
+		splash.setVisible(true);
+		try {
+			Thread.sleep(seconds * 1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		splash.dispose();
+	}
 
 	public Splash() {
 		dibujarVentana();
@@ -57,31 +68,4 @@ public class Splash extends JFrame {
 		this.setLocation(300, 300);
 		ImageIcon gifCarga = new ImageIcon("/images/gifCarga.gif");
 	}
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		Runnable ejecutable = new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Splash splash = new Splash();
-				splash.setVisible(true);
-				try {
-					Thread.sleep(4 * 1000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				splash.dispose();
-
-			}
-		};
-
-		Thread tarea = new Thread(ejecutable);
-		tarea.start();
-
-	}
-
 }
-

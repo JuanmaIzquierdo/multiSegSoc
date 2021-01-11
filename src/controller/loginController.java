@@ -11,6 +11,7 @@ import Models.DataRequestResponse;
 import Models.LoginRequest;
 import views.Login;
 import views.Menu;
+import views.Splash;
 import views.Utilities;
 
 public class loginController {
@@ -52,6 +53,7 @@ public class loginController {
 				//siguiente ventana
 				System.out.println("yes");
 				Login.hacerInvisible();
+				//Splash.showSplash(4);
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS, this.objectOS, this.objectIS);
 				Menu menu = new Menu(menuController);
