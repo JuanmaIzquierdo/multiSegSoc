@@ -1,15 +1,19 @@
 package Models;
 
-public class Movement {
-	
-	String movement;
-	String date;
+import java.io.Serializable;
 
-	public Movement(String movement, String date) {
+public class MovementRequest implements Serializable{
+	private String movement;
+	private String date;
+	
+	public MovementRequest(String movement, String date) {
+		super();
 		this.movement = movement;
 		this.date = date;
 	}
-	
+	public MovementRequest() {
+		super();
+	}
 	public String getMovement() {
 		return movement;
 	}
@@ -22,4 +26,6 @@ public class Movement {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	
 }

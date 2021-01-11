@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import Models.UserLogin;
+import Models.DataRequestResponse;
+import Models.LoginRequest;
 import views.Login;
 import views.Menu;
 import views.Utilities;
@@ -36,14 +37,13 @@ public class loginController {
 		for(int i = 0; i < cs.length; i++) {
 			password += cs[i];
 		}
-		Message msg = new Message("0001");
-		//UserLogin userData = new UserLogin(username, password);
-		//msg.addData(userData);
-		msg.addValue(username);
-		msg.addValue(password);
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0001");
+		LoginRequest loginData = new LoginRequest(username, password);
+		message.addData(loginData);
 		try {
-			//objectOS.writeObject(msg);
-			dataOS.writeUTF(msg.getMessage());
+			objectOS.writeObject(message);
+//			dataOS.writeUTF(msg.getMessage());
 			result = dataIS.readInt();
 		} catch (IOException e) {
 			e.printStackTrace();

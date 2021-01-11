@@ -1,48 +1,51 @@
 package Models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Message {
+public class Message implements Serializable{
+	private int messageNumber;
+	private String subject;
+	private String messageBody;
+	private Date date;
+	private String from;
 	
-	private String code;
-	private Boolean error;
-	private String errorMsg;
-	private ArrayList<Object> data;
+	public Message() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Message(int messageNumber, String subject, String messageBody, Date date, String from) {
+		super();
+		this.messageNumber = messageNumber;
+		this.subject = subject;
+		this.messageBody = messageBody;
+		this.date = date;
+		this.from = from;
+	}
 	
-	public Message(String code) {
-		this.code = code;
-		this.data = new ArrayList<Object>();
+	public int getMessageNumber() {
+		return messageNumber;
 	}
 
-	public String getCode() {
-		return code;
+	public void setMessageNumber(int messageNumber) {
+		this.messageNumber = messageNumber;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public String getSubject() {
+		return subject;
 	}
 
-	public Boolean getError() {
-		return error;
+	public String getMessageBody() {
+		return messageBody;
 	}
 
-	public void setError(Boolean error) {
-		this.error = error;
+	public Date getDate() {
+		return date;
 	}
 
-	public String getErrorMsg() {
-		return errorMsg;
+	public String getFrom() {
+		return from;
 	}
-
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
-	}
-
-	public ArrayList<Object> getData() {
-		return data;
-	}
-
-	public void addData(Object data) {
-		this.data.add(data);
-	}
+	
+	
 }
