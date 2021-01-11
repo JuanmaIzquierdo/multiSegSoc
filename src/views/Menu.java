@@ -201,7 +201,7 @@ public class Menu extends JFrame {
 						,pathComponents [pathComponents.length - 1]);
 			}
 		});
-		
+		//
 		JButton btnDirectory = new JButton("Nuevo Directorio");
 		btnDirectory.setBounds(475, 205, 110, 35);
 		btnDirectory.addActionListener(new ActionListener() {
