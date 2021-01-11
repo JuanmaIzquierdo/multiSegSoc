@@ -201,6 +201,12 @@ public class Menu extends JFrame {
 						,pathComponents [pathComponents.length - 1]);
 			}
 		});
+		//evento boton
+		
+		
+		
+		
+		
 			
 		panelFicherosFtp.add(tree);
 		panelFicherosFtp.add(btnRemove);
