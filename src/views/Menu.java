@@ -203,7 +203,7 @@ public class Menu extends JFrame {
 		});
 		//evento boton
 		JButton btnDirectory = new JButton("Nuevo Directorio");
-		btnDownload.setBounds(475, 145, 110, 35);
+		btnDownload.setBounds(475, 205, 110, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//String path = controller.getTreePath(tree.getSelectionPath(), 0);
@@ -213,7 +213,7 @@ public class Menu extends JFrame {
 					path = controller.getTreePath(tree.getSelectionPath(), 1) + path;
 					controller.createDirectory(path);
 				}
-				
+				menuListaFicherosFtp(homeDirectory);
 			}
 		});
 		
