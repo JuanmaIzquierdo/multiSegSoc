@@ -2,6 +2,7 @@ package views;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import Models.SendEmailRequest;
 import controller.MenuController;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BoxLayout;
@@ -79,7 +83,7 @@ public class Menu extends JFrame {
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 681, 498);
+		setBounds(100, 100, 692, 498);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -157,51 +161,71 @@ public class Menu extends JFrame {
 		
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	public void menuEnvioDeCorreo() {
 		vaciarVentana();
 		panelFile = new JPanel();
 		contentPane.updateUI();
-		panelFile.setLayout(new BoxLayout(panelFile, BoxLayout.Y_AXIS));
 		panelFile.setBounds(0, 27, 677, 376);
 		contentPane.add(panelFile);
+		panelFile.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Cabecera");
+		JLabel lblNewLabel = new JLabel("Asunto:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		lblNewLabel.setBounds(10, 81, 46, 14);
+		lblNewLabel.setBounds(26, 62, 83, 16);
 		panelFile.add(lblNewLabel);
 		
 
 		JTextField emailSub = new JTextField();
-		emailSub.setBounds(66, 34, 157, 20);
+		emailSub.setBorder(new LineBorder(Color.BLACK));
+		emailSub.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		emailSub.setBounds(157, 53, 493, 35);
 		panelFile.add(emailSub);
 		emailSub.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("A quien");
-		lblNewLabel_1.setBounds(10, 37, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("Para:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(28, 20, 54, 16);
 		panelFile.add(lblNewLabel_1);
 		
 		JTextField emailTo = new JTextField();
-		emailTo.setBounds(66, 78, 157, 20);
+		emailTo.setBorder(new LineBorder(Color.BLACK));
+		emailTo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		emailTo.setBounds(157, 13, 493, 32);
 		panelFile.add(emailTo);
 		emailTo.setColumns(10);
 		
 		
 		JLabel lblNewLabel_2 = new JLabel("Mensaje");
-		lblNewLabel_2.setBounds(10, 128, 46, 14);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(26, 103, 74, 25);
 		panelFile.add(lblNewLabel_2);
 		
 		JTextArea emailMsg = new JTextArea();
-		emailMsg.setBounds(66, 123, 358, 84);
+		emailMsg.setBorder(new LineBorder(new Color(0, 0, 0)));
+		emailMsg.setTabSize(4);
+		emailMsg.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		emailMsg.setRows(4);
+		emailMsg.setBounds(19, 141, 646, 123);
 		panelFile.add(emailMsg);
 		
 
 		JPanel errorWrapper = new JPanel();
+		errorWrapper.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		errorWrapper.setBounds(208, 284, 256, 53);
 		errorWrapper.setLayout(new BoxLayout(errorWrapper, BoxLayout.Y_AXIS));
 		
 
 		JPanel response = new JPanel();
+		response.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		response.setBounds(0, 350, 677, 25);
 		
 		JButton btnSend = new JButton("Enviar");
+		btnSend.setForeground(Color.WHITE);
+		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSend.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				errorWrapper.removeAll();
@@ -222,11 +246,14 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		btnSend.setBackground(Color.GREEN);
-		btnSend.setBounds(39, 248, 66, 26);
+		btnSend.setBackground(new Color(60, 179, 113));
+		btnSend.setBounds(12, 277, 160, 60);
 		panelFile.add(btnSend);
 		
 		JButton btnReset = new JButton("Resetear Valores");
+		btnReset.setForeground(Color.WHITE);
+		btnReset.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnReset.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				emailSub.setText("");
@@ -234,16 +261,15 @@ public class Menu extends JFrame {
 				emailMsg.setText("");
 			}
 		});
-		btnReset.setBackground(Color.RED);
-		btnReset.setBounds(135, 250, 128, 23);
+		btnReset.setBackground(new Color(60, 179, 113));
+		btnReset.setBounds(505, 277, 160, 60);
 		panelFile.add(btnReset);
-		
-		
 		panelFile.setVisible(true);
 		panelFile.add(errorWrapper);
 		panelFile.add(response);
 		
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private boolean checkValue(String labelName, String value, boolean isEmail, JPanel errorWrapper) {
 		if(value.trim().equalsIgnoreCase("")) {
@@ -268,6 +294,7 @@ public class Menu extends JFrame {
         Matcher regMatcher = regexPattern.matcher(email);
         return regMatcher.matches();
  }
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public void menuFilechooserSubirFichero(String boton) {	
 		vaciarVentana();
