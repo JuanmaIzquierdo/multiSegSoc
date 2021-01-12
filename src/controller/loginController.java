@@ -51,23 +51,15 @@ public class loginController {
 			switch(result.getError()) {
 			case "": 
 				//siguiente ventana
-				System.out.println("yes");
-				Login.hacerInvisible();
-				//Splash.showSplash(4);
+				Login.hacerInvisible();				
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS, this.objectOS, this.objectIS);
-				Menu menu = new Menu(menuController);
-				menu.setVisible(true);
+				Splash.showSplash(menuController); 
 				break;
 			case "Error": 
 				Utilities.showMessage(result.getErrorMessage(), true);
 				break;
-//			case 2: 
-//				Utilities.showMessage("Usuario o contraseña incorrecto", true);
-//				break;
-//			case 3: 
-//				Utilities.showMessage("Error de comunicación con el servidor", true);
-		}
+			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 			Utilities.showMessage("Error de comunicación con el servidor", true);

@@ -42,29 +42,6 @@ public class Menu extends JFrame {
 	JFileChooser fc;
 	MenuController controller;
 
-	/**
-	 * Launch the application.
-	 */
-	// constructor que pida por parametro un menuController*****************+
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// frame = new Menu();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-
-	/**
-	 * Create the frame.
-	 */
-	// public Menu() {
-	// // TODO Auto-generated constructor stub
-	// //}
 	public Menu(MenuController controller) {
 		this.controller = controller;
 		fc = new JFileChooser();
