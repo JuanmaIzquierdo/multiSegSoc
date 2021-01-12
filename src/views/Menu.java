@@ -38,6 +38,7 @@ public class Menu extends JFrame {
 	JPanel panelFile;
 	JPanel panelMenu;
 	JPanel panelFicherosFtp;
+	JPanel panelAcercaDe;
 	JFileChooser fc;
 	MenuController controller;
 
@@ -135,6 +136,8 @@ public class Menu extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Acerca De");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				vaciarVentana();
+				menuAcercaDe();
 			}
 		});
 		mnAcercaDe.add(mntmNewMenuItem);
@@ -142,47 +145,50 @@ public class Menu extends JFrame {
 		JMenu menu_1 = new JMenu("");
 		menuBar.add(menu_1);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 39, 653, 411);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
+	}
+	
+	public void menuAcercaDe() {
+		panelAcercaDe = new JPanel();
+		panelAcercaDe.setBounds(10, 39, 653, 411);
+		contentPane.add(panelAcercaDe);
+		panelAcercaDe.setLayout(null);
+		
 		JLabel lblNombre_1 = new JLabel("Nombre 1");
 		lblNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1.setBounds(176, 49, 300, 20);
-		panel.add(lblNombre_1);
+		panelAcercaDe.add(lblNombre_1);
 
 		JLabel lblNombre_1_1 = new JLabel("Nombre 2");
 		lblNombre_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_1.setBounds(176, 82, 300, 20);
-		panel.add(lblNombre_1_1);
+		panelAcercaDe.add(lblNombre_1_1);
 
 		JLabel lblNombre_1_2 = new JLabel("Nombre 3");
 		lblNombre_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_2.setBounds(176, 115, 300, 20);
-		panel.add(lblNombre_1_2);
+		panelAcercaDe.add(lblNombre_1_2);
 
 		JLabel lblNombre_1_3 = new JLabel("Nombre 4");
 		lblNombre_1_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_3.setBounds(176, 148, 300, 20);
-		panel.add(lblNombre_1_3);
+		panelAcercaDe.add(lblNombre_1_3);
 
 		JLabel lblGrupoDam = new JLabel("GRUPO 3 D.A.M.");
 		lblGrupoDam.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrupoDam.setBounds(0, 366, 136, 45);
-		panel.add(lblGrupoDam);
+		panelAcercaDe.add(lblGrupoDam);
 
 		JLabel lblVersion = new JLabel("Version 1.0");
 		lblVersion.setBounds(588, 395, 65, 16);
-		panel.add(lblVersion);
+		panelAcercaDe.add(lblVersion);
 
 		JLabel lblCopyright = new JLabel("Copyright \u00A9 (2020-2021)");
 		lblCopyright.setBounds(12, 224, 150, 16);
-		panel.add(lblCopyright);
+		panelAcercaDe.add(lblCopyright);
 
 		JLabel lblSeguridadSocial = new JLabel("Seguridad Social");
 		lblSeguridadSocial.setBounds(548, 224, 105, 16);
-		panel.add(lblSeguridadSocial);
+		panelAcercaDe.add(lblSeguridadSocial);
 	}
 
 	public void menuFilechooserSubirFichero(String boton) {
@@ -295,6 +301,11 @@ public class Menu extends JFrame {
 
 		try {
 			contentPane.remove(panelFicherosFtp);
+		} catch (java.lang.NullPointerException e) {
+		}
+		
+		try {
+			contentPane.remove(panelAcercaDe);
 		} catch (java.lang.NullPointerException e) {
 		}
 
