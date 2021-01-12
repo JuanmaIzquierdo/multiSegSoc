@@ -1,10 +1,13 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -66,6 +69,9 @@ public class Menu extends JFrame {
 	// // TODO Auto-generated constructor stub
 	// //}
 	public Menu(MenuController controller) {
+		setTitle("Seguridad Social");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				"src//images//logoIcon.png"));
 		this.controller = controller;
 		fc = new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
@@ -127,6 +133,7 @@ public class Menu extends JFrame {
 		menuBar.add(mnEmail);
 
 		JMenu mnNewMenu_1 = new JMenu("A\u00F1adir emails aqui");
+		mnNewMenu_1.setBackground(Color.WHITE);
 		mnEmail.add(mnNewMenu_1);
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
@@ -134,6 +141,8 @@ public class Menu extends JFrame {
 		menuBar.add(mnAcercaDe);
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Acerca De");
+		mntmNewMenuItem.setForeground(Color.WHITE);
+		mntmNewMenuItem.setBackground(new Color(60, 179, 113));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vaciarVentana();
@@ -142,53 +151,61 @@ public class Menu extends JFrame {
 		});
 		mnAcercaDe.add(mntmNewMenuItem);
 
-		JMenu menu_1 = new JMenu("");
-		menuBar.add(menu_1);
-
 	}
 	
 	public void menuAcercaDe() {
+		getContentPane().setLayout(null);
+
 		panelAcercaDe = new JPanel();
-		panelAcercaDe.setBounds(10, 39, 653, 411);
-		contentPane.add(panelAcercaDe);
+		panelAcercaDe.setBounds(0, 0, 653, 411);
+		getContentPane().add(panelAcercaDe);
 		panelAcercaDe.setLayout(null);
-		
-		JLabel lblNombre_1 = new JLabel("Nombre 1");
+
+		JLabel lblNombre_1 = new JLabel("Alejandro S\u00E1nchez Rodr\u00EDguez");
+		lblNombre_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre_1.setBounds(176, 49, 300, 20);
+		lblNombre_1.setBounds(12, 169, 300, 20);
 		panelAcercaDe.add(lblNombre_1);
 
-		JLabel lblNombre_1_1 = new JLabel("Nombre 2");
+		JLabel lblNombre_1_1 = new JLabel("Pablo M\u00E9rida Egea");
+		lblNombre_1_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre_1_1.setBounds(176, 82, 300, 20);
+		lblNombre_1_1.setBounds(12, 202, 300, 20);
 		panelAcercaDe.add(lblNombre_1_1);
 
-		JLabel lblNombre_1_2 = new JLabel("Nombre 3");
+		JLabel lblNombre_1_2 = new JLabel("Vitaliy Bay");
+		lblNombre_1_2.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre_1_2.setBounds(176, 115, 300, 20);
+		lblNombre_1_2.setBounds(22, 235, 300, 20);
 		panelAcercaDe.add(lblNombre_1_2);
 
-		JLabel lblNombre_1_3 = new JLabel("Nombre 4");
+		JLabel lblNombre_1_3 = new JLabel("Juan Manuel Izquierdo");
+		lblNombre_1_3.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre_1_3.setBounds(176, 148, 300, 20);
+		lblNombre_1_3.setBounds(12, 268, 300, 20);
 		panelAcercaDe.add(lblNombre_1_3);
 
-		JLabel lblGrupoDam = new JLabel("GRUPO 3 D.A.M.");
+		JLabel lblGrupoDam = new JLabel("GRUPO 2 D.A.M.");
+		lblGrupoDam.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblGrupoDam.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGrupoDam.setBounds(0, 366, 136, 45);
+		lblGrupoDam.setBounds(37, 111, 232, 45);
 		panelAcercaDe.add(lblGrupoDam);
 
 		JLabel lblVersion = new JLabel("Version 1.0");
-		lblVersion.setBounds(588, 395, 65, 16);
+		lblVersion.setBounds(576, 382, 65, 16);
 		panelAcercaDe.add(lblVersion);
 
 		JLabel lblCopyright = new JLabel("Copyright \u00A9 (2020-2021)");
-		lblCopyright.setBounds(12, 224, 150, 16);
+		lblCopyright.setBounds(12, 376, 220, 24);
 		panelAcercaDe.add(lblCopyright);
+		lblCopyright.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCopyright.setFont(new Font("Arial", Font.PLAIN, 20));
 
-		JLabel lblSeguridadSocial = new JLabel("Seguridad Social");
-		lblSeguridadSocial.setBounds(548, 224, 105, 16);
-		panelAcercaDe.add(lblSeguridadSocial);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(
+				"src//images//logoPng.png"));
+		lblNewLabel.setBounds(408, 67, 200, 221);
+		panelAcercaDe.add(lblNewLabel);
 	}
 
 	public void menuFilechooserSubirFichero(String boton) {
