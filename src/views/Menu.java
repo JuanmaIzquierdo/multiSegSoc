@@ -21,6 +21,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import controller.MenuController;
+import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 public class Menu extends JFrame {
 
@@ -119,13 +121,18 @@ public class Menu extends JFrame {
 		JMenu mnEmail = new JMenu("E-mail");
 		mnEmail.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnEmail);
+		
+		JMenu mnNewMenu_1 = new JMenu("A\u00F1adir emails aqui");
+		mnEmail.add(mnNewMenu_1);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Acerca De");
+		mntmNewMenuItem.setHorizontalAlignment(SwingConstants.LEFT);
+		mntmNewMenuItem.setMaximumSize(new Dimension(120, 50));
+		menuBar.add(mntmNewMenuItem);
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnAcercaDe);
-
-		JMenu menu = new JMenu("");
-		mnAcercaDe.add(menu);
 
 		JMenu menu_1 = new JMenu("");
 		menuBar.add(menu_1);
@@ -239,5 +246,4 @@ public class Menu extends JFrame {
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
 	}
-
 }
