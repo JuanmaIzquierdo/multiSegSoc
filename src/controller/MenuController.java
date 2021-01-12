@@ -20,6 +20,7 @@ import Database.User;
 import Models.DataRequestResponse;
 import Models.Message;
 import Models.MovementRequest;
+import Models.SendEmailRequest;
 import views.Utilities;
 
 public class MenuController {
@@ -46,6 +47,27 @@ public class MenuController {
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
 		loginFTP();
+	}
+	
+	public String sendEmail(SendEmailRequest emailRequest) {
+		DataRequestResponse message = new DataRequestResponse();
+//		emailRequest.setFrom(user.getEmail());
+//		emailRequest.setFrom(user.getPassword());
+		emailRequest.setFrom(""); // Escribir su correo y contraseña
+		emailRequest.setPassword("");
+		message.setAction("0006");
+		message.addData(emailRequest);
+		try {
+			objectOS.writeObject(message);
+			DataRequestResponse response = ((DataRequestResponse) objectIS.readObject());
+			if(response.getError().equalsIgnoreCase("Error")) {
+				return response.getErrorMessage();
+			} 
+		} catch (IOException | ClassNotFoundException e) {
+			System.out.println("Error in sendEmail (MenuController) " + e.getMessage());
+			return "Error, correo no se ha enviado";
+		}	
+		return "Correo Enviado";
 	}
 	
 	public void getUserData() {

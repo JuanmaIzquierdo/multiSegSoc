@@ -1,9 +1,13 @@
 package views;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,7 +24,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import Models.SendEmailRequest;
 import controller.MenuController;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 public class Menu extends JFrame {
 
@@ -36,6 +46,9 @@ public class Menu extends JFrame {
 	JPanel panelFicherosFtp;
 	JFileChooser fc ;
 	MenuController controller;
+	private final Action action = new SwingAction();
+	private JTextField emailTo;
+	private JTextField emailSub;
 
 	/**
 	 * Launch the application.
@@ -70,16 +83,18 @@ public class Menu extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		contentPane.setLayout(null);
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 677, 26);
 		menuBar.setForeground(new Color(255, 255, 255));
 		menuBar.setBackground(new Color(60, 179, 113));
-		menuBar.setBounds(0, 0, 677, 26);
 		contentPane.add(menuBar);
+		
 		JMenu mnNewMenu = new JMenu("Archivos");
 		mnNewMenu.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu);
+		
 		JMenuItem mntmNuevoArchivo = new JMenuItem("Subir Archivo");
 		mntmNuevoArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {								
@@ -117,8 +132,20 @@ public class Menu extends JFrame {
 //		mnNewMenu.add(mntmModificarArchvo);
 
 		JMenu mnEmail = new JMenu("E-mail");
+		mnEmail.setAction(action);
 		mnEmail.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnEmail);
+		
+		JMenuItem mntmEnviarCorreo = new JMenuItem("Enviar Correo");
+		mntmEnviarCorreo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				menuEnvioDeCorreo();
+			}
+		});
+		mntmEnviarCorreo.setBackground(new Color(60, 179, 113));
+		mntmEnviarCorreo.setOpaque(true);
+		mntmEnviarCorreo.setForeground(new Color(255, 255, 255));
+		mnEmail.add(mntmEnviarCorreo);
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
@@ -126,10 +153,121 @@ public class Menu extends JFrame {
 
 		JMenu menu = new JMenu("");
 		mnAcercaDe.add(menu);
-
-		JMenu menu_1 = new JMenu("");
-		menuBar.add(menu_1);
+		
+		
 	}
+	
+	public void menuEnvioDeCorreo() {
+		vaciarVentana();
+		panelFile = new JPanel();
+		contentPane.updateUI();
+		panelFile.setLayout(new BoxLayout(panelFile, BoxLayout.Y_AXIS));
+		panelFile.setBounds(0, 27, 677, 376);
+		contentPane.add(panelFile);
+		
+		JLabel lblNewLabel = new JLabel("Cabecera");
+
+		lblNewLabel.setBounds(10, 81, 46, 14);
+		panelFile.add(lblNewLabel);
+		
+
+		JTextField emailSub = new JTextField();
+		emailSub.setBounds(66, 34, 157, 20);
+		panelFile.add(emailSub);
+		emailSub.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("A quien");
+		lblNewLabel_1.setBounds(10, 37, 46, 14);
+		panelFile.add(lblNewLabel_1);
+		
+		JTextField emailTo = new JTextField();
+		emailTo.setBounds(66, 78, 157, 20);
+		panelFile.add(emailTo);
+		emailTo.setColumns(10);
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("Mensaje");
+		lblNewLabel_2.setBounds(10, 128, 46, 14);
+		panelFile.add(lblNewLabel_2);
+		
+		JTextArea emailMsg = new JTextArea();
+		emailMsg.setBounds(66, 123, 358, 84);
+		panelFile.add(emailMsg);
+		
+
+		JPanel errorWrapper = new JPanel();
+		errorWrapper.setLayout(new BoxLayout(errorWrapper, BoxLayout.Y_AXIS));
+		
+
+		JPanel response = new JPanel();
+		
+		JButton btnSend = new JButton("Enviar");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				errorWrapper.removeAll();
+				boolean isCorrecrSub = checkValue("Cabecera", emailSub.getText(), false, errorWrapper);
+				boolean isCorrecrEmail = checkValue("Email", emailTo.getText(), true, errorWrapper);
+				boolean isCorrecrMsg = checkValue("Mensaje", emailMsg.getText(), false, errorWrapper);
+
+				contentPane.updateUI();
+				if(isCorrecrEmail && isCorrecrMsg && isCorrecrSub) {
+					System.out.println("All ok");
+					SendEmailRequest emailRequest = new SendEmailRequest("", "", emailTo.getText(), 
+									emailSub.getText(), emailMsg.getText());
+					String sendEmailResponse = controller.sendEmail(emailRequest);
+					JLabel label = new JLabel(sendEmailResponse);
+					response.add(label);
+				} else {
+					System.out.println("Failure");
+				}
+			}
+		});
+		btnSend.setBackground(Color.GREEN);
+		btnSend.setBounds(39, 248, 66, 26);
+		panelFile.add(btnSend);
+		
+		JButton btnReset = new JButton("Resetear Valores");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				emailSub.setText("");
+				emailTo.setText("");
+				emailMsg.setText("");
+			}
+		});
+		btnReset.setBackground(Color.RED);
+		btnReset.setBounds(135, 250, 128, 23);
+		panelFile.add(btnReset);
+		
+		
+		panelFile.setVisible(true);
+		panelFile.add(errorWrapper);
+		panelFile.add(response);
+		
+	}
+	
+	private boolean checkValue(String labelName, String value, boolean isEmail, JPanel errorWrapper) {
+		if(value.trim().equalsIgnoreCase("")) {
+			JLabel label = new JLabel(labelName + " no puede estar vacio");
+			errorWrapper.add(label);
+			return false;
+		}
+		if(isEmail) {
+			if(isValidEmailAddress(value)) {
+				return true;
+			} else {
+				JLabel label = new JLabel(labelName + " no es correcto. Debe contener...");
+				errorWrapper.add(label);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean isValidEmailAddress(String email) {
+		Pattern  regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+        Matcher regMatcher = regexPattern.matcher(email);
+        return regMatcher.matches();
+ }
 
 	public void menuFilechooserSubirFichero(String boton) {	
 		vaciarVentana();
@@ -240,4 +378,12 @@ public class Menu extends JFrame {
 		contentPane.setVisible(true);
 	}
 
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
 }
