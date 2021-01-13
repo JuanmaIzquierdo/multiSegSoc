@@ -42,8 +42,6 @@ public class MenuController {
 		this.objectOS = objectOS;
 		this.objectIS = objectIS;
 		getUserData();
-		ReadMessagesThread thread = new ReadMessagesThread(objectIS);
-		thread.start();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
 		loginFTP();
@@ -53,16 +51,18 @@ public class MenuController {
 		DataRequestResponse message = new DataRequestResponse();
 		emailRequest.setFrom(user.getEmail());
 		emailRequest.setPassword(user.getPassword());
-//		emailRequest.setFrom(""); // Escribir su correo y contraseña
-//		emailRequest.setPassword("");
 		message.setAction("0006");
 		message.addData(emailRequest);
 		try {
 			objectOS.writeObject(message);
-//			DataRequestResponse response = ((DataRequestResponse) objectIS.readObject());
-//			if(response.getError().equalsIgnoreCase("Error")) {
-//				return response.getErrorMessage();
-//			} 
+			DataRequestResponse response;
+			try {
+				response = ((DataRequestResponse) objectIS.readObject());
+				if(response.getError().equalsIgnoreCase("Error")) {
+					return response.getErrorMessage();
+				}
+			} catch (ClassNotFoundException e) {
+			} 
 		} catch (IOException e) {
 			System.out.println("Error in sendEmail (MenuController) " + e.getMessage());
 			return "Error, correo no se ha enviado";

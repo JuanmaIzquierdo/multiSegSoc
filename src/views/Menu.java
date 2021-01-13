@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +30,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import Models.Message;
 import Models.SendEmailRequest;
 import controller.MenuController;
 
@@ -48,11 +52,13 @@ public class Menu extends JFrame {
 	JPanel panelFile;
 	JPanel panelMenu;
 	JPanel panelFicherosFtp;
+	private JPanel panelEmail;
 	JFileChooser fc ;
 	MenuController controller;
 	private final Action action = new SwingAction();
 	private JTextField emailTo;
 	private JTextField emailSub;
+	private ArrayList<JPanel> panelEmails = new ArrayList<JPanel>();
 
 	/**
 	 * Launch the application.
@@ -150,6 +156,17 @@ public class Menu extends JFrame {
 		mntmEnviarCorreo.setOpaque(true);
 		mntmEnviarCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmEnviarCorreo);
+		
+		JMenuItem mntmRecibirCorreo = new JMenuItem("Recibir Correo");
+		mntmRecibirCorreo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				menuReciboDeCorreo(new ArrayList<Message>());
+			}
+		});
+		mntmRecibirCorreo.setBackground(new Color(60, 179, 113));
+		mntmRecibirCorreo.setOpaque(true);
+		mntmRecibirCorreo.setForeground(new Color(255, 255, 255));
+		mnEmail.add(mntmRecibirCorreo);
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
@@ -162,6 +179,67 @@ public class Menu extends JFrame {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void menuReciboDeCorreo(ArrayList<Message> emails) {
+		vaciarVentana();
+		panelEmail = new JPanel();
+		contentPane.updateUI();
+		panelEmail.setBounds(0, 27, 677, 376);
+		contentPane.add(panelEmail);
+		panelEmail.setLayout(new GridLayout(0, 2));
+		JPanel emailIndex = new JPanel(new GridLayout(0, 1));
+		JPanel emailDetails = new JPanel(new GridLayout(0, 1));
+		JTextArea details = new JTextArea();
+		for (Message email : emails) {
+			panelEmails.add(new JPanel(new GridLayout(0, 1)));
+			JLabel from = new JLabel("De: " + email.getFrom());
+			JLabel sub = new JLabel("Asunto: " + email.getSubject());
+			emailIndex.add(from);
+			emailIndex.add(sub);
+			
+			panelEmails.get(panelEmails.size() - 1).addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					details.setText(email.getFrom() + " " + email.getSubject() + " " + email.getMessageBody()
+							+ " " + email.getDate() 
+							);
+				}
+			});
+			
+			emailIndex.add(panelEmails.get(panelEmails.size() - 1));
+		}
+		
+		emailDetails.add(details);
+		
+		panelEmail.add(emailIndex);
+		panelEmail.add(emailDetails);
+		panelEmail.setVisible(true);
+	}
 	
 	public void menuEnvioDeCorreo() {
 		vaciarVentana();
@@ -398,6 +476,10 @@ public class Menu extends JFrame {
 		}catch(java.lang.NullPointerException e) {}
 		
 		try{
+			contentPane.remove(panelEmail);
+		}catch(java.lang.NullPointerException e) {}
+		
+		try{
 			contentPane.remove(panelFicherosFtp);
 		}catch(java.lang.NullPointerException e) {}
 		
@@ -405,6 +487,10 @@ public class Menu extends JFrame {
 		contentPane.setVisible(true);
 	}
 
+	public JPanel getEmailPanel() {
+		return panelEmail;
+	}
+ 	
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "SwingAction");

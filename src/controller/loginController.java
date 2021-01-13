@@ -9,6 +9,7 @@ import java.net.Socket;
 
 import Models.DataRequestResponse;
 import Models.LoginRequest;
+import Models.RecieveEmailRequest;
 import views.Login;
 import views.Menu;
 import views.Splash;
@@ -58,6 +59,10 @@ public class loginController {
 						this.dataIS, this.objectOS, this.objectIS);
 				Menu menu = new Menu(menuController);
 				menu.setVisible(true);
+
+				ReadMessagesThread thread = new ReadMessagesThread(objectIS, menu);
+				thread.start();
+				reciveMessages(true);
 				break;
 			case "Error": 
 				Utilities.showMessage(result.getErrorMessage(), true);
@@ -72,6 +77,18 @@ public class loginController {
 			e.printStackTrace();
 			Utilities.showMessage("Error de comunicación con el servidor", true);
 			//result = 3;
+		}
+	}
+	
+	private void reciveMessages(boolean getAllEmail) {
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0007");
+		RecieveEmailRequest emailRequest = new RecieveEmailRequest(getAllEmail, true);
+		message.addData(emailRequest);
+		try {
+			objectOS.writeObject(message);
+		} catch (IOException e) {
+			System.out.println("Error in reciveMessages " + e.getMessage());
 		}
 	}
 }
