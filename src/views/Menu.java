@@ -96,18 +96,6 @@ public class Menu extends JFrame {
 		mntmBorrarArchivo.setForeground(new Color(255, 255, 255));
 		mnNewMenu.add(mntmBorrarArchivo);
 
-		// JMenuItem mntmModificarArchvo = new JMenuItem("Modificar archvo");
-		// mntmModificarArchvo.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent arg0) {
-		// String boton = "modificar";
-		// menuFilechooserSubirFichero(boton);
-		// }
-		// });
-		// mntmModificarArchvo.setBackground(new Color(60, 179, 113));
-		// mntmModificarArchvo.setOpaque(true);
-		// mntmModificarArchvo.setForeground(new Color(255, 255, 255));
-		// mnNewMenu.add(mntmModificarArchvo);
-
 		JMenu mnEmail = new JMenu("E-mail");
 		mnEmail.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnEmail);
@@ -247,7 +235,7 @@ public class Menu extends JFrame {
 		tree.setBounds(25, 25, 400, 325);
 
 		JButton btnRemove = new JButton("Eliminar");
-		btnRemove.setBounds(475, 25, 110, 35);
+		btnRemove.setBounds(475, 25, 140, 35);
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.deleteFile(controller.getTreePath(
@@ -257,7 +245,7 @@ public class Menu extends JFrame {
 		});
 
 		JButton btnRename = new JButton("Renombrar");
-		btnRename.setBounds(475, 85, 110, 35);
+		btnRename.setBounds(475, 85, 140, 35);
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
@@ -273,7 +261,7 @@ public class Menu extends JFrame {
 		});
 
 		JButton btnDownload = new JButton("Descargar");
-		btnDownload.setBounds(475, 145, 110, 35);
+		btnDownload.setBounds(475, 145, 140, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String path = controller.getTreePath(tree.getSelectionPath(), 0);
@@ -285,7 +273,7 @@ public class Menu extends JFrame {
 		});
 		//
 		JButton btnDirectory = new JButton("Nuevo Directorio");
-		btnDirectory.setBounds(475, 205, 110, 35);
+		btnDirectory.setBounds(475, 205, 140, 35);
 		btnDirectory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String path = JOptionPane.showInputDialog("Nombre de carpeta");
