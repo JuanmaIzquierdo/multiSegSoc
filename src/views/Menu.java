@@ -197,7 +197,7 @@ public class Menu extends JFrame {
 		panelAcercaDe.add(lblNewLabel);
 	}
 
-	public void menuFilechooserSubirFichero(String boton) {
+	public void menuFilechooserSubirFichero(String boton) {	
 		vaciarVentana();
 		panelFile = new JPanel();
 		contentPane.updateUI();
@@ -210,7 +210,11 @@ public class Menu extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				File fichero = fc.getSelectedFile();
-				controller.uploadFile(fichero);
+				try {
+					controller.uploadFile(fichero);
+				}catch(java.lang.NullPointerException e) {
+					Utilities.showMessage("Error de subida. Solo se pueden subir ficheros", true);
+				}
 			}
 		});
 		btnNewButton.setBounds(123, 327, 97, 25);
@@ -218,7 +222,7 @@ public class Menu extends JFrame {
 		panelFile.setVisible(false);
 		panelFile.setVisible(true);
 	}
-
+	
 	public void menuListaFicherosFtp(String homeDirectory) {
 		vaciarVentana();
 
@@ -227,65 +231,64 @@ public class Menu extends JFrame {
 		contentPane.updateUI();
 		panelFicherosFtp.setBounds(25, 27, 677, 376);
 		contentPane.add(panelFicherosFtp);
-
+		
 		DefaultMutableTreeNode home = new DefaultMutableTreeNode(homeDirectory);
 		DefaultTreeModel model = new DefaultTreeModel(home);
 		controller.createDirectoryTree(model, "", home);
 		JTree tree = new JTree(model);
 		tree.setBounds(25, 25, 400, 325);
-
+		
 		JButton btnRemove = new JButton("Eliminar");
-		btnRemove.setBounds(475, 25, 140, 35);
+		btnRemove.setBounds(475, 25, 110, 35);
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controller.deleteFile(controller.getTreePath(
-						tree.getSelectionPath(), 0));
+				controller.deleteFile(controller.getTreePath(tree.getSelectionPath(), 0));
 				menuListaFicherosFtp(homeDirectory);
 			}
 		});
-
+		
 		JButton btnRename = new JButton("Renombrar");
-		btnRename.setBounds(475, 85, 140, 35);
+		btnRename.setBounds(475, 85, 110, 35);
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
-				if (newName != null || !newName.equalsIgnoreCase("")) {
-					newName = controller.getTreePath(tree.getSelectionPath(), 1)
-							+ newName;
-					controller.renameFile(
-							controller.getTreePath(tree.getSelectionPath(), 0),
-							newName);
+				if(newName != null && !newName.equalsIgnoreCase("")) {
+					newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
+					controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
 					menuListaFicherosFtp(homeDirectory);
 				}
 			}
 		});
-
+		
 		JButton btnDownload = new JButton("Descargar");
-		btnDownload.setBounds(475, 145, 140, 35);
+		btnDownload.setBounds(475, 145, 110, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String path = controller.getTreePath(tree.getSelectionPath(), 0);
 				String[] pathComponents = path.split("/");
-				controller.downloadFile(path, System.getProperty("user.home")
-						+ System.getProperty("file.separator") + "Documents",
-						pathComponents[pathComponents.length - 1]);
+				controller.downloadFile(path, System.getProperty("user.home") 
+						+ System.getProperty("file.separator")+ "Documents"
+						,pathComponents [pathComponents.length - 1]);
 			}
 		});
 		//
 		JButton btnDirectory = new JButton("Nuevo Directorio");
-		btnDirectory.setBounds(475, 205, 140, 35);
+		btnDirectory.setBounds(475, 205, 110, 35);
 		btnDirectory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String path = JOptionPane.showInputDialog("Nombre de carpeta");
-				if (path != null || !path.equalsIgnoreCase("")) {
-					path = controller.getTreePath(tree.getSelectionPath(), 0)
-							+ path + "//";
-					controller.createDirectory(path);
-				}
-				menuListaFicherosFtp(homeDirectory);
-			}
-		});
-
+            public void actionPerformed(ActionEvent arg0) {
+                String path = JOptionPane.showInputDialog("Nombre de carpeta");
+                if(path != null && !path.equalsIgnoreCase("")) {
+                    path = controller.getTreePath(tree.getSelectionPath(), 0) + path+"//";
+                    try {
+                        controller.createDirectory(path);
+    				}catch(java.lang.NullPointerException e) {
+    					Utilities.showMessage("Error al crear directorio. El nombre no puede estar repetido.", true);
+    				}
+                }
+                menuListaFicherosFtp(homeDirectory);
+            }
+        });
+			
 		panelFicherosFtp.add(tree);
 		panelFicherosFtp.add(btnRemove);
 		panelFicherosFtp.add(btnRename);
@@ -293,7 +296,7 @@ public class Menu extends JFrame {
 		panelFicherosFtp.add(btnDirectory);
 		panelFicherosFtp.setVisible(true);
 	}
-
+	
 	public void vaciarVentana() {
 		try {
 			contentPane.remove(panelFile);
