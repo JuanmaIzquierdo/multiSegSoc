@@ -387,7 +387,11 @@ public class Menu extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				File fichero = fc.getSelectedFile();
-				controller.uploadFile(fichero);
+				try {
+					controller.uploadFile(fichero);
+				}catch(java.lang.NullPointerException e) {
+					Utilities.showMessage("Error de subida. Solo se pueden subir ficheros", true);
+				}
 			}
 		});
 		btnNewButton.setBounds(123, 327, 97, 25);
@@ -425,7 +429,7 @@ public class Menu extends JFrame {
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
-				if(newName != null || !newName.equalsIgnoreCase("")) {
+				if(newName != null && !newName.equalsIgnoreCase("")) {
 					newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
 					controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
 					menuListaFicherosFtp(homeDirectory);
@@ -450,9 +454,13 @@ public class Menu extends JFrame {
 		btnDirectory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 String path = JOptionPane.showInputDialog("Nombre de carpeta");
-                if(path != null || !path.equalsIgnoreCase("")) {
+                if(path != null && !path.equalsIgnoreCase("")) {
                     path = controller.getTreePath(tree.getSelectionPath(), 0) + path+"//";
-                    controller.createDirectory(path);
+                    try {
+                        controller.createDirectory(path);
+    				}catch(java.lang.NullPointerException e) {
+    					Utilities.showMessage("Error al crear directorio. El nombre no puede estar repetido.", true);
+    				}
                 }
                 menuListaFicherosFtp(homeDirectory);
             }
