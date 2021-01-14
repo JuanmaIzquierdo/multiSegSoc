@@ -72,15 +72,13 @@ public class Menu extends JFrame {
 	private JCheckBox emailCheckBox;
 
 	public Menu(MenuController controller) {
-		setTitle("Seguridad Social");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				"src//images//logoIcon.png"));
+		setTitle("Seguridad Social");		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src//images//logoIcon.png"));
 		this.controller = controller;
 		fc = new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 692, 498);
+		setBounds(100, 100, 1186, 592);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -99,8 +97,8 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panelInicio.setVisible(false);
 				String boton = "subir";
-				fc.setCurrentDirectory(new File(System.getProperty("user.home")
-						+ System.getProperty("file.separator") + "Documentos"));
+				fc.setCurrentDirectory(new File(
+						System.getProperty("user.home") + System.getProperty("file.separator") + "Documentos"));
 				menuFilechooserSubirFichero(boton);
 			}
 		});
@@ -135,7 +133,7 @@ public class Menu extends JFrame {
 		mntmEnviarCorreo.setOpaque(true);
 		mntmEnviarCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmEnviarCorreo);
-		
+
 		mntmRecibirCorreo = new JMenuItem("Recibir Correo");
 //		mntmRecibirCorreo.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent arg0) {
@@ -146,7 +144,6 @@ public class Menu extends JFrame {
 		mntmRecibirCorreo.setOpaque(true);
 		mntmRecibirCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmRecibirCorreo);
-		
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
@@ -163,29 +160,29 @@ public class Menu extends JFrame {
 			}
 		});
 		mnAcercaDe.add(mntmNewMenuItem);
-		
+
 		panelInicio = new JPanel();
 		panelInicio.setBounds(0, 27, 677, 436);
 		contentPane.add(panelInicio);
 		panelInicio.setLayout(null);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("SEGURIDAD SOCIAL");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		lblNewLabel_2.setBounds(12, 174, 541, 81);
 		panelInicio.add(lblNewLabel_2);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon(Menu.class.getResource("/images/logoIcon.png")));
 		lblNewLabel_3.setBounds(558, 157, 101, 123);
 		panelInicio.add(lblNewLabel_3);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/images/fondoBlancoSi.jpg")));
 		lblNewLabel_1.setBounds(-17, 0, 694, 436);
 		panelInicio.add(lblNewLabel_1);
 
 	}
-	
+
 	public void updateEmailIndex(ArrayList<Message> emails) {
 		panelEmails.clear();
 		emailIndex.removeAll();
@@ -222,9 +219,8 @@ public class Menu extends JFrame {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					details.setText("From: " + email.getFrom() + " \n Subject: " + email.getSubject() +
-							" \n MessageBody: " + email.getMessageBody() + " \n Date: " + email.getDate() 
-					);
+					details.setText("From: " + email.getFrom() + " \n Subject: " + email.getSubject()
+							+ " \n MessageBody: " + email.getMessageBody() + " \n Date: " + email.getDate());
 					controller.flagAsAdded(email);
 				}
 			});
@@ -246,23 +242,23 @@ public class Menu extends JFrame {
 		contentPane.add(panelPane);
 		panelEmail.setLayout(new GridLayout(0, 1));
 		emailCheckBox = new JCheckBox("Get all emails");
-		emailCheckBox.setBounds(10,10,150,30);
+		emailCheckBox.setBounds(10, 10, 150, 30);
 		emailCheckBox.setSelected(true);
 		emailCheckBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				controller.changeStateOfRecievingEmails(((JCheckBox)e.getSource()).isSelected());
+				controller.changeStateOfRecievingEmails(((JCheckBox) e.getSource()).isSelected());
 			}
 		});
 		panelEmail.add(emailCheckBox);
-		if(emailIndex == null) {
+		if (emailIndex == null) {
 			emailIndex = new JPanel(new GridLayout(0, 1));
 			emailIndex.setBounds(0, 27, 325, 356);
 		}
 		JPanel emailDetails = new JPanel(new GridLayout(0, 1));
 		emailDetails.setBounds(325, 27, 325, 356);
 		details = new JTextArea(50, 10);
-		
+
 		updateEmailIndex(emails);
 		emailDetails.add(details);
 
@@ -270,7 +266,7 @@ public class Menu extends JFrame {
 		panelEmail.add(emailDetails);
 		panelEmail.setVisible(true);
 	}
-	
+
 	public void menuEnvioDeCorreo() {
 		vaciarVentana();
 		panelFile = new JPanel();
@@ -284,7 +280,6 @@ public class Menu extends JFrame {
 
 		lblNewLabel.setBounds(26, 62, 83, 16);
 		panelFile.add(lblNewLabel);
-
 
 		JTextField emailSub = new JTextField();
 		emailSub.setBorder(new LineBorder(Color.BLACK));
@@ -305,7 +300,6 @@ public class Menu extends JFrame {
 		panelFile.add(emailTo);
 		emailTo.setColumns(10);
 
-
 		JLabel lblNewLabel_2 = new JLabel("Mensaje");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(26, 103, 74, 25);
@@ -319,12 +313,10 @@ public class Menu extends JFrame {
 		emailMsg.setBounds(19, 141, 646, 123);
 		panelFile.add(emailMsg);
 
-
 		JPanel errorWrapper = new JPanel();
 		errorWrapper.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		errorWrapper.setBounds(208, 284, 256, 53);
 		errorWrapper.setLayout(new BoxLayout(errorWrapper, BoxLayout.Y_AXIS));
-
 
 		JPanel response = new JPanel();
 		response.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -341,49 +333,49 @@ public class Menu extends JFrame {
 				boolean isCorrecrEmail = checkValue("Email", emailTo.getText(), true, errorWrapper);
 				boolean isCorrecrMsg = checkValue("Mensaje", emailMsg.getText(), false, errorWrapper);
 				contentPane.updateUI();
-				if(isCorrecrEmail && isCorrecrMsg && isCorrecrSub) {
-							System.out.println("All ok");
-							SendEmailRequest emailRequest = new SendEmailRequest("", "", emailTo.getText(), 
-											emailSub.getText(), emailMsg.getText());
-							String sendEmailResponse = controller.sendEmail(emailRequest);
-							JLabel label = new JLabel(sendEmailResponse);
-							response.add(label);
-						} else {
-							System.out.println("Failure");
-						}
-					}
-				});
-				btnSend.setBackground(new Color(60, 179, 113));
-				btnSend.setBounds(12, 277, 160, 60);
-				panelFile.add(btnSend);
+				if (isCorrecrEmail && isCorrecrMsg && isCorrecrSub) {
+					System.out.println("All ok");
+					SendEmailRequest emailRequest = new SendEmailRequest("", "", emailTo.getText(), emailSub.getText(),
+							emailMsg.getText());
+					String sendEmailResponse = controller.sendEmail(emailRequest);
+					JLabel label = new JLabel(sendEmailResponse);
+					response.add(label);
+				} else {
+					System.out.println("Failure");
+				}
+			}
+		});
+		btnSend.setBackground(new Color(60, 179, 113));
+		btnSend.setBounds(12, 277, 160, 60);
+		panelFile.add(btnSend);
 
-				JButton btnReset = new JButton("Resetear Valores");
-				btnReset.setForeground(Color.WHITE);
-				btnReset.setFont(new Font("Tahoma", Font.PLAIN, 20));
-				btnReset.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
-				btnReset.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						emailSub.setText("");
-						emailTo.setText("");
-						emailMsg.setText("");
-					}
-				});
-				btnReset.setBackground(new Color(60, 179, 113));
-				btnReset.setBounds(505, 277, 160, 60);
-				panelFile.add(btnReset);
-				panelFile.setVisible(true);
-				panelFile.add(errorWrapper);
-				panelFile.add(response);
+		JButton btnReset = new JButton("Resetear Valores");
+		btnReset.setForeground(Color.WHITE);
+		btnReset.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnReset.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				emailSub.setText("");
+				emailTo.setText("");
+				emailMsg.setText("");
+			}
+		});
+		btnReset.setBackground(new Color(60, 179, 113));
+		btnReset.setBounds(505, 277, 160, 60);
+		panelFile.add(btnReset);
+		panelFile.setVisible(true);
+		panelFile.add(errorWrapper);
+		panelFile.add(response);
 	}
-	
+
 	private boolean checkValue(String labelName, String value, boolean isEmail, JPanel errorWrapper) {
-		if(value.trim().equalsIgnoreCase("")) {
+		if (value.trim().equalsIgnoreCase("")) {
 			JLabel label = new JLabel(labelName + " no puede estar vacio");
 			errorWrapper.add(label);
 			return false;
 		}
-		if(isEmail) {
-			if(isValidEmailAddress(value)) {
+		if (isEmail) {
+			if (isValidEmailAddress(value)) {
 				return true;
 			} else {
 				JLabel label = new JLabel(labelName + " no es correcto. Debe contener...");
@@ -395,15 +387,14 @@ public class Menu extends JFrame {
 	}
 
 	public boolean isValidEmailAddress(String email) {
-		Pattern  regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
-        Matcher regMatcher = regexPattern.matcher(email);
-        return regMatcher.matches();
- }
+		Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+		Matcher regMatcher = regexPattern.matcher(email);
+		return regMatcher.matches();
+	}
 
-	
 	public void menuAcercaDe() {
 		vaciarVentana();
-		
+
 		getContentPane().setLayout(null);
 
 		panelAcercaDe = new JPanel();
@@ -452,13 +443,12 @@ public class Menu extends JFrame {
 		lblCopyright.setFont(new Font("Arial", Font.PLAIN, 20));
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(
-				"src//images//logoPng.png"));
+		lblNewLabel.setIcon(new ImageIcon("src//images//logoPng.png"));
 		lblNewLabel.setBounds(408, 67, 200, 221);
 		panelAcercaDe.add(lblNewLabel);
 	}
 
-	public void menuFilechooserSubirFichero(String boton) {	
+	public void menuFilechooserSubirFichero(String boton) {
 		vaciarVentana();
 		panelFile = new JPanel();
 		contentPane.updateUI();
@@ -473,7 +463,7 @@ public class Menu extends JFrame {
 				File fichero = fc.getSelectedFile();
 				try {
 					controller.uploadFile(fichero);
-				}catch(java.lang.NullPointerException e) {
+				} catch (java.lang.NullPointerException e) {
 					Utilities.showMessage("Error de subida. Solo se pueden subir ficheros", true);
 				}
 			}
@@ -483,7 +473,7 @@ public class Menu extends JFrame {
 		panelFile.setVisible(false);
 		panelFile.setVisible(true);
 	}
-	
+
 	public void menuListaFicherosFtp(String homeDirectory) {
 		vaciarVentana();
 
@@ -492,13 +482,13 @@ public class Menu extends JFrame {
 		contentPane.updateUI();
 		panelFicherosFtp.setBounds(25, 27, 677, 376);
 		contentPane.add(panelFicherosFtp);
-		
+
 		DefaultMutableTreeNode home = new DefaultMutableTreeNode(homeDirectory);
 		DefaultTreeModel model = new DefaultTreeModel(home);
 		controller.createDirectoryTree(model, "", home);
 		JTree tree = new JTree(model);
 		tree.setBounds(25, 25, 400, 325);
-		
+
 		JButton btnRemove = new JButton("Eliminar");
 		btnRemove.setBounds(475, 25, 140, 35);
 		btnRemove.addActionListener(new ActionListener() {
@@ -507,49 +497,49 @@ public class Menu extends JFrame {
 				menuListaFicherosFtp(homeDirectory);
 			}
 		});
-		
+
 		JButton btnRename = new JButton("Renombrar");
 		btnRename.setBounds(475, 85, 140, 35);
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
-				if(newName != null && !newName.equalsIgnoreCase("")) {
+				if (newName != null && !newName.equalsIgnoreCase("")) {
 					newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
 					controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
 					menuListaFicherosFtp(homeDirectory);
 				}
 			}
 		});
-		
+
 		JButton btnDownload = new JButton("Descargar");
 		btnDownload.setBounds(475, 145, 140, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String path = controller.getTreePath(tree.getSelectionPath(), 0);
 				String[] pathComponents = path.split("/");
-				controller.downloadFile(path, System.getProperty("user.home") 
-						+ System.getProperty("file.separator")+ "Documents"
-						,pathComponents [pathComponents.length - 1]);
+				controller.downloadFile(path,
+						System.getProperty("user.home") + System.getProperty("file.separator") + "Documents",
+						pathComponents[pathComponents.length - 1]);
 			}
 		});
 		//
 		JButton btnDirectory = new JButton("Nuevo Directorio");
 		btnDirectory.setBounds(475, 205, 140, 35);
 		btnDirectory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                String path = JOptionPane.showInputDialog("Nombre de carpeta");
-                if(path != null && !path.equalsIgnoreCase("")) {
-                    path = controller.getTreePath(tree.getSelectionPath(), 0) + path+"//";
-                    try {
-                        controller.createDirectory(path);
-    				}catch(java.lang.NullPointerException e) {
-    					Utilities.showMessage("Error al crear directorio. El nombre no puede estar repetido.", true);
-    				}
-                }
-                menuListaFicherosFtp(homeDirectory);
-            }
-        });
-			
+			public void actionPerformed(ActionEvent arg0) {
+				String path = JOptionPane.showInputDialog("Nombre de carpeta");
+				if (path != null && !path.equalsIgnoreCase("")) {
+					path = controller.getTreePath(tree.getSelectionPath(), 0) + path + "//";
+					try {
+						controller.createDirectory(path);
+					} catch (java.lang.NullPointerException e) {
+						Utilities.showMessage("Error al crear directorio. El nombre no puede estar repetido.", true);
+					}
+				}
+				menuListaFicherosFtp(homeDirectory);
+			}
+		});
+
 		panelFicherosFtp.add(tree);
 		panelFicherosFtp.add(btnRemove);
 		panelFicherosFtp.add(btnRename);
@@ -557,36 +547,43 @@ public class Menu extends JFrame {
 		panelFicherosFtp.add(btnDirectory);
 		panelFicherosFtp.setVisible(true);
 	}
-	
+
 	public void vaciarVentana() {
-		
+
 		try {
 			contentPane.remove(panelFile);
-		} catch (java.lang.NullPointerException e) {}
+		} catch (java.lang.NullPointerException e) {
+		}
 
 		try {
 			contentPane.remove(panelMenu);
-		} catch (java.lang.NullPointerException e) {}
+		} catch (java.lang.NullPointerException e) {
+		}
 
 		try {
 			contentPane.remove(panelFicherosFtp);
-		} catch (java.lang.NullPointerException e) {}
-		
-		try{
-			contentPane.remove(panelEmail);
-		}catch(java.lang.NullPointerException e) {}
+		} catch (java.lang.NullPointerException e) {
+		}
 
-		try{
+		try {
+			contentPane.remove(panelEmail);
+		} catch (java.lang.NullPointerException e) {
+		}
+
+		try {
 			contentPane.remove(panelPane);
-		}catch(java.lang.NullPointerException e) {}
-		
+		} catch (java.lang.NullPointerException e) {
+		}
+
 		try {
 			contentPane.remove(panelAcercaDe);
-		} catch (java.lang.NullPointerException e) {}
-		
+		} catch (java.lang.NullPointerException e) {
+		}
+
 		try {
 			contentPane.remove(panelInicio);
-		}catch (java.lang.NullPointerException e) {}
+		} catch (java.lang.NullPointerException e) {
+		}
 
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
@@ -595,6 +592,7 @@ public class Menu extends JFrame {
 	public JPanel getEmailPanel() {
 		return panelEmail;
 	}
+
 	public JMenuItem getMntmRecibirCorreo() {
 		return mntmRecibirCorreo;
 	}
@@ -604,8 +602,9 @@ public class Menu extends JFrame {
 			putValue(NAME, "SwingAction");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
+
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
-	
+
 }
