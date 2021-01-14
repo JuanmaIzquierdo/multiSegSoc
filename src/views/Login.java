@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import controller.loginController;
+import java.awt.Toolkit;
 
 public class Login extends JFrame {	
 	static Login frame;
@@ -49,6 +50,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/images/logoIcon.png")));
 		setUndecorated(true);
 		setType(Type.UTILITY);
 		setBackground(utilities.getGreen());
@@ -131,14 +133,19 @@ public class Login extends JFrame {
 		ImageIcon icono =new ImageIcon("src//images//pngwing.com(1)(1).png");
 		btnNewButton.setIcon(new ImageIcon("src//images//pngwing.com(1)(1).png"));
 		btnNewButton.setBackground(new Color(240, 240, 240));
-		btnNewButton.setBounds(365, 0, 24, 23);
+		btnNewButton.setBounds(358, 0, 31, 33);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblSeguridadSocial = new JLabel("Seguridad Social");
 		lblSeguridadSocial.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblSeguridadSocial.setForeground(Color.WHITE);
-		lblSeguridadSocial.setBounds(66, 0, 131, 33);
+		lblSeguridadSocial.setBounds(27, 0, 131, 33);
 		contentPane.add(lblSeguridadSocial);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/images/miniicon.png")));
+		lblNewLabel.setBounds(5, 2, 24, 26);
+		contentPane.add(lblNewLabel);
 	}
 	
 	public static void hacerInvisible() {
