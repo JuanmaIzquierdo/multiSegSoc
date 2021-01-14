@@ -6,14 +6,18 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -21,6 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.UIManager;
@@ -59,6 +64,11 @@ public class Menu extends JFrame {
 	private JTextField emailTo;
 	private JTextField emailSub;
 	private ArrayList<JPanel> panelEmails = new ArrayList<JPanel>();
+	private JMenuItem mntmRecibirCorreo;
+	private JScrollPane panelPane;
+	private JPanel emailIndex;
+	private JTextArea details;
+	private JCheckBox emailCheckBox;
 
 	/**
 	 * Launch the application.
@@ -157,12 +167,12 @@ public class Menu extends JFrame {
 		mntmEnviarCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmEnviarCorreo);
 		
-		JMenuItem mntmRecibirCorreo = new JMenuItem("Recibir Correo");
-		mntmRecibirCorreo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				menuReciboDeCorreo(new ArrayList<Message>());
-			}
-		});
+		mntmRecibirCorreo = new JMenuItem("Recibir Correo");
+//		mntmRecibirCorreo.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				menuReciboDeCorreo(new ArrayList<Message>());
+//			}
+//		});
 		mntmRecibirCorreo.setBackground(new Color(60, 179, 113));
 		mntmRecibirCorreo.setOpaque(true);
 		mntmRecibirCorreo.setForeground(new Color(255, 255, 255));
@@ -175,40 +185,106 @@ public class Menu extends JFrame {
 		JMenu menu = new JMenu("");
 		mnAcercaDe.add(menu);
 		
+//		ArrayList<Message> emails = new ArrayList<Message>();
+//		emails.add(new Message(1, "asd1", "asd1", new Date(), "asdasd1"));
+//		emails.add(new Message(2, "asd2", "asd2", new Date(), "asdasd2"));
+//		emails.add(new Message(3, "asd3", "asd3", new Date(), "asdasd3"));
+//		emails.add(new Message(4, "asd4", "asd4", new Date(), "asdasd4"));
+//		emails.add(new Message(5, "asd5", "asd5", new Date(), "asdasd5"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		emails.add(new Message(6, "asd6", "asd6", new Date(), "asdasd6"));
+//		
+//
+//		vaciarVentana();
+//		panelEmail = new JPanel();
+//		contentPane.updateUI();
+//		panelEmail.setBounds(0, 27, 677, 376);
+//		JScrollPane panelPane = new JScrollPane(panelEmail);
+//		panelPane.setBounds(0, 27, 677, 376);
+//		panelPane.setVisible(true);
+//		contentPane.add(panelPane);
+//		panelEmail.setLayout(new GridLayout(0, 2));
+//		JPanel emailIndex = new JPanel(new GridLayout(0, 1));
+//		JPanel emailDetails = new JPanel(new GridLayout(0, 1));
+//		JTextArea details = new JTextArea();
+//		for (Message email : emails) {
+//			JPanel panelEmailWrapper = new JPanel(new GridLayout(0, 1));
+//			panelEmails.add(panelEmailWrapper);
+//			JLabel from = new JLabel("De: " + email.getFrom());
+//			JLabel sub = new JLabel("Asunto: " + email.getSubject());
+//			panelEmailWrapper.add(from);
+//			panelEmailWrapper.add(sub);
+//			
+//			panelEmailWrapper.addMouseListener(new MouseListener() {
+//
+//				@Override
+//				public void mouseReleased(MouseEvent e) {
+//					
+//				}
+//				
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//				}
+//				
+//				@Override
+//				public void mouseExited(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				@Override
+//				public void mouseEntered(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					details.setText("From: " + email.getFrom() + " \n Subject: " + email.getSubject() +
+//							" \n MessageBody: " + email.getMessageBody() + " \n Date: " + email.getDate() 
+//					);
+//				}
+//			});
+//			
+//			emailIndex.add(panelEmails.get(panelEmails.size() - 1));
+//		}
+//		
+//		emailDetails.add(details);
+//		
+//		panelEmail.add(emailIndex);
+//		panelEmail.add(emailDetails);
+//		panelEmail.setVisible(true);
+//		
 		
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public void menuReciboDeCorreo(ArrayList<Message> emails) {
-		vaciarVentana();
-		panelEmail = new JPanel();
-		contentPane.updateUI();
-		panelEmail.setBounds(0, 27, 677, 376);
-		contentPane.add(panelEmail);
-		panelEmail.setLayout(new GridLayout(0, 2));
-		JPanel emailIndex = new JPanel(new GridLayout(0, 1));
-		JPanel emailDetails = new JPanel(new GridLayout(0, 1));
-		JTextArea details = new JTextArea();
+	public void updateEmailIndex(ArrayList<Message> emails) {
+		panelEmails.clear();
+		emailIndex.removeAll();
 		for (Message email : emails) {
-			panelEmails.add(new JPanel(new GridLayout(0, 1)));
+			JPanel panelEmailWrapper = new JPanel(new GridLayout(0, 1));
+			panelEmails.add(panelEmailWrapper);
 			JLabel from = new JLabel("De: " + email.getFrom());
 			JLabel sub = new JLabel("Asunto: " + email.getSubject());
-			emailIndex.add(from);
-			emailIndex.add(sub);
+			panelEmailWrapper.add(from);
+			panelEmailWrapper.add(sub);
 			
-			panelEmails.get(panelEmails.size() - 1).addMouseListener(new MouseListener() {
-				
+			panelEmailWrapper.addMouseListener(new MouseListener() {
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
 					
 				}
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
 				}
 				
 				@Override
@@ -225,14 +301,88 @@ public class Menu extends JFrame {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					details.setText(email.getFrom() + " " + email.getSubject() + " " + email.getMessageBody()
-							+ " " + email.getDate() 
-							);
+					details.setText("From: " + email.getFrom() + " \n Subject: " + email.getSubject() +
+							" \n MessageBody: " + email.getMessageBody() + " \n Date: " + email.getDate() 
+					);
+					controller.flagAsAdded(email);
 				}
 			});
-			
 			emailIndex.add(panelEmails.get(panelEmails.size() - 1));
 		}
+
+		contentPane.updateUI();
+	}
+	public void menuReciboDeCorreo(ArrayList<Message> emails) {
+		vaciarVentana();
+		panelEmail = new JPanel();
+		contentPane.updateUI();
+		panelEmail.setBounds(0, 27, 650, 356);
+		panelPane = new JScrollPane(panelEmail);
+		panelPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panelPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panelPane.setBounds(0, 27, 650, 356);
+		panelPane.setVisible(true);
+		contentPane.add(panelPane);
+		panelEmail.setLayout(new GridLayout(0, 1));
+		emailCheckBox = new JCheckBox("Get all emails");
+		emailCheckBox.setBounds(10,10,150,30);
+		emailCheckBox.setSelected(true);
+		emailCheckBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				controller.changeStateOfRecievingEmails(((JCheckBox)e.getSource()).isSelected());
+			}
+		});
+		panelEmail.add(emailCheckBox);
+		if(emailIndex == null) {
+			emailIndex = new JPanel(new GridLayout(0, 1));
+			emailIndex.setBounds(0, 27, 325, 356);
+		}
+		JPanel emailDetails = new JPanel(new GridLayout(0, 1));
+		emailDetails.setBounds(325, 27, 325, 356);
+		details = new JTextArea(50, 10);
+		updateEmailIndex(emails);
+//		for (Message email : emails) {
+//			JPanel panelEmailWrapper = new JPanel(new GridLayout(0, 1));
+//			panelEmails.add(panelEmailWrapper);
+//			JLabel from = new JLabel("De: " + email.getFrom());
+//			JLabel sub = new JLabel("Asunto: " + email.getSubject());
+//			panelEmailWrapper.add(from);
+//			panelEmailWrapper.add(sub);
+//			
+//			panelEmailWrapper.addMouseListener(new MouseListener() {
+//
+//				@Override
+//				public void mouseReleased(MouseEvent e) {
+//					
+//				}
+//				
+//				@Override
+//				public void mousePressed(MouseEvent e) {
+//				}
+//				
+//				@Override
+//				public void mouseExited(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				@Override
+//				public void mouseEntered(MouseEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//				
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					details.setText("From: " + email.getFrom() + " \n Subject: " + email.getSubject() +
+//							" \n MessageBody: " + email.getMessageBody() + " \n Date: " + email.getDate() 
+//					);
+//				}
+//			});
+//			
+//			emailIndex.add(panelEmails.get(panelEmails.size() - 1));
+//		}
 		
 		emailDetails.add(details);
 		
@@ -485,6 +635,7 @@ public class Menu extends JFrame {
 		
 		try{
 			contentPane.remove(panelEmail);
+			contentPane.remove(panelPane);
 		}catch(java.lang.NullPointerException e) {}
 		
 		try{
@@ -497,6 +648,9 @@ public class Menu extends JFrame {
 
 	public JPanel getEmailPanel() {
 		return panelEmail;
+	}
+	public JMenuItem getMntmRecibirCorreo() {
+		return mntmRecibirCorreo;
 	}
  	
 	private class SwingAction extends AbstractAction {

@@ -20,6 +20,7 @@ import Database.User;
 import Models.DataRequestResponse;
 import Models.Message;
 import Models.MovementRequest;
+import Models.RecieveEmailRequest;
 import Models.SendEmailRequest;
 import views.Utilities;
 
@@ -68,6 +69,29 @@ public class MenuController {
 			return "Error, correo no se ha enviado";
 		}	
 		return "Correo Enviado";
+	}
+	
+	public void changeStateOfRecievingEmails(boolean getAllEmails) {
+		DataRequestResponse message = new DataRequestResponse();
+		RecieveEmailRequest emailRequest = new RecieveEmailRequest(getAllEmails, true);
+		message.setAction("0008");
+		message.addData(emailRequest);
+		try {
+			objectOS.writeObject(message);
+		} catch (IOException e) {
+			System.out.println("Error during sending request to server " + e.getMessage());
+		}	
+	}
+	
+	public void flagAsAdded(Message email) {
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0009");
+		message.addData(email);
+		try {
+			objectOS.writeObject(message);
+		} catch (IOException e) {
+			System.out.println("Error during sending request to server " + e.getMessage());
+		}	
 	}
 	
 	public void getUserData() {
