@@ -56,13 +56,13 @@ public class MenuController {
 		try {
 			objectOS.writeObject(message);
 			DataRequestResponse response;
-			try {
-				response = ((DataRequestResponse) objectIS.readObject());
-				if(response.getError().equalsIgnoreCase("Error")) {
-					return response.getErrorMessage();
-				}
-			} catch (ClassNotFoundException e) {
-			} 
+//			try {
+//				response = ((DataRequestResponse) objectIS.readObject());
+//				if(response.getError().equalsIgnoreCase("Error")) {
+//					return response.getErrorMessage();
+//				}
+//			} catch (ClassNotFoundException e) {
+//			} 
 		} catch (IOException e) {
 			System.out.println("Error in sendEmail (MenuController) " + e.getMessage());
 			return "Error, correo no se ha enviado";
