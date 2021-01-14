@@ -402,6 +402,8 @@ public class Menu extends JFrame {
 
 	
 	public void menuAcercaDe() {
+		vaciarVentana();
+		
 		getContentPane().setLayout(null);
 
 		panelAcercaDe = new JPanel();
@@ -557,31 +559,34 @@ public class Menu extends JFrame {
 	}
 	
 	public void vaciarVentana() {
+		
 		try {
 			contentPane.remove(panelFile);
-		} catch (java.lang.NullPointerException e) {
-		}
+		} catch (java.lang.NullPointerException e) {}
 
 		try {
 			contentPane.remove(panelMenu);
-		} catch (java.lang.NullPointerException e) {
-		}
+		} catch (java.lang.NullPointerException e) {}
 
 		try {
 			contentPane.remove(panelFicherosFtp);
-		} catch (java.lang.NullPointerException e) {
-		}
+		} catch (java.lang.NullPointerException e) {}
 		
 		try{
 			contentPane.remove(panelEmail);
-			contentPane.remove(panelPane);
 		}catch(java.lang.NullPointerException e) {}
 
+		try{
+			contentPane.remove(panelPane);
+		}catch(java.lang.NullPointerException e) {}
 		
 		try {
 			contentPane.remove(panelAcercaDe);
-		} catch (java.lang.NullPointerException e) {
-		}
+		} catch (java.lang.NullPointerException e) {}
+		
+		try {
+			contentPane.remove(panelInicio);
+		}catch (java.lang.NullPointerException e) {}
 
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
