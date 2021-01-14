@@ -400,7 +400,7 @@ public class Menu extends JFrame {
         return regMatcher.matches();
  }
 
-	
+	//
 	public void menuAcercaDe() {
 		vaciarVentana();
 		
