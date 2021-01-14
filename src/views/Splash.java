@@ -1,19 +1,21 @@
 package views;
 
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.Color;
-
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import controller.MenuController;
+import controller.ReadMessagesThread;
 
 public class Splash extends JFrame {
+	
+	public Menu menu;
 
 	public Splash() {
 		dibujarVentana();
@@ -71,6 +73,8 @@ public class Splash extends JFrame {
 					Thread.sleep(4 * 1000);
 					Menu menu = new Menu(menuController);
 					menu.setVisible(true);
+					ReadMessagesThread thread = new ReadMessagesThread(menuController.objectIS, menu);
+					thread.start();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -9,18 +9,17 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-
 import org.apache.commons.net.ftp.FTPFile;
-
 import Database.User;
 import Models.DataRequestResponse;
 import Models.Message;
 import Models.MovementRequest;
 import views.Utilities;
+import Models.RecieveEmailRequest;
+import Models.SendEmailRequest;
 
 public class MenuController {
 	
@@ -28,7 +27,7 @@ public class MenuController {
 	DataOutputStream dataOS;
 	DataInputStream dataIS;
 	ObjectOutputStream objectOS;
-	ObjectInputStream objectIS;
+	public ObjectInputStream objectIS;
 	FtpController ftp;
 	User user;
 	private ArrayList<Message> email = new ArrayList<Message>();
@@ -41,12 +40,60 @@ public class MenuController {
 		this.objectOS = objectOS;
 		this.objectIS = objectIS;
 		getUserData();
-		ReadMessagesThread thread = new ReadMessagesThread(objectIS);
-		thread.start();
 		this.ftp = new FtpController(user.getName(), user.getPassword());
 		connectFTP();
 		loginFTP();
 	}
+	
+	//Email
+	
+	public String sendEmail(SendEmailRequest emailRequest) {
+		DataRequestResponse message = new DataRequestResponse();
+		emailRequest.setFrom(user.getEmail());
+		emailRequest.setPassword(user.getPassword());
+		message.setAction("0006");
+		message.addData(emailRequest);
+		try {
+			objectOS.writeObject(message);
+			DataRequestResponse response;
+			try {
+				response = ((DataRequestResponse) objectIS.readObject());
+				if(response.getError().equalsIgnoreCase("Error")) {
+					return response.getErrorMessage();
+				}
+			} catch (ClassNotFoundException e) {
+			} 
+		} catch (IOException e) {
+			System.out.println("Error in sendEmail (MenuController) " + e.getMessage());
+			return "Error, correo no se ha enviado";
+		}	
+		return "Correo Enviado";
+	}
+
+	public void changeStateOfRecievingEmails(boolean getAllEmails) {
+		DataRequestResponse message = new DataRequestResponse();
+		RecieveEmailRequest emailRequest = new RecieveEmailRequest(getAllEmails, true);
+		message.setAction("0008");
+		message.addData(emailRequest);
+		try {
+			objectOS.writeObject(message);
+		} catch (IOException e) {
+			System.out.println("Error during sending request to server " + e.getMessage());
+		}	
+	}
+
+	public void flagAsAdded(Message email) {
+		DataRequestResponse message = new DataRequestResponse();
+		message.setAction("0009");
+		message.addData(email);
+		try {
+			objectOS.writeObject(message);
+		} catch (IOException e) {
+			System.out.println("Error during sending request to server " + e.getMessage());
+		}	
+	}
+
+	//FTP Connection
 	
 	public void getUserData() {
 		DataRequestResponse message = new DataRequestResponse();
@@ -70,6 +117,8 @@ public class MenuController {
 			System.out.println("error de inicio de sesion ftp");
 		}
 	}
+	
+	//FTP methods
 	
 	public void uploadFile(File file) {
 		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {
