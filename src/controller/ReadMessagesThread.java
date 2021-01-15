@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-
 import Models.DataRequestResponse;
 import Models.Message;
 import views.Menu;
@@ -20,7 +19,6 @@ public class ReadMessagesThread extends Thread{
 	public ReadMessagesThread(ObjectInputStream objectIS, Menu menu) {
 		this.objectIS = objectIS;
 		this.menu = menu;
-		
 		menu.getMntmRecibirCorreo().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				menu.menuReciboDeCorreo(emails);
@@ -32,7 +30,6 @@ public class ReadMessagesThread extends Thread{
 		DataRequestResponse message;
 		while(true) {
 			try {
-//				message = (DataRequestResponse) objectIS.readObject();
 				Object obj = objectIS.readObject();
 				if (obj instanceof DataRequestResponse) {
 					message = (DataRequestResponse) obj;
@@ -47,7 +44,6 @@ public class ReadMessagesThread extends Thread{
 						System.out.println(message.getData().size());
 						ArrayList<Message> emailsResponse = (ArrayList<Models.Message>) message.getData().get(0);
 							emails = emailsResponse;
-
 							if(menu.getEmailPanel() != null) {
 								if(menu.getEmailPanel().isVisible()) {
 									menu.updateEmailIndex(emails);
@@ -61,11 +57,12 @@ public class ReadMessagesThread extends Thread{
 						Utilities.showMessage(message.getErrorMessage(), true);
 					}else {
 						Utilities.showMessage("Correo enviado correctamente", false);
-					}
-					menu.getLabelSendEmailMessage().setText("");
-				}
+						menu.getLabelSendEmailMessage().setText("");
+					}					
+					break;
+			}
 			} catch (ClassNotFoundException | IOException e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 			
 		}

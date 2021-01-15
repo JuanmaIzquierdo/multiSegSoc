@@ -9,13 +9,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-
 import org.apache.commons.net.ftp.FTPFile;
-
 import Database.User;
 import Models.DataRequestResponse;
 import Models.Message;
@@ -30,7 +27,7 @@ public class MenuController {
 	DataOutputStream dataOS;
 	DataInputStream dataIS;
 	ObjectOutputStream objectOS;
-	ObjectInputStream objectIS;
+	public ObjectInputStream objectIS;
 	FtpController ftp;
 	User user;
 	private ArrayList<Message> email = new ArrayList<Message>();
@@ -48,6 +45,8 @@ public class MenuController {
 		loginFTP();
 	}
 	
+	//Email
+	
 	public void sendEmail(SendEmailRequest emailRequest) {
 		DataRequestResponse message = new DataRequestResponse();
 		emailRequest.setFrom(user.getEmail());
@@ -60,6 +59,7 @@ public class MenuController {
 			System.out.println("Error in sendEmail " + e.getMessage());
 		}
 	}
+
 	
 	public void changeStateOfRecievingEmails(boolean getAllEmails) {
 		DataRequestResponse message = new DataRequestResponse();
@@ -72,7 +72,7 @@ public class MenuController {
 			System.out.println("Error during sending request to server " + e.getMessage());
 		}	
 	}
-	
+
 	public void flagAsAdded(Message email) {
 		DataRequestResponse message = new DataRequestResponse();
 		message.setAction("0009");
@@ -83,6 +83,9 @@ public class MenuController {
 			System.out.println("Error during sending request to server " + e.getMessage());
 		}	
 	}
+
+
+	//FTP Connection
 	
 	public void getUserData() {
 		DataRequestResponse message = new DataRequestResponse();
@@ -106,6 +109,8 @@ public class MenuController {
 			System.out.println("error de inicio de sesion ftp");
 		}
 	}
+	
+	//FTP methods
 	
 	public void uploadFile(File file) {
 		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {

@@ -11,7 +11,6 @@ import Models.DataRequestResponse;
 import Models.LoginRequest;
 import Models.RecieveEmailRequest;
 import views.Login;
-import views.Menu;
 import views.Splash;
 import views.Utilities;
 
@@ -52,16 +51,12 @@ public class loginController {
 			switch(result.getError()) {
 			case "": 
 				//siguiente ventana
-				System.out.println("yes");
-				Login.hacerInvisible();
-				//Splash.showSplash(4);
+				Login.hacerInvisible();				
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS, this.objectOS, this.objectIS);
-				Menu menu = new Menu(menuController);
-				menu.setVisible(true);
-
-				ReadMessagesThread thread = new ReadMessagesThread(objectIS, menu);
+				ReadMessagesThread thread = new ReadMessagesThread(objectIS, null); // Fix error menu
 				thread.start();
+				Splash.showSplash(menuController);
 				reciveMessages(true);
 				break;
 			case "Error": 
@@ -72,7 +67,7 @@ public class loginController {
 			e.printStackTrace();
 			Utilities.showMessage("Error de comunicación con el servidor", true);
 			//result = 3;
-		}
+		}	
 	}
 	
 	private void reciveMessages(boolean getAllEmail) {

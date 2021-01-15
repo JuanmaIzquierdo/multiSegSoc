@@ -1,28 +1,21 @@
 package views;
 
 
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.Color;
-
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import controller.MenuController;
+import controller.ReadMessagesThread;
 
 public class Splash extends JFrame {
 	
-	public static void showSplash(int seconds) {
-		Splash splash = new Splash();
-		splash.setVisible(true);
-		try {
-			Thread.sleep(seconds * 1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		splash.dispose();
-	}
+	public Menu menu;
 
 	public Splash() {
 		dibujarVentana();
@@ -65,7 +58,32 @@ public class Splash extends JFrame {
 		this.setSize(400, 400);
 		this.setTitle("Splash");
 		this.setUndecorated(true);
-		this.setLocation(300, 300);
+		this.setLocationRelativeTo(null);
 		ImageIcon gifCarga = new ImageIcon("/images/gifCarga.gif");
+	}
+	
+	public static void showSplash(MenuController menuController) {
+		Runnable ejecutable = new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Splash splash = new Splash();
+				splash.setVisible(true);
+				try {
+					Thread.sleep(4 * 1000);
+					Menu menu = new Menu(menuController);
+					menu.setVisible(true);
+					ReadMessagesThread thread = new ReadMessagesThread(menuController.objectIS, menu);
+					thread.start();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				splash.dispose();
+
+			}
+		};
+
+		Thread tarea = new Thread(ejecutable);
+		tarea.start();
 	}
 }

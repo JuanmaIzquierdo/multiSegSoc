@@ -3,9 +3,9 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -14,23 +14,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -42,13 +47,6 @@ import Models.Message;
 import Models.SendEmailRequest;
 import controller.MenuController;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
@@ -58,11 +56,13 @@ public class Menu extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	static Menu frame;
+	JPanel panelInicio;
 	JPanel panelFile;
 	JPanel panelMenu;
 	JPanel panelFicherosFtp;
 	private JPanel panelEmail;
-	JFileChooser fc ;
+	JPanel panelAcercaDe;
+	JFileChooser fc;
 	MenuController controller;
 	private final Action action = new SwingAction();
 	private JTextField emailTo;
@@ -76,10 +76,14 @@ public class Menu extends JFrame {
 	private JCheckBox emailCheckBox;
 	private JLabel labelSendEmailMessage;
 	private boolean isGetAllEmail = true;
+	private JScrollPane panelPane;
 
 	public Menu(MenuController controller) {
+		setTitle("Seguridad Social");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				"src//images//logoIcon.png"));
 		this.controller = controller;
-		fc= new JFileChooser();
+		fc = new JFileChooser();
 		setBackground(UIManager.getColor("Button.shadow"));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,10 +105,12 @@ public class Menu extends JFrame {
 		
 		JMenuItem mntmNuevoArchivo = new JMenuItem("Subir Archivo");
 		mntmNuevoArchivo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {								
+			public void actionPerformed(ActionEvent e) {
+				panelInicio.setVisible(false);
 				String boton = "subir";
-				fc.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Documentos"));
-				menuFilechooserSubirFichero(boton);			
+				fc.setCurrentDirectory(new File(System.getProperty("user.home")
+						+ System.getProperty("file.separator") + "Documentos"));
+				menuFilechooserSubirFichero(boton);
 			}
 		});
 		mntmNuevoArchivo.setBackground(new Color(60, 179, 113));
@@ -115,6 +121,7 @@ public class Menu extends JFrame {
 		JMenuItem mntmBorrarArchivo = new JMenuItem("Archivos FTP");
 		mntmBorrarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				panelInicio.setVisible(false);
 				menuListaFicherosFtp(controller.getHomeDirectory());
 			}
 		});
@@ -122,18 +129,6 @@ public class Menu extends JFrame {
 		mntmBorrarArchivo.setOpaque(true);
 		mntmBorrarArchivo.setForeground(new Color(255, 255, 255));
 		mnNewMenu.add(mntmBorrarArchivo);
-
-//		JMenuItem mntmModificarArchvo = new JMenuItem("Modificar archvo");
-//		mntmModificarArchvo.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				String boton = "modificar";
-//				menuFilechooserSubirFichero(boton);
-//			}
-//		});
-//		mntmModificarArchvo.setBackground(new Color(60, 179, 113));
-//		mntmModificarArchvo.setOpaque(true);
-//		mntmModificarArchvo.setForeground(new Color(255, 255, 255));
-//		mnNewMenu.add(mntmModificarArchvo);
 
 		JMenu mnEmail = new JMenu("E-mail");
 		mnEmail.setAction(action);
@@ -156,6 +151,8 @@ public class Menu extends JFrame {
 		mntmRecibirCorreo.setOpaque(true);
 		mntmRecibirCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmRecibirCorreo);
+
+		
 
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
@@ -319,20 +316,20 @@ public class Menu extends JFrame {
 		emailSub.setBounds(157, 53, 493, 35);
 		panelFile.add(emailSub);
 		emailSub.setColumns(10);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Para:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(28, 20, 54, 16);
 		panelFile.add(lblNewLabel_1);
-		
+
 		JTextField emailTo = new JTextField();
 		emailTo.setBorder(new LineBorder(Color.BLACK));
 		emailTo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		emailTo.setBounds(157, 13, 493, 32);
 		panelFile.add(emailTo);
 		emailTo.setColumns(10);
-		
-		
+
+
 		JLabel lblNewLabel_2 = new JLabel("Mensaje");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(26, 103, 74, 25);
@@ -345,14 +342,12 @@ public class Menu extends JFrame {
 		emailMsg.setRows(4);
 		emailMsg.setBounds(19, 141, 646, 123);
 		panelFile.add(emailMsg);
-		
 
 		JPanel errorWrapper = new JPanel();
 		errorWrapper.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		errorWrapper.setBounds(208, 284, 256, 53);
 		errorWrapper.setLayout(new BoxLayout(errorWrapper, BoxLayout.Y_AXIS));
 		
-
 		JPanel response = new JPanel();
 		response.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		response.setBounds(0, 350, 677, 25);
@@ -403,7 +398,64 @@ public class Menu extends JFrame {
 		panelFile.setVisible(true);
 		panelFile.add(errorWrapper);
 		panelFile.add(response);
+	}
+
+	
+	public void menuAcercaDe() {
+		vaciarVentana();
 		
+		getContentPane().setLayout(null);
+
+		panelAcercaDe = new JPanel();
+		panelAcercaDe.setBounds(0, 0, 653, 411);
+		getContentPane().add(panelAcercaDe);
+		panelAcercaDe.setLayout(null);
+
+		JLabel lblNombre_1 = new JLabel("Alejandro S\u00E1nchez Rodr\u00EDguez");
+		lblNombre_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre_1.setBounds(12, 169, 300, 20);
+		panelAcercaDe.add(lblNombre_1);
+
+		JLabel lblNombre_1_1 = new JLabel("Pablo M\u00E9rida Egea");
+		lblNombre_1_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNombre_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre_1_1.setBounds(12, 202, 300, 20);
+		panelAcercaDe.add(lblNombre_1_1);
+
+		JLabel lblNombre_1_2 = new JLabel("Vitaliy Bay");
+		lblNombre_1_2.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNombre_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre_1_2.setBounds(22, 235, 300, 20);
+		panelAcercaDe.add(lblNombre_1_2);
+
+		JLabel lblNombre_1_3 = new JLabel("Juan Manuel Izquierdo");
+		lblNombre_1_3.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNombre_1_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre_1_3.setBounds(12, 268, 300, 20);
+		panelAcercaDe.add(lblNombre_1_3);
+
+		JLabel lblGrupoDam = new JLabel("GRUPO 2 D.A.M.");
+		lblGrupoDam.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblGrupoDam.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrupoDam.setBounds(37, 111, 232, 45);
+		panelAcercaDe.add(lblGrupoDam);
+
+		JLabel lblVersion = new JLabel("Version 1.0");
+		lblVersion.setBounds(576, 382, 65, 16);
+		panelAcercaDe.add(lblVersion);
+
+		JLabel lblCopyright = new JLabel("Copyright \u00A9 (2020-2021)");
+		lblCopyright.setBounds(12, 376, 220, 24);
+		panelAcercaDe.add(lblCopyright);
+		lblCopyright.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCopyright.setFont(new Font("Arial", Font.PLAIN, 20));
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(
+				"src//images//logoPng.png"));
+		lblNewLabel.setBounds(408, 67, 200, 221);
+		panelAcercaDe.add(lblNewLabel);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -477,7 +529,7 @@ public class Menu extends JFrame {
 		tree.setBounds(25, 25, 400, 325);
 		
 		JButton btnRemove = new JButton("Eliminar");
-		btnRemove.setBounds(475, 25, 110, 35);
+		btnRemove.setBounds(475, 25, 140, 35);
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controller.deleteFile(controller.getTreePath(tree.getSelectionPath(), 0));
@@ -486,7 +538,7 @@ public class Menu extends JFrame {
 		});
 		
 		JButton btnRename = new JButton("Renombrar");
-		btnRename.setBounds(475, 85, 110, 35);
+		btnRename.setBounds(475, 85, 140, 35);
 		btnRename.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
@@ -499,7 +551,7 @@ public class Menu extends JFrame {
 		});
 		
 		JButton btnDownload = new JButton("Descargar");
-		btnDownload.setBounds(475, 145, 110, 35);
+		btnDownload.setBounds(475, 145, 140, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String path = controller.getTreePath(tree.getSelectionPath(), 0);
@@ -511,7 +563,7 @@ public class Menu extends JFrame {
 		});
 		//
 		JButton btnDirectory = new JButton("Nuevo Directorio");
-		btnDirectory.setBounds(475, 205, 110, 35);
+		btnDirectory.setBounds(475, 205, 140, 35);
 		btnDirectory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 String path = JOptionPane.showInputDialog("Nombre de carpeta");
@@ -536,14 +588,23 @@ public class Menu extends JFrame {
 	}
 	
 	public void vaciarVentana() {
-		try{
+		
+		try {
 			contentPane.remove(panelFile);
-		}catch(java.lang.NullPointerException e) {}
+		} catch (java.lang.NullPointerException e) {}
+
+		try {
+			contentPane.remove(panelMenu);
+		} catch (java.lang.NullPointerException e) {}
+
+		try {
+			contentPane.remove(panelFicherosFtp);
+		} catch (java.lang.NullPointerException e) {}
 		
 		try{
-			contentPane.remove(panelMenu);
+			contentPane.remove(panelEmail);
 		}catch(java.lang.NullPointerException e) {}
-		
+
 		try{
 			contentPane.remove(panelEmail);
 			contentPane.remove(panelDetails);
@@ -552,8 +613,17 @@ public class Menu extends JFrame {
 		
 		try{
 			contentPane.remove(panelFicherosFtp);
+			contentPane.remove(panelPane); // Remove if is not needed *******************************************
 		}catch(java.lang.NullPointerException e) {}
 		
+		try {
+			contentPane.remove(panelAcercaDe);
+		} catch (java.lang.NullPointerException e) {}
+		
+		try {
+			contentPane.remove(panelInicio);
+		}catch (java.lang.NullPointerException e) {}
+
 		contentPane.setVisible(false);
 		contentPane.setVisible(true);
 	}
@@ -561,13 +631,14 @@ public class Menu extends JFrame {
 	public JPanel getEmailPanel() {
 		return panelEmail;
 	}
+	
 	public JMenuItem getMntmRecibirCorreo() {
 		return mntmRecibirCorreo;
 	}
+	
 	public JLabel getLabelSendEmailMessage() {
 		return labelSendEmailMessage;
 	}
- 	
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "SwingAction");
