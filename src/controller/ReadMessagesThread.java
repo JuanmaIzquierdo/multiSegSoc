@@ -1,5 +1,14 @@
 package controller;
-
+/*
+ * Clase ConnectionThread
+ * 
+ * Metodo que gestiona las peticiones de un Cliente determinado
+ * 
+ * @Author Grupo2
+ * 
+ * @Version 1.0
+ * 
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
