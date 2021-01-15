@@ -10,13 +10,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import org.apache.commons.net.ftp.FTPFile;
-import Database.User;
+
 import Models.DataRequestResponse;
 import Models.FtpResponse;
 import Models.Message;
 import Models.MovementRequest;
 import Models.RecieveEmailRequest;
 import Models.SendEmailRequest;
+import Models.User;
 import views.Utilities;
 
 public class MenuController {
