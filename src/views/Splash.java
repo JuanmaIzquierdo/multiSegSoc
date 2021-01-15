@@ -62,28 +62,5 @@ public class Splash extends JFrame {
 		ImageIcon gifCarga = new ImageIcon("/images/gifCarga.gif");
 	}
 	
-	public static void showSplash(MenuController menuController) {
-		Runnable ejecutable = new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				Splash splash = new Splash();
-				splash.setVisible(true);
-				try {
-					Thread.sleep(4 * 1000);
-					Menu menu = new Menu(menuController);
-					menu.setVisible(true);
-					ReadMessagesThread thread = new ReadMessagesThread(menuController.objectIS, menu);
-					thread.start();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				splash.dispose();
-
-			}
-		};
-
-		Thread tarea = new Thread(ejecutable);
-		tarea.start();
-	}
+	
 }

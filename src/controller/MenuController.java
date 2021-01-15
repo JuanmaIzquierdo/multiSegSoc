@@ -1,13 +1,10 @@
 package controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -25,19 +22,14 @@ import views.Utilities;
 public class MenuController {
 	
 	Socket socket;
-	DataOutputStream dataOS;
-	DataInputStream dataIS;
 	ObjectOutputStream objectOS;
 	public ObjectInputStream objectIS;
 	FtpController ftp;
 	User user;
-	private ArrayList<Message> email = new ArrayList<Message>();
 	
-	public MenuController(Socket socket, DataOutputStream dataOS, DataInputStream dataIS, 
+	public MenuController(Socket socket, 
 			ObjectOutputStream objectOS, ObjectInputStream objectIS) {
 		this.socket = socket;
-		this.dataOS = dataOS;
-		this.dataIS = dataIS;
 		this.objectOS = objectOS;
 		this.objectIS = objectIS;
 		getUserData();

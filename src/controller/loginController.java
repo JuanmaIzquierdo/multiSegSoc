@@ -52,9 +52,7 @@ public class loginController {
 			case "": 
 				//siguiente ventana
 				Login.hacerInvisible();				
-				MenuController menuController = new MenuController(this.socket, this.dataOS,
-						this.dataIS, this.objectOS, this.objectIS);
-				Splash.showSplash(menuController);
+				ProgramController.executeProgram(this.socket, this.objectOS, this.objectIS);
 				reciveMessages(true);
 				break;
 			case "Error": 

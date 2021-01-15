@@ -50,23 +50,15 @@ import controller.MenuController;
 public class Menu extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
 	static Menu frame;
-	JPanel panelInicio;
-	JPanel panelFile;
-	JPanel panelMenu;
-	JPanel panelFicherosFtp;
+	private JPanel panelInicio;
+	private JPanel panelFile;
+	private JPanel panelMenu;
+	private JPanel panelFicherosFtp;
 	private JPanel panelEmail;
-	JPanel panelAcercaDe;
-	JFileChooser fc;
-	MenuController controller;
-	private final Action action = new SwingAction();
-	private JTextField emailTo;
-	private JTextField emailSub;
+	private JPanel panelAcercaDe;
+	private JFileChooser fc;
+	private MenuController controller;
 	private ArrayList<JPanel> panelEmails = new ArrayList<JPanel>();
 	private JMenuItem mntmRecibirCorreo;
 	private JScrollPane panelIndex;
@@ -131,7 +123,7 @@ public class Menu extends JFrame {
 		mnNewMenu.add(mntmBorrarArchivo);
 
 		JMenu mnEmail = new JMenu("E-mail");
-		mnEmail.setAction(action);
+//		mnEmail.setAction(action);
 		mnEmail.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnEmail);
 		
@@ -668,12 +660,12 @@ public class Menu extends JFrame {
 	public JLabel getLabelSendEmailMessage() {
 		return labelSendEmailMessage;
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "E-Mail");
-			putValue(SHORT_DESCRIPTION, "Correo electronico");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+//	private class SwingAction extends AbstractAction {
+//		public SwingAction() {
+//			putValue(NAME, "E-Mail");
+//			putValue(SHORT_DESCRIPTION, "Correo electronico");
+//		}
+//		public void actionPerformed(ActionEvent e) {
+//		}
+//	}
 }
