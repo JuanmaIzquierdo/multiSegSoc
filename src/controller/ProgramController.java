@@ -1,5 +1,14 @@
 package controller;
-
+/*
+ * Clase ConnectionThread
+ * 
+ * Metodo que gestiona las peticiones de un Cliente determinado
+ * 
+ * @Author Grupo2
+ * 
+ * @Version 1.0
+ * 
+ */
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;

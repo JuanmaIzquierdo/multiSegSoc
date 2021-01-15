@@ -1,5 +1,14 @@
 package controller;
-
+/*
+ * Clase ConnectionThread
+ * 
+ * Metodo que gestiona las peticiones de un Cliente determinado
+ * 
+ * @Author Grupo2
+ * 
+ * @Version 1.0
+ * 
+ */
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,6 +36,9 @@ public class MenuController {
 	FtpController ftp;
 	User user;
 	
+	/*
+	 * Constructor de la clase
+	 */
 	public MenuController(Socket socket, 
 			ObjectOutputStream objectOS, ObjectInputStream objectIS) {
 		this.socket = socket;
@@ -39,7 +51,9 @@ public class MenuController {
 	}
 	
 	//Email
-	
+	/*
+	 * Enviar correo
+	 */
 	public void sendEmail(SendEmailRequest emailRequest) {
 		DataRequestResponse message = new DataRequestResponse();
 		emailRequest.setFrom(user.getEmail());
@@ -53,6 +67,9 @@ public class MenuController {
 		}
 	}
 
+	/*
+	 * Cambiar el esto de los email que usuario quiere recibir (o todos los correo o solamante no leido)
+	 */
 	public void changeStateOfRecievingEmails(boolean getAllEmails) {
 		DataRequestResponse message = new DataRequestResponse();
 		RecieveEmailRequest emailRequest = new RecieveEmailRequest(getAllEmails, true);
@@ -65,6 +82,9 @@ public class MenuController {
 		}	
 	}
 
+	/*
+	 * Cambiar el estado de un correo (de no leido a leido)
+	 */
 	public void flagAsAdded(Message email) {
 		DataRequestResponse message = new DataRequestResponse();
 		message.setAction("0009");
@@ -78,7 +98,9 @@ public class MenuController {
 
 
 	//FTP Connection
-	
+	/*
+	 * Coger los datos del usuario
+	 */
 	public void getUserData() {
 		DataRequestResponse message = new DataRequestResponse();
 		message.setAction("0004");
@@ -90,12 +112,18 @@ public class MenuController {
 		}	
 	}
 
+	/*
+	 * Coneciona ftp
+	 */
 	public void connectFTP() {
 		if(!ftp.connect()) {
 			System.out.println("error de conexion ftp");
 		}
 	}
 	
+	/*
+	 * Login de usuario en FTP
+	 */
 	public void loginFTP() {
 		if(!ftp.loginFTP()) {
 			System.out.println("error de inicio de sesion ftp");
@@ -104,6 +132,9 @@ public class MenuController {
 	
 	//FTP methods
 	
+	/*
+	 * Subir los archivos
+	 */
 	public void uploadFile(File file) {
 		if(ftp.uploadFile(file.getAbsolutePath(), file.getName())) {
 			java.util.Date date = new Date();	
@@ -115,7 +146,10 @@ public class MenuController {
 			Utilities.showMessage("Error al subir fichero", true);
 		}
 	} 
-	
+
+	/*
+	 * Bajar los archivos
+	 */
 	public void downloadFile(String path, String localPath, String FileName) {
 		if(ftp.downloadFile(path, localPath, FileName)) {
 			java.util.Date date = new Date();		
@@ -128,6 +162,10 @@ public class MenuController {
 		}
 	}
 	
+
+	/*
+	 * Borar los archivos/directorios
+	 */
 	public void deleteFile(String path) {
 		java.util.Date date = new Date();
 		FtpResponse ftpResponse = ftp.deleteFile(path); 
@@ -151,7 +189,10 @@ public class MenuController {
 			}
 		}
 	}
-	
+
+	/*
+	 * Renombrar los archivos
+	 */
 	public void renameFile(String path, String newName) {
 		if(ftp.renameFile(path, newName)) {
 			java.util.Date date = new Date();		
@@ -163,7 +204,10 @@ public class MenuController {
 			Utilities.showMessage("Error al renombrar fichero", true);
 		}
 	}
-	
+
+	/*
+	 * Crear directorio
+	 */
 	public void createDirectory(String path) {
         if(ftp.createDirectory(path)) {
             java.util.Date date = new Date();   
@@ -176,6 +220,10 @@ public class MenuController {
         }
     }
 	
+
+	/*
+	 * Registrar el movimiento del user en base de datos
+	 */
 	public void registerMovement(String movement, String date) {
 		//metodo que recibe un el movimiento y la hora a la que se haya hecho y le manda un mensaje al servidor para que registre el movimiento
 		//en la base de datos
