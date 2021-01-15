@@ -12,15 +12,18 @@ public class ProgramController {
 	}
 	
 	public static void executeProgram(Socket socket, ObjectOutputStream objectOS, ObjectInputStream objectIS) {
-		MenuController menuController = new MenuController(socket, objectOS, objectIS);
+		/*
+		 * mostrar ventana de carga y iniciar menucontroller que establecera la conexion con el servidor ftp.
+		 * despues se mostrara durante 3 segundos mas la pantalla de carga y se iniciara la aplicacion
+		 */
 		Runnable ejecutable = new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				Splash splash = new Splash();
 				splash.setVisible(true);
 				try {
-					Thread.sleep(4 * 1000);
+					MenuController menuController = new MenuController(socket, objectOS, objectIS);
+					Thread.sleep(3 * 1000);
 					Menu menu = new Menu(menuController);
 					menu.setVisible(true);
 					ReadMessagesThread thread = new ReadMessagesThread(menuController.objectIS, menu);
@@ -29,7 +32,6 @@ public class ProgramController {
 					e.printStackTrace();
 				}
 				splash.dispose();
-
 			}
 		};
 

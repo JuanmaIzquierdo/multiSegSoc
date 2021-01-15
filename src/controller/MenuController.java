@@ -136,6 +136,8 @@ public class MenuController {
 			System.out.println("borrado");
 			Utilities.showMessage("Fichero eliminado", false);
 		}else if(ftpResponse.getErrorId() == 1){
+			//si no se ha borrado porque es un directorio que no esta vacio le pregunta al usuario si quiere hacerlo y responde si, eliminara la carpetaa
+			//y todo su contenido
 			boolean userResponse = Utilities.askUserMessage(ftpResponse.getMessage());
 			if(userResponse) {
 				try {
@@ -175,6 +177,8 @@ public class MenuController {
     }
 	
 	public void registerMovement(String movement, String date) {
+		//metodo que recibe un el movimiento y la hora a la que se haya hecho y le manda un mensaje al servidor para que registre el movimiento
+		//en la base de datos
 		DataRequestResponse message = new DataRequestResponse();
 		message.setAction("0005");
 		MovementRequest movementData = new MovementRequest(movement, date);
