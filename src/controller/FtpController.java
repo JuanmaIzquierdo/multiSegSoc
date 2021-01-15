@@ -13,6 +13,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
+import Models.FtpResponse;
+
 public class FtpController {
 	
 	String username;
@@ -89,16 +91,107 @@ public class FtpController {
 		}
 	}
 	
-	public boolean deleteFile(String path) {
+	public FtpResponse deleteFile(String path) {
 		try {
 			if(!client.deleteFile(path)) {
-				client.removeDirectory(path);
+				if(!client.removeDirectory(path)) {
+					return new FtpResponse(1, "¿Directorio no esta vacio, quieres eliminarlo?");
+				}
 			}
-			return true;
+			return new FtpResponse(0, "");
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return new FtpResponse(2, "Error durante la eliminacion (FTP)");
 		}
+	}
+	
+		public void deleteDirectory(String parentDir, String currentDir) throws IOException {
+
+			String dirToList = parentDir;
+
+	        if (!currentDir.equals("")) {
+
+	            dirToList += "/" + currentDir;
+
+	        }
+
+	 
+
+	        FTPFile[] subFiles = client.listFiles(dirToList);
+
+	 
+
+	        if (subFiles != null && subFiles.length > 0) {
+
+	            for (FTPFile aFile : subFiles) {
+
+	                String currentFileName = aFile.getName();
+
+	                if (currentFileName.equals(".") || currentFileName.equals("..")) {
+
+	                    // skip parent directory and the directory itself
+
+	                    continue;
+
+	                }
+
+	                String filePath = parentDir + "/" + currentDir + "/"
+
+	                        + currentFileName;
+
+	                if (currentDir.equals("")) {
+
+	                    filePath = parentDir + "/" + currentFileName;
+
+	                }
+
+	 
+
+	                if (aFile.isDirectory()) {
+
+	                    // remove the sub directory
+
+	                    deleteDirectory(dirToList, currentFileName);
+
+	                } else {
+
+	                    // delete the file
+
+	                    boolean deleted = client.deleteFile(filePath);
+
+	                    if (deleted) {
+
+	                        System.out.println("DELETED the file: " + filePath);
+
+	                    } else {
+
+	                        System.out.println("CANNOT delete the file: "
+
+	                                + filePath);
+
+	                    }
+
+	                }
+
+	            }
+
+	 
+
+	            // finally, remove the directory itself
+
+	            boolean removed = client.removeDirectory(dirToList);
+
+	            if (removed) {
+
+	                System.out.println("REMOVED the directory: " + dirToList);
+
+	            } else {
+
+	                System.out.println("CANNOT remove the directory: " + dirToList);
+
+	            }
+
+	        }
 	}
 	
 	public boolean renameFile(String path, String newName) {

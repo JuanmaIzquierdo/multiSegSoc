@@ -15,6 +15,7 @@ import javax.swing.tree.TreePath;
 import org.apache.commons.net.ftp.FTPFile;
 import Database.User;
 import Models.DataRequestResponse;
+import Models.FtpResponse;
 import Models.Message;
 import Models.MovementRequest;
 import Models.RecieveEmailRequest;
@@ -137,14 +138,19 @@ public class MenuController {
 	}
 	
 	public void deleteFile(String path) {
-		if(ftp.deleteFile(path)) {
+		FtpResponse ftpResponse = ftp.deleteFile(path); 
+		if(ftpResponse.getErrorId() == 0) {
 			java.util.Date date = new Date();			
 			registerMovement("borrado de fichero", date.toString());
 			System.out.println("borrado");
 			Utilities.showMessage("Fichero eliminado", false);
-		}else {
-			System.out.println("no");
-			Utilities.showMessage("Error al eliminar fichero", true);
+		}else if(ftpResponse.getErrorId() == 1){
+			boolean userResponse = Utilities.askUserMessage(ftpResponse.getMessage());
+			if(userResponse) {
+				
+			} else {
+				
+			}
 		}
 	}
 	

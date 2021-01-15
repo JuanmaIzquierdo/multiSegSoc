@@ -106,7 +106,7 @@ public class Menu extends JFrame {
 		JMenuItem mntmNuevoArchivo = new JMenuItem("Subir Archivo");
 		mntmNuevoArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelInicio.setVisible(false);
+//				panelInicio.setVisible(false);
 				String boton = "subir";
 				fc.setCurrentDirectory(new File(System.getProperty("user.home")
 						+ System.getProperty("file.separator") + "Documentos"));
@@ -121,7 +121,7 @@ public class Menu extends JFrame {
 		JMenuItem mntmBorrarArchivo = new JMenuItem("Archivos FTP");
 		mntmBorrarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelInicio.setVisible(false);
+//				panelInicio.setVisible(false);
 				menuListaFicherosFtp(controller.getHomeDirectory());
 			}
 		});
@@ -158,8 +158,37 @@ public class Menu extends JFrame {
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnAcercaDe);
 
-		JMenu menu = new JMenu("");
-		mnAcercaDe.add(menu);
+		JMenuItem mntmNewMenuItem = new JMenuItem("Acerca De");
+		mntmNewMenuItem.setForeground(Color.WHITE);
+		mntmNewMenuItem.setBackground(new Color(60, 179, 113));
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelInicio.setVisible(false);
+				vaciarVentana();
+				menuAcercaDe();
+			}
+		});
+		mnAcercaDe.add(mntmNewMenuItem);
+		
+		panelInicio = new JPanel();
+		panelInicio.setBounds(0, 27, 677, 436);
+		contentPane.add(panelInicio);
+		panelInicio.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("SEGURIDAD SOCIAL");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 60));
+		lblNewLabel_2.setBounds(12, 174, 541, 81);
+		panelInicio.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(Menu.class.getResource("/images/logoIcon.png")));
+		lblNewLabel_3.setBounds(558, 157, 101, 123);
+		panelInicio.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/images/fondoBlancoSi.jpg")));
+		lblNewLabel_1.setBounds(-17, 0, 694, 436);
+		panelInicio.add(lblNewLabel_1);
 		
 	}
 	
@@ -641,8 +670,8 @@ public class Menu extends JFrame {
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(NAME, "E-Mail");
+			putValue(SHORT_DESCRIPTION, "Correo electronico");
 		}
 		public void actionPerformed(ActionEvent e) {
 		}

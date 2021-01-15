@@ -49,4 +49,13 @@ public static void showMessage(String txt, boolean error) {
 	}
 }
 
+public static boolean askUserMessage(String txt) {
+	if (JOptionPane.showConfirmDialog(null, txt, "WARNING",
+	        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+	    return true;
+	} else {
+	    return false;
+	}
+}
+
 }

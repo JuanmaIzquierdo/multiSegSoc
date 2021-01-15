@@ -54,8 +54,6 @@ public class loginController {
 				Login.hacerInvisible();				
 				MenuController menuController = new MenuController(this.socket, this.dataOS,
 						this.dataIS, this.objectOS, this.objectIS);
-				ReadMessagesThread thread = new ReadMessagesThread(objectIS, null); // Fix error menu
-				thread.start();
 				Splash.showSplash(menuController);
 				reciveMessages(true);
 				break;
