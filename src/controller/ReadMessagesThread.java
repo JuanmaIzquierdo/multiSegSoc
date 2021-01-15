@@ -60,8 +60,9 @@ public class ReadMessagesThread extends Thread{
 					if(!message.getError().equalsIgnoreCase("")) {
 						Utilities.showMessage(message.getErrorMessage(), true);
 					}else {
-						System.out.println("enviado");
+						Utilities.showMessage("Correo enviado correctamente", false);
 					}
+					menu.getLabelSendEmailMessage().setText("");
 				}
 			} catch (ClassNotFoundException | IOException e) {
 				e.printStackTrace();

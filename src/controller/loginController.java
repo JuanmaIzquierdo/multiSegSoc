@@ -17,11 +17,11 @@ import views.Utilities;
 
 public class loginController {
 	
-	Socket socket;
-	ObjectOutputStream objectOS;
-	ObjectInputStream objectIS;
-	DataOutputStream dataOS;
-	DataInputStream dataIS;
+	private Socket socket;
+	private ObjectOutputStream objectOS;
+	private ObjectInputStream objectIS;
+	private DataOutputStream dataOS;
+	private DataInputStream dataIS;
 	
 	public loginController(String serverIP, int port) {
 		try {
@@ -67,11 +67,6 @@ public class loginController {
 			case "Error": 
 				Utilities.showMessage(result.getErrorMessage(), true);
 				break;
-//			case 2: 
-//				Utilities.showMessage("Usuario o contraseña incorrecto", true);
-//				break;
-//			case 3: 
-//				Utilities.showMessage("Error de comunicación con el servidor", true);
 		}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();

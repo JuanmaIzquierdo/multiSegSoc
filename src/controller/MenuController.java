@@ -48,7 +48,7 @@ public class MenuController {
 		loginFTP();
 	}
 	
-	public String sendEmail(SendEmailRequest emailRequest) {
+	public void sendEmail(SendEmailRequest emailRequest) {
 		DataRequestResponse message = new DataRequestResponse();
 		emailRequest.setFrom(user.getEmail());
 		emailRequest.setPassword(user.getPassword());
@@ -56,19 +56,9 @@ public class MenuController {
 		message.addData(emailRequest);
 		try {
 			objectOS.writeObject(message);
-			DataRequestResponse response;
-			try {
-				response = ((DataRequestResponse) objectIS.readObject());
-				if(response.getError().equalsIgnoreCase("Error")) {
-					return response.getErrorMessage();
-				}
-			} catch (ClassNotFoundException e) {
-			} 
 		} catch (IOException e) {
-			System.out.println("Error in sendEmail (MenuController) " + e.getMessage());
-			return "Error, correo no se ha enviado";
-		}	
-		return "Correo Enviado";
+			System.out.println("Error in sendEmail " + e.getMessage());
+		}
 	}
 	
 	public void changeStateOfRecievingEmails(boolean getAllEmails) {
