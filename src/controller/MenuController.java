@@ -53,7 +53,6 @@ public class MenuController {
 		}
 	}
 
-	
 	public void changeStateOfRecievingEmails(boolean getAllEmails) {
 		DataRequestResponse message = new DataRequestResponse();
 		RecieveEmailRequest emailRequest = new RecieveEmailRequest(getAllEmails, true);

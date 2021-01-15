@@ -16,8 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -42,21 +40,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import Models.Message;
 import Models.SendEmailRequest;
 import controller.MenuController;
 
 public class Menu extends JFrame {
 
+	private JPanel mainPanel;
 	private JPanel contentPane;
+	private JMenuBar menuBar;
 	static Menu frame;
-	private JPanel panelInicio;
-	private JPanel panelFile;
-	private JPanel panelMenu;
-	private JPanel panelFicherosFtp;
 	private JPanel panelEmail;
-	private JPanel panelAcercaDe;
 	private JFileChooser fc;
 	private MenuController controller;
 	private ArrayList<JPanel> panelEmails = new ArrayList<JPanel>();
@@ -68,7 +62,6 @@ public class Menu extends JFrame {
 	private JCheckBox emailCheckBox;
 	private JLabel labelSendEmailMessage;
 	private boolean isGetAllEmail = true;
-	private JScrollPane panelPane;
 
 	public Menu(MenuController controller) {
 		setTitle("Seguridad Social");
@@ -80,17 +73,22 @@ public class Menu extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 692, 458);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(mainPanel);
 		setLocationRelativeTo(null);
-		contentPane.setLayout(null);
-		JMenuBar menuBar = new JMenuBar();
+		mainPanel.setLayout(null);
+		contentPane = new JPanel();
+		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 677, 26);
 		menuBar.setForeground(new Color(255, 255, 255));
 		menuBar.setBackground(new Color(60, 179, 113));
-		contentPane.add(menuBar);
-		
+		mainPanel.add(menuBar);
+		createMenuItems();
+		crearPaginaPrincipal();
+	}
+	
+	public void createMenuItems() {
 		JMenu mnNewMenu = new JMenu("Archivos");
 		mnNewMenu.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu);
@@ -98,7 +96,6 @@ public class Menu extends JFrame {
 		JMenuItem mntmNuevoArchivo = new JMenuItem("Subir Archivo");
 		mntmNuevoArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				panelInicio.setVisible(false);
 				String boton = "subir";
 				fc.setCurrentDirectory(new File(System.getProperty("user.home")
 						+ System.getProperty("file.separator") + "Documentos"));
@@ -113,7 +110,6 @@ public class Menu extends JFrame {
 		JMenuItem mntmBorrarArchivo = new JMenuItem("Archivos FTP");
 		mntmBorrarArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				panelInicio.setVisible(false);
 				menuListaFicherosFtp(controller.getHomeDirectory());
 			}
 		});
@@ -123,7 +119,6 @@ public class Menu extends JFrame {
 		mnNewMenu.add(mntmBorrarArchivo);
 
 		JMenu mnEmail = new JMenu("E-mail");
-//		mnEmail.setAction(action);
 		mnEmail.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnEmail);
 		
@@ -144,8 +139,6 @@ public class Menu extends JFrame {
 		mntmRecibirCorreo.setForeground(new Color(255, 255, 255));
 		mnEmail.add(mntmRecibirCorreo);
 
-		
-
 		JMenu mnAcercaDe = new JMenu("Acerca de");
 		mnAcercaDe.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnAcercaDe);
@@ -155,33 +148,33 @@ public class Menu extends JFrame {
 		mntmNewMenuItem.setBackground(new Color(60, 179, 113));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelInicio.setVisible(false);
+				contentPane.setVisible(false);
 				vaciarVentana();
 				menuAcercaDe();
 			}
 		});
 		mnAcercaDe.add(mntmNewMenuItem);
-		
-		panelInicio = new JPanel();
-		panelInicio.setBounds(0, 27, 677, 436);
-		contentPane.add(panelInicio);
-		panelInicio.setLayout(null);
+	}
+	
+ 	public void crearPaginaPrincipal() {
+		contentPane.setBounds(0, 27, 677, 436);
+		mainPanel.add(contentPane);
+		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("SEGURIDAD SOCIAL");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 60));
 		lblNewLabel_2.setBounds(12, 174, 541, 81);
-		panelInicio.add(lblNewLabel_2);
+		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon(Menu.class.getResource("/images/logoIcon.png")));
 		lblNewLabel_3.setBounds(558, 157, 101, 123);
-		panelInicio.add(lblNewLabel_3);
+		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Menu.class.getResource("/images/fondoBlancoSi.jpg")));
 		lblNewLabel_1.setBounds(-17, 0, 694, 436);
-		panelInicio.add(lblNewLabel_1);
-		
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -195,11 +188,11 @@ public class Menu extends JFrame {
 		emailIndex.removeAll();
 		JLabel message = new JLabel(text);
 		emailIndex.add(message);
-		contentPane.updateUI();
+		mainPanel.updateUI();
 	}
 	
 	/*
-	 * Metodo que actiualiza el panel que visualiza los correos
+	 * Metodo que actualiza el panel que visualiza los correos
 	 */
 	public void updateEmailIndex(ArrayList<Message> emails) {
 		panelEmails.clear();
@@ -227,25 +220,13 @@ public class Menu extends JFrame {
 				panelEmailWrapper.addMouseListener(new MouseListener() {
 
 					@Override
-					public void mouseReleased(MouseEvent e) {
-						
-					}
-					
+					public void mouseReleased(MouseEvent e) {}
 					@Override
-					public void mousePressed(MouseEvent e) {
-					}
-					
+					public void mousePressed(MouseEvent e) {}
 					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
+					public void mouseExited(MouseEvent e) {}
 					@Override
-					public void mouseEntered(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
+					public void mouseEntered(MouseEvent e) {}
 					
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -257,10 +238,8 @@ public class Menu extends JFrame {
 				});
 				emailIndex.add(panelEmails.get(panelEmails.size() - 1));
 			}
-			
 		}
-
-		contentPane.updateUI();
+		mainPanel.updateUI();
 	}
 	
 	/*
@@ -269,9 +248,9 @@ public class Menu extends JFrame {
 	public void menuReciboDeCorreo(ArrayList<Message> emails) {
 		vaciarVentana();
 		panelEmail = new JPanel();
-		contentPane.updateUI();
+		mainPanel.updateUI();
 		panelEmail.setBounds(0, 27, 650, 356);
-		contentPane.add(panelEmail);
+		mainPanel.add(panelEmail);
 		panelEmail.setLayout(new GridLayout(0, 2));
 		emailCheckBox = new JCheckBox("Get all emails");
 		emailCheckBox.setBounds(10,10,150,30);
@@ -318,43 +297,42 @@ public class Menu extends JFrame {
 	 */
 	public void menuEnvioDeCorreo() {
 		vaciarVentana();
-		panelFile = new JPanel();
-		contentPane.updateUI();
-		panelFile.setBounds(0, 27, 677, 376);
-		contentPane.add(panelFile);
-		panelFile.setLayout(null);
+		mainPanel.updateUI();
+		contentPane.setBounds(0, 27, 677, 376);
+		mainPanel.add(contentPane);
+		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Asunto:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		lblNewLabel.setBounds(26, 62, 83, 16);
-		panelFile.add(lblNewLabel);
+		contentPane.add(lblNewLabel);
 		
 
 		JTextField emailSub = new JTextField();
 		emailSub.setBorder(new LineBorder(Color.BLACK));
 		emailSub.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		emailSub.setBounds(157, 53, 493, 35);
-		panelFile.add(emailSub);
+		contentPane.add(emailSub);
 		emailSub.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Para:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(28, 20, 54, 16);
-		panelFile.add(lblNewLabel_1);
+		contentPane.add(lblNewLabel_1);
 
 		JTextField emailTo = new JTextField();
 		emailTo.setBorder(new LineBorder(Color.BLACK));
 		emailTo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		emailTo.setBounds(157, 13, 493, 32);
-		panelFile.add(emailTo);
+		contentPane.add(emailTo);
 		emailTo.setColumns(10);
 
 
 		JLabel lblNewLabel_2 = new JLabel("Mensaje");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(26, 103, 74, 25);
-		panelFile.add(lblNewLabel_2);
+		contentPane.add(lblNewLabel_2);
 		
 		JTextArea emailMsg = new JTextArea();
 		emailMsg.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -362,7 +340,7 @@ public class Menu extends JFrame {
 		emailMsg.setFont(new Font("Monospaced", Font.PLAIN, 20));
 		emailMsg.setRows(4);
 		emailMsg.setBounds(19, 141, 646, 123);
-		panelFile.add(emailMsg);
+		contentPane.add(emailMsg);
 
 		JPanel errorWrapper = new JPanel();
 		errorWrapper.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -387,7 +365,7 @@ public class Menu extends JFrame {
 				boolean isCorrecrEmail = checkValue("Email", emailTo.getText(), true, errorWrapper);
 				boolean isCorrecrMsg = checkValue("Mensaje", emailMsg.getText(), false, errorWrapper);
 
-				contentPane.updateUI();
+				mainPanel.updateUI();
 				if(isCorrecrEmail && isCorrecrMsg && isCorrecrSub) {
 					System.out.println("All ok");
 					SendEmailRequest emailRequest = new SendEmailRequest("", "", emailTo.getText(), 
@@ -400,7 +378,7 @@ public class Menu extends JFrame {
 		});
 		btnSend.setBackground(new Color(60, 179, 113));
 		btnSend.setBounds(12, 277, 160, 60);
-		panelFile.add(btnSend);
+		contentPane.add(btnSend);
 		
 		JButton btnReset = new JButton("Resetear Valores");
 		btnReset.setForeground(Color.WHITE);
@@ -415,10 +393,10 @@ public class Menu extends JFrame {
 		});
 		btnReset.setBackground(new Color(60, 179, 113));
 		btnReset.setBounds(505, 277, 160, 60);
-		panelFile.add(btnReset);
-		panelFile.setVisible(true);
-		panelFile.add(errorWrapper);
-		panelFile.add(response);
+		contentPane.add(btnReset);
+		contentPane.setVisible(true);
+		contentPane.add(errorWrapper);
+		contentPane.add(response);
 	}
 
 	
@@ -427,48 +405,48 @@ public class Menu extends JFrame {
 		
 		getContentPane().setLayout(null);
 
-		panelAcercaDe = new JPanel();
-		panelAcercaDe.setBounds(0, 0, 653, 411);
-		getContentPane().add(panelAcercaDe);
-		panelAcercaDe.setLayout(null);
+		contentPane = new JPanel();
+		contentPane.setBounds(0, 0, 653, 411);
+		getContentPane().add(contentPane);
+		contentPane.setLayout(null);
 
 		JLabel lblNombre_1 = new JLabel("Alejandro S\u00E1nchez Rodr\u00EDguez");
 		lblNombre_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1.setBounds(12, 169, 300, 20);
-		panelAcercaDe.add(lblNombre_1);
+		contentPane.add(lblNombre_1);
 
 		JLabel lblNombre_1_1 = new JLabel("Pablo M\u00E9rida Egea");
 		lblNombre_1_1.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_1.setBounds(12, 202, 300, 20);
-		panelAcercaDe.add(lblNombre_1_1);
+		contentPane.add(lblNombre_1_1);
 
 		JLabel lblNombre_1_2 = new JLabel("Vitaliy Bay");
 		lblNombre_1_2.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_2.setBounds(22, 235, 300, 20);
-		panelAcercaDe.add(lblNombre_1_2);
+		contentPane.add(lblNombre_1_2);
 
 		JLabel lblNombre_1_3 = new JLabel("Juan Manuel Izquierdo");
 		lblNombre_1_3.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre_1_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre_1_3.setBounds(12, 268, 300, 20);
-		panelAcercaDe.add(lblNombre_1_3);
+		contentPane.add(lblNombre_1_3);
 
 		JLabel lblGrupoDam = new JLabel("GRUPO 2 D.A.M.");
 		lblGrupoDam.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblGrupoDam.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGrupoDam.setBounds(37, 111, 232, 45);
-		panelAcercaDe.add(lblGrupoDam);
+		contentPane.add(lblGrupoDam);
 
 		JLabel lblVersion = new JLabel("Version 1.0");
 		lblVersion.setBounds(576, 382, 65, 16);
-		panelAcercaDe.add(lblVersion);
+		contentPane.add(lblVersion);
 
 		JLabel lblCopyright = new JLabel("Copyright \u00A9 (2020-2021)");
 		lblCopyright.setBounds(12, 376, 220, 24);
-		panelAcercaDe.add(lblCopyright);
+		contentPane.add(lblCopyright);
 		lblCopyright.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCopyright.setFont(new Font("Arial", Font.PLAIN, 20));
 
@@ -476,7 +454,7 @@ public class Menu extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(
 				"src//images//logoPng.png"));
 		lblNewLabel.setBounds(408, 67, 200, 221);
-		panelAcercaDe.add(lblNewLabel);
+		contentPane.add(lblNewLabel);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -510,13 +488,12 @@ public class Menu extends JFrame {
 
 	public void menuFilechooserSubirFichero(String boton) {	
 		vaciarVentana();
-		panelFile = new JPanel();
-		contentPane.updateUI();
-		panelFile.setBounds(0, 27, 677, 376);
-		contentPane.add(panelFile);
-		// Creamos el objeto JFileChooser
-		// Abrimos la ventana, guardamos la opcion seleccionada por el usuario
-		panelFile.add(fc);
+		contentPane = new JPanel();
+		mainPanel.updateUI();
+		contentPane.setBounds(0, 27, 677, 376);
+		mainPanel.add(contentPane);
+		//mostramos un filechooser en pantalla y si se pulsa el boton subir se subir el fichero seleccionado
+		contentPane.add(fc);
 		JButton btnNewButton = new JButton(boton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -529,20 +506,20 @@ public class Menu extends JFrame {
 			}
 		});
 		btnNewButton.setBounds(123, 327, 97, 25);
-		panelFile.add(btnNewButton);
-		panelFile.setVisible(false);
-		panelFile.setVisible(true);
+		contentPane.add(btnNewButton);
+		contentPane.setVisible(false);
+		contentPane.setVisible(true);
 	}
 	
 	public void menuListaFicherosFtp(String homeDirectory) {
 		vaciarVentana();
 
-		panelFicherosFtp = new JPanel();
-		panelFicherosFtp.setLayout(null);
-		contentPane.updateUI();
-		panelFicherosFtp.setBounds(25, 27, 677, 376);
-		contentPane.add(panelFicherosFtp);
+		contentPane.setLayout(null);
+		mainPanel.updateUI();
+		contentPane.setBounds(25, 27, 677, 376);
+		mainPanel.add(contentPane);
 		
+		//se crea una estructura de ficheros en forma de arbol
 		DefaultMutableTreeNode home = new DefaultMutableTreeNode(homeDirectory);
 		DefaultTreeModel model = new DefaultTreeModel(home);
 		controller.createDirectoryTree(model, "", home);
@@ -553,8 +530,15 @@ public class Menu extends JFrame {
 		btnRemove.setBounds(475, 25, 140, 35);
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controller.deleteFile(controller.getTreePath(tree.getSelectionPath(), 0));
-				menuListaFicherosFtp(homeDirectory);
+				//elimina el fichero o directorio seleccionado y si no esta vacio le pregunta si esta seguro otra vez
+				if(Utilities.askUserMessage("¿Seguro que quieres eliminar?")) {
+					try {
+						controller.deleteFile(controller.getTreePath(tree.getSelectionPath(), 0));
+					}catch(java.lang.NullPointerException e) {
+						Utilities.showMessage("No hay nada seleccionado.", true);
+					}
+					menuListaFicherosFtp(homeDirectory);
+				}
 			}
 		});
 		
@@ -564,8 +548,12 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String newName = JOptionPane.showInputDialog("Nuevo nombre");
 				if(newName != null && !newName.equalsIgnoreCase("")) {
-					newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
-					controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
+					try {
+						newName = controller.getTreePath(tree.getSelectionPath(), 1) + newName;
+						controller.renameFile(controller.getTreePath(tree.getSelectionPath(), 0), newName);
+					}catch(java.lang.NullPointerException e) {
+						Utilities.showMessage("No hay nada seleccionado.", true);
+					}
 					menuListaFicherosFtp(homeDirectory);
 				}
 			}
@@ -575,11 +563,15 @@ public class Menu extends JFrame {
 		btnDownload.setBounds(475, 145, 140, 35);
 		btnDownload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String path = controller.getTreePath(tree.getSelectionPath(), 0);
-				String[] pathComponents = path.split("/");
-				controller.downloadFile(path, System.getProperty("user.home") 
-						+ System.getProperty("file.separator")+ "Documents"
-						,pathComponents [pathComponents.length - 1]);
+				try {
+					String path = controller.getTreePath(tree.getSelectionPath(), 0);
+					String[] pathComponents = path.split("/");
+					controller.downloadFile(path, System.getProperty("user.home") 
+							+ System.getProperty("file.separator")+ "Documents"
+							,pathComponents [pathComponents.length - 1]);
+					}catch(java.lang.NullPointerException e) {
+					Utilities.showMessage("No hay nada seleccionado.", true);
+				}
 			}
 		});
 		//
@@ -589,8 +581,8 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent arg0) {
                 String path = JOptionPane.showInputDialog("Nombre de carpeta");
                 if(path != null && !path.equalsIgnoreCase("")) {
-                    path = controller.getTreePath(tree.getSelectionPath(), 0) + path+"//";
                     try {
+                        path = controller.getTreePath(tree.getSelectionPath(), 0) + path+"//";
                         controller.createDirectory(path);
     				}catch(java.lang.NullPointerException e) {
     					Utilities.showMessage("Error al crear directorio. El nombre no puede estar repetido.", true);
@@ -600,53 +592,28 @@ public class Menu extends JFrame {
             }
         });
 			
-		panelFicherosFtp.add(tree);
-		panelFicherosFtp.add(btnRemove);
-		panelFicherosFtp.add(btnRename);
-		panelFicherosFtp.add(btnDownload);
-		panelFicherosFtp.add(btnDirectory);
-		panelFicherosFtp.setVisible(true);
+		contentPane.add(tree);
+		contentPane.add(btnRemove);
+		contentPane.add(btnRename);
+		contentPane.add(btnDownload);
+		contentPane.add(btnDirectory);
+		contentPane.setVisible(true);
 	}
 	
 	public void vaciarVentana() {
-		
+		//metodo que intenta quitar los paneles que haya en el panel principal y vacia el panel del contenido
 		try {
-			contentPane.remove(panelFile);
-		} catch (java.lang.NullPointerException e) {}
-
-		try {
-			contentPane.remove(panelMenu);
-		} catch (java.lang.NullPointerException e) {}
-
-		try {
-			contentPane.remove(panelFicherosFtp);
-		} catch (java.lang.NullPointerException e) {}
-		
-		try{
-			contentPane.remove(panelEmail);
-		}catch(java.lang.NullPointerException e) {}
-
-		try{
-			contentPane.remove(panelEmail);
-			contentPane.remove(panelDetails);
-			contentPane.remove(panelIndex);
-		}catch(java.lang.NullPointerException e) {}
-		
-		try{
-			contentPane.remove(panelFicherosFtp);
-			contentPane.remove(panelPane); // Remove if is not needed *******************************************
-		}catch(java.lang.NullPointerException e) {}
-		
-		try {
-			contentPane.remove(panelAcercaDe);
-		} catch (java.lang.NullPointerException e) {}
-		
-		try {
-			contentPane.remove(panelInicio);
+			mainPanel.remove(contentPane);
 		}catch (java.lang.NullPointerException e) {}
+		
+		try {
+			mainPanel.remove(panelEmail);
+		}catch (java.lang.NullPointerException e) {}
+		
+		contentPane.removeAll();
 
-		contentPane.setVisible(false);
-		contentPane.setVisible(true);
+		mainPanel.setVisible(false);
+		mainPanel.setVisible(true);
 	}
 
 	public JPanel getEmailPanel() {
@@ -660,12 +627,4 @@ public class Menu extends JFrame {
 	public JLabel getLabelSendEmailMessage() {
 		return labelSendEmailMessage;
 	}
-//	private class SwingAction extends AbstractAction {
-//		public SwingAction() {
-//			putValue(NAME, "E-Mail");
-//			putValue(SHORT_DESCRIPTION, "Correo electronico");
-//		}
-//		public void actionPerformed(ActionEvent e) {
-//		}
-//	}
 }
