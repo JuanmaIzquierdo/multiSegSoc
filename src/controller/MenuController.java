@@ -138,18 +138,23 @@ public class MenuController {
 	}
 	
 	public void deleteFile(String path) {
+		java.util.Date date = new Date();
 		FtpResponse ftpResponse = ftp.deleteFile(path); 
-		if(ftpResponse.getErrorId() == 0) {
-			java.util.Date date = new Date();			
+		if(ftpResponse.getErrorId() == 0) {			
 			registerMovement("borrado de fichero", date.toString());
 			System.out.println("borrado");
 			Utilities.showMessage("Fichero eliminado", false);
 		}else if(ftpResponse.getErrorId() == 1){
 			boolean userResponse = Utilities.askUserMessage(ftpResponse.getMessage());
 			if(userResponse) {
-				
-			} else {
-				
+				try {
+					if(ftp.deleteDirectory(path, "")) {
+						Utilities.showMessage("Fichero eliminado", false);
+						registerMovement("borrado de fichero", date.toString());
+					}
+				} catch (IOException e) {
+					Utilities.showMessage("Error durante eliminación", true);
+				}
 			}
 		}
 	}

@@ -105,8 +105,8 @@ public class FtpController {
 		}
 	}
 	
-		public void deleteDirectory(String parentDir, String currentDir) throws IOException {
-
+		public boolean deleteDirectory(String parentDir, String currentDir) throws IOException {
+			boolean result = false;
 			String dirToList = parentDir;
 
 	        if (!currentDir.equals("")) {
@@ -168,30 +168,19 @@ public class FtpController {
 	                        System.out.println("CANNOT delete the file: "
 
 	                                + filePath);
-
 	                    }
 
 	                }
 
 	            }
 
-	 
 
 	            // finally, remove the directory itself
 
 	            boolean removed = client.removeDirectory(dirToList);
-
-	            if (removed) {
-
-	                System.out.println("REMOVED the directory: " + dirToList);
-
-	            } else {
-
-	                System.out.println("CANNOT remove the directory: " + dirToList);
-
-	            }
-
+	            result = removed;
 	        }
+	   	 return result;
 	}
 	
 	public boolean renameFile(String path, String newName) {
